@@ -6,8 +6,27 @@
     "format:check": "prettier --check \"**/*.{html,css,js,json,md}\"",
     "format:fix": "prettier --write \"**/*.{html,css,js,json,md}\"",
     "test": "node --test tests/"
+    "lint": "eslint ."
   },
   "devDependencies": {
+    "eslint": "^10.0.0",
     "prettier": "^3.2.5"
-  }
+  },
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Georgia-Southwestern-State-Univeristy/term-project-group-3.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Georgia-Southwestern-State-Univeristy/term-project-group-3/issues"
+  },
+  "homepage": "https://github.com/Georgia-Southwestern-State-Univeristy/term-project-group-3#readme"
 }

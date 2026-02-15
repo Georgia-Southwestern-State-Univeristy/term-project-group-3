@@ -1,9 +1,11 @@
 ## Description
+
 Explain what this PR changes.
 
 ---
 
 ## Type of Change
+
 - [ ] Feature
 - [ ] Bug Fix
 - [ ] Documentation
@@ -12,6 +14,7 @@ Explain what this PR changes.
 ---
 
 ## Checklist
+
 - [ ] Work done on short-lived branch
 - [ ] PR opened early
 - [ ] Code follows team standards

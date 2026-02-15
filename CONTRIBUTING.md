@@ -47,9 +47,6 @@ Branches should be merged quickly and deleted after merge.
 
 Install dependencies:
 
-
 Run linter:
 
-
 Run tests:
-

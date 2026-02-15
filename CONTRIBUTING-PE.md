@@ -15,6 +15,7 @@
 ## Violations
 
 If you push direct to main, you must:
+
 - Revert the commit
 - Redo via proper PR process
 - Document in team retro

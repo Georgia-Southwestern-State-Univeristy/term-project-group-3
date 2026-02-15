@@ -1,24 +1,29 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FitTrack - Hello Path</title>
-</head>
-<body>
-  <div class="container">
-    <h1>FitTrack</h1>
-    <p id="status">Loading...</p>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FitTrack - Hello Path</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>FitTrack</h1>
+      <p id="status">Loading...</p>
 
-    <form id="workout-form">
-      <input type="text" id="workout-name" placeholder="Workout name" required>
-      <button type="submit">Save Workout</button>
-    </form>
+      <form id="workout-form">
+        <input
+          type="text"
+          id="workout-name"
+          placeholder="Workout name"
+          required
+        />
+        <button type="submit">Save Workout</button>
+      </form>
 
-    <div id="workout-list"></div>
-  </div>
+      <div id="workout-list"></div>
+    </div>
 
-  <script src="js/storage.js"></script>
-  <script src="js/app.js"></script>
-</body>
+    <script src="js/storage.js"></script>
+    <script src="js/app.js"></script>
+  </body>
 </html>

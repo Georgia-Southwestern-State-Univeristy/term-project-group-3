@@ -4,7 +4,9 @@
   "description": "Vanilla JS fitness tracker with localStorage persistence",
   "scripts": {
     "format:check": "prettier --check \"**/*.{html,css,js,json,md}\"",
-    "format:fix": "prettier --write \"**/*.{html,css,js,json,md}\""
+    "format:fix": "prettier --write \"**/*.{html,css,js,json,md}\"",
+    "test": "node --test tests/",
+    "lint": "eslint ."
   },
   "devDependencies": {
     "prettier": "^3.2.5"

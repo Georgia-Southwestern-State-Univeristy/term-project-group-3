@@ -25,7 +25,7 @@ docs/update-readme
 - Reviewer checks:
   - Code readability
   - Functionality
-  - Linting passes (if applicable)
+  - Linting passes 
   - No broken features
 
 ## Running Checks Locally

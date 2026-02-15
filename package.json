@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "description": "Vanilla JS fitness tracker with localStorage persistence",
   "scripts": {
-  "format:check": "prettier --check \"**/*.{html,css,js,json,md}\"",
-  "format:fix": "prettier --write \"**/*.{html,css,js,json,md}\""
-},
+    "format": "prettier --write \"**/*.{html,css,js,json,md}\"",
+    "format:check": "prettier --check \"**/*.{html,css,js,json,md}\""
+  },
   "devDependencies": {
     "prettier": "^3.8.1"
   }

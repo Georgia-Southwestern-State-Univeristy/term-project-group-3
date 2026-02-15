@@ -23,4 +23,19 @@ cd FitnessTrackerApp
 
 All contributions must follow our Definition of Done:
 See: [Definition of Done](docs/team/definition-of-done.md)
+
+## Setup
+
+Install dependencies:
+npm install
+
+Check formatting:
+npm run format:check
+
+Fix formatting:
+npm run format
+
+Run project:
+Open index.html in browser.
+
 ```

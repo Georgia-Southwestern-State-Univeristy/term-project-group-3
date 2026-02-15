@@ -13,5 +13,4 @@ Briefly describe what this PR does.
 - [ ] Tested locally
 - [ ] Updated documentation if needed
 
-## Screenshots (if applicable)
-Add screenshots here.
+

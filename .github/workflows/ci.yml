@@ -14,8 +14,8 @@ jobs:
         with:
           node-version: '20'
       - run: npm install
-      - #continue-on-error: name: Verify Prettier formatting
-        #continue-on-error: run: npm run format:check
+      - name: Verify Prettier formatting
+        run: npm run format:check
 
   unit-test:
     name: Run Unit Tests

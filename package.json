@@ -5,8 +5,10 @@
   "scripts": {
     "format:check": "prettier --check \"**/*.{html,css,js,json,md}\"",
     "format:fix": "prettier --write \"**/*.{html,css,js,json,md}\"",
+    "format": "prettier --check \"**/*.{html,css,js,json,md}\"",
     "test": "node --test tests/",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "build": "echo 'No build step needed for vanilla JS'"
   },
   "devDependencies": {
     "prettier": "^3.2.5"

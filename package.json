@@ -3,15 +3,21 @@
   "version": "0.1.0",
   "description": "Vanilla JS fitness tracker with localStorage persistence",
   "scripts": {
-repo-standards
-    "format": "prettier --write \"**/*.{html,css,js,json,md}\"",
-    "format:check": "prettier --check \"**/*.{html,css,js,json,md}\""
+        Repo---standard
+    "format:check": "npx prettier --check \"**/*.{html,css,js,json,md}\"",
+    "format:fix": "npx prettier --write \"**/*.{html,css,js,json,md}\"",
+    "format": "npx prettier --check \"**/*.{html,css,js,json,md}\"",
+    "test": "node --test tests/",
+    "lint": "eslint .",
+    "build": "echo 'No build step needed for vanilla JS'"
+
     "format:check": "prettier --check \"**/*.json\"",
     "format:fix": "prettier --write \"**/*.{html,css,js,json,md}\"",
     "test": "node --test tests/"
-main
+        main
   },
   "devDependencies": {
-    "prettier": "^3.8.1"
+    "eslint": "^10.0.0",
+    "prettier": "^3.2.5"
   }
 }

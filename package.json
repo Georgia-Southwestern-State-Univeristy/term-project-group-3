@@ -6,12 +6,12 @@
     "format:check": "npx prettier --check \"**/*.{html,css,js,json,md}\"",
     "format:fix": "npx prettier --write \"**/*.{html,css,js,json,md}\"",
     "format": "npx prettier --check \"**/*.{html,css,js,json,md}\"",
-    "test": "node --test tests/",
+    "test": "node --test \"tests/*.test.js\"",
     "lint": "eslint .",
     "build": "echo 'No build step needed for vanilla JS'"
   },
   "devDependencies": {
-    "eslint": "^10.0.0",
+    "eslint": "8.57.0",
     "prettier": "^3.2.5"
   }
 }

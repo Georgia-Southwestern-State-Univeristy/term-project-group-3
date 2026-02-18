@@ -1,22 +1,17 @@
-name: CI Workflow
+name: CI
 
 on:
   push:
-    branches:
-      - main
-      - master
-      - Repo---standard
+    branches: [main]
   pull_request:
-    branches:
-      - main
-      - master
-      - Repo---standard
+    branches: [main]
 
 jobs:
-  lint:
-    runs-on: ubuntu-latest
+  lint-and-test:
+    runs-on: ubuntu-22.04
+
     steps:
-      - name: Checkout
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
       - name: Setup Node.js
@@ -24,64 +19,14 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install dependencies
-        run: npm install
+      - name: Install Dependencies
+        run: npm ci
 
-      - name: Run Lint
+      - name: Run Linting
         run: npm run lint
 
-  format:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Check Format
-        run: npm run format
-
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-        Repo---standard
-
-      - name: Install dependencies
-        run: npm install
+      - name: Check Code Formatting
+        run: npm run format:check
 
       - name: Run Tests
-
-      - run: npm install  
-      - name: Run Node.js tests
-        main
-        run: npm test
-
-  validate:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build/Validate
-        run: npm run build
+        run: npm run test:ci

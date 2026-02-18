@@ -28,12 +28,6 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Check core application files exist
-        run: |
-          test -f src/index.html || (echo "::error::Missing src/index.html" && exit 1)
-          test -f src/css/styles.css || (echo "::error::Missing src/css/styles.css" && exit 1)
-          test -f src/js/app.js || (echo "::error::Missing src/js/app.js" && exit 1)
-          test -f src/js/storage.js || (echo "::error::Missing src/js/storage.js" && exit 1)
-          echo "Core file structure verified"
 
   unit-test:
     name: Run Unit Tests

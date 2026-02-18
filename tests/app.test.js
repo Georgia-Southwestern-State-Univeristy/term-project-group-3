@@ -1,6 +1,6 @@
-const assert = require('node:assert');
 const { test } = require('node:test');
+const assert = require('node:assert');
 
-test('Basic arithmetic check (Dummy Test)', () => {
-  assert.strictEqual(1 + 1, 2);
+test('placeholder test - CI setup', () => {
+  assert.strictEqual(2 + 2, 4);
 });

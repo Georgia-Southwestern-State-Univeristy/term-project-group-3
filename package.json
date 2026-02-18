@@ -11,7 +11,7 @@
     "build": "echo 'No build step needed for vanilla JS'"
   },
   "devDependencies": {
-    "eslint": "8.57.0",
+    "eslint": "^8.57.0",
     "prettier": "^3.2.5"
   }
 }

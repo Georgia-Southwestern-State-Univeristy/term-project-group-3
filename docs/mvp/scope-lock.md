@@ -1,4 +1,4 @@
-MVP User Stories:
+MVP User Stories
 
 Workout Logging
 
@@ -24,7 +24,7 @@ Basic Summary Display
 
 As a user, I want to see a simple summary (e.g., total workouts or total duration) so that I can quickly understand my activity progress.
 
-Explicit Non-Goals:
+Explicit Non-Goals
 
 The following features are intentionally excluded to maintain delivery focus:
 
@@ -46,7 +46,7 @@ Real-time integrations with fitness devices or APIs
 
 These may be considered future enhancements but will not consume development time during MVP implementation.
 
-Demo Script Outline:
+Demo Script Outline
 
 The MVP demo will follow a clear end-to-end workflow:
 
@@ -66,7 +66,7 @@ View updated summary information reflecting the changes.
 
 This script represents the exact functionality required for MVP completion.
 
-Top Risks and Mitigation Plan:
+Top Risks and Mitigation Plan
 Risk 1: localStorage Capacity and Performance
 
 Issue: Large datasets may slow loading and processing.
@@ -82,6 +82,6 @@ Risk 3: Integration Conflicts During Team Development
 Issue: Multiple contributors modifying shared frontend logic may cause merge conflicts.
 Mitigation: Use small pull requests, CI checks, and clearly defined data/service boundaries.
 
-Scope Enforcement Rule:
+Scope Enforcement Rule
 
 If a feature or change is not explicitly listed in this document, it is not part of the MVP and should not be implemented during this sprint. All development work must directly support the user stories and demo path defined above.

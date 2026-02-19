@@ -5,25 +5,23 @@ on:
     branches: [main]
 
 jobs:
-  format-check:
-    name: Check Code Formatting
+  build-and-test:
+    name: Build, Format, and Test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - run: npm install
-      - name: Verify Prettier formatting
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Verify Prettier Formatting
         run: npm run format:check
 
-  unit-test:
-    name: Run Unit Tests
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-      - name: Run Node.js tests
+      - name: Run Unit Tests
         run: npm test

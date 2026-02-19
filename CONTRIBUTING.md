@@ -1,4 +1,5 @@
 <<<<<<< repo-standards
+
 # Contributing Guidelines
 
 ## Branch Naming
@@ -20,8 +21,8 @@ feature/login-page
 
 - At least one teammate reviews the PR
 - Reviewer checks formatting, clarity, and functionality
-- Address review comments before merging
-=======
+- # Address review comments before merging
+
 # Contributing to FitTrack
 
 Thank you for contributing to FitTrack!  
@@ -66,7 +67,8 @@ Branches should be merged quickly and deleted after merge.
   - follows team standards
 
 ---
->>>>>>> main
+
+> > > > > > > main
 
 ## Running Checks Locally
 
@@ -81,9 +83,10 @@ npm run format:check
 
 Fix formatting:
 
-npx prettier --write "\*_/_.{html,css,js,json,md}"
-=======
+# npx prettier --write "\*_/_.{html,css,js,json,md}"
+
 Run linter:
 
 Run tests:
->>>>>>> main
+
+> > > > > > > main

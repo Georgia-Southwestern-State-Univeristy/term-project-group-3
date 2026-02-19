@@ -1,22 +1,15 @@
-name: CI Workflow
+name: FitTrack CI
 
 on:
-  push:
-    branches:
-      - main
-      - master
-      - Repo---standard
   pull_request:
-    branches:
-      - main
-      - master
-      - Repo---standard
+    branches: [main]
 
 jobs:
-  lint:
+  ci-pipeline:
+    name: Build, Format, and Test
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout Code
         uses: actions/checkout@v4
 
       - name: Setup Node.js
@@ -24,64 +17,11 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install dependencies
-        run: npm install
+      - name: Install Dependencies
+        run: npm ci
 
-      - name: Run Lint
-        run: npm run lint
+      - name: Verify Prettier Formatting
+        run: npm run format:check
 
-  format:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Check Format
-        run: npm run format
-
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-        Repo---standard
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run Tests
-
-      - run: npm install  
-      - name: Run Node.js tests
-        main
+      - name: Run Unit Tests
         run: npm test
-
-  validate:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build/Validate
-        run: npm run build

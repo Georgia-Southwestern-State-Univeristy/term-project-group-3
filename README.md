@@ -22,6 +22,10 @@ git clone https://github.com/YourUserName/FitnessTrackerApp.git
 
 cd FitnessTrackerApp
 ```
+
 All contributions must follow our Definition of Done:
 See: [Definition of Done](docs/team/definition-of-done.md)
+
+```
+
 ```

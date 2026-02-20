@@ -1,0 +1,99 @@
+openapi: 3.0.0
+info:
+  title: FitTrack MVP API
+  description: Core API contract for the FitTrack application MVP.
+  version: 1.0.0
+
+# Documenting the Auth Approach
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: "MVP Placeholder: We will use a simple JWT token passed in the Authorization header."
+
+paths:
+  /api/auth/register:
+    post:
+      summary: Register a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email: { type: string, example: "user@example.com" }
+                password: { type: string, example: "securepass123" }
+                name: { type: string, example: "Jasmine" }
+      responses:
+        '201':
+          description: User created successfully
+
+  /api/auth/login:
+    post:
+      summary: Login and receive a token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email: { type: string, example: "user@example.com" }
+                password: { type: string, example: "securepass123" }
+      responses:
+        '200':
+          description: Successful login
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token: { type: string, example: "eyJhbGciOiJIUzI1NiIsInR..." }
+
+  /api/workouts:
+    get:
+      summary: Get all workouts for the authenticated user
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: A list of workouts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Workout'
+    post:
+      summary: Log a new workout
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkoutInput'
+      responses:
+        '201':
+          description: Workout logged successfully
+
+components:
+  schemas:
+    WorkoutInput:
+      type: object
+      properties:
+        type: { type: string, example: "Running" }
+        duration_minutes: { type: integer, example: 45 }
+        calories_burned: { type: integer, example: 400 }
+        date: { type: string, format: date, example: "2026-02-20" }
+    Workout:
+      allOf:
+        - $ref: '#/components/schemas/WorkoutInput'
+        - type: object
+          properties:
+            id: { type: integer, example: 101 }
+            user_id: { type: integer, example: 1 }

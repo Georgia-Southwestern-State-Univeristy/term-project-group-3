@@ -24,7 +24,7 @@ Basic Summary Display
 
 As a user, I want to see a simple summary (e.g., total workouts or total duration) so that I can quickly understand my activity progress.
 
-Explicit Non-Goals 
+Explicit Non-Goals
 
 The following features are intentionally excluded to maintain delivery focus:
 

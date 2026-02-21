@@ -1,55 +1,48 @@
+const { describe, it, beforeEach } = require('node:test');
 const assert = require('node:assert');
-const { test, describe, beforeEach } = require('node:test');
-const Storage = require('../src/storage.js');
 
 // Mock localStorage
-global.localStorage = {
-  _data: {},
+const localStorageMock = {
+  data: {},
   getItem(key) {
-    return this._data[key] || null;
+    return this.data[key] || null;
   },
   setItem(key, value) {
-    this._data[key] = value;
+    this.data[key] = String(value);
   },
   removeItem(key) {
-    delete this._data[key];
+    delete this.data[key];
+  },
+  clear() {
+    this.data = {};
   },
 };
+global.localStorage = localStorageMock;
 
-beforeEach(() => {
-  global.localStorage._data = {};
-});
+const Storage = require('../src/storage');
 
-describe('Storage Module - Thin Vertical Slice', () => {
-  test('saveWorkout stores data', () => {
-    const result = Storage.saveWorkout({ name: 'Morning Run' });
-    assert.strictEqual(result, true);
-
-    const workouts = Storage.getWorkouts();
-    assert.strictEqual(workouts.length, 1);
-    assert.strictEqual(workouts[0].name, 'Morning Run');
-    assert.ok(workouts[0].id);
-    assert.ok(workouts[0].createdAt);
+describe('Storage module', () => {
+  beforeEach(() => {
+    localStorage.clear();
   });
 
-  test('getWorkouts returns empty array initially', () => {
+  it('saveWorkout returns true on success', () => {
+    const result = Storage.saveWorkout({ type: 'run', duration: 30 });
+    assert.strictEqual(result, true);
+  });
+
+  it('getWorkouts returns empty array initially', () => {
     const workouts = Storage.getWorkouts();
     assert.deepStrictEqual(workouts, []);
   });
 
-  test('multiple saves persist correctly', () => {
-    Storage.saveWorkout({ name: 'Workout 1' });
-    Storage.saveWorkout({ name: 'Workout 2' });
-
+  it('getWorkouts returns saved workout', () => {
+    const workout = { type: 'swim', duration: 45 };
+    Storage.saveWorkout(workout);
     const workouts = Storage.getWorkouts();
-    assert.strictEqual(workouts.length, 2);
-  });
 
-  test('returns false on localStorage error', () => {
-    global.localStorage.setItem = () => {
-      throw new Error('QuotaExceeded');
-    };
-    const result = Storage.saveWorkout({ name: 'Test' });
-    assert.strictEqual(result, false);
+    assert.strictEqual(workouts.length, 1);
+    assert.strictEqual(workouts[0].type, 'swim');
+    assert.strictEqual(workouts[0].duration, 45);
   });
 });

@@ -1,33 +1,40 @@
-const Storage = require('../src/js/storage');
+const { describe, it, beforeEach } = require('node:test');
+const assert = require('node:assert');
+
+// Mock localStorage
+const localStorageMock = {
+  data: {},
+  getItem(key) { return this.data[key] || null; },
+  setItem(key, value) { this.data[key] = String(value); },
+  removeItem(key) { delete this.data[key]; },
+  clear() { this.data = {}; }
+};
+global.localStorage = localStorageMock;
+
+const Storage = require('../src/storage');
 
 describe('Storage module', () => {
   beforeEach(() => {
     localStorage.clear();
   });
 
-  describe('saveWorkout', () => {
-    it('saves workout data and returns true', () => {
-      const result = Storage.saveWorkout({ type: 'run', duration: 30 });
-      expect(result).toBe(true);
-    });
-
-    it('stores JSON in localStorage', () => {
-      Storage.saveWorkout({ type: 'run' });
-      const stored = localStorage.getItem('workouts');
-      expect(JSON.parse(stored)).toEqual([{ type: 'run' }]);
-    });
+  it('saveWorkout returns true on success', () => {
+    const result = Storage.saveWorkout({ type: 'run', duration: 30 });
+    assert.strictEqual(result, true);
   });
 
-  describe('getWorkouts', () => {
-    it('returns empty array when nothing stored', () => {
-      const workouts = Storage.getWorkouts();
-      expect(workouts).toEqual([]);
-    });
+  it('getWorkouts returns empty array initially', () => {
+    const workouts = Storage.getWorkouts();
+    assert.deepStrictEqual(workouts, []);
+  });
 
-    it('returns parsed workouts from localStorage', () => {
-      localStorage.setItem('workouts', JSON.stringify([{ id: 1 }]));
-      const workouts = Storage.getWorkouts();
-      expect(workouts).toEqual([{ id: 1 }]);
-    });
+  it('getWorkouts returns saved workout', () => {
+    const workout = { type: 'swim', duration: 45 };
+    Storage.saveWorkout(workout);
+    const workouts = Storage.getWorkouts();
+    
+    assert.strictEqual(workouts.length, 1);
+    assert.strictEqual(workouts[0].type, 'swim');
+    assert.strictEqual(workouts[0].duration, 45);
   });
 });

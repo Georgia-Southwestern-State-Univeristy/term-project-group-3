@@ -4,13 +4,13 @@ const assert = require('node:assert');
 // Mock DOM before requiring app
 global.document = {
   addEventListener: () => {},
-  getElementById: () => ({ 
+  getElementById: () => ({
     addEventListener: () => {},
     value: '',
-    innerHTML: ''
+    innerHTML: '',
   }),
   querySelector: () => null,
-  querySelectorAll: () => []
+  querySelectorAll: () => [],
 };
 
 // Mock window

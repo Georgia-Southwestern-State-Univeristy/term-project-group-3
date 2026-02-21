@@ -1,6 +1,6 @@
 {
   "name": "fittrack",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Vanilla JS fitness tracker with localStorage persistence",
   "scripts": {
     "format:check": "npx prettier --check \"**/*.{html,css,js,json,md}\"",

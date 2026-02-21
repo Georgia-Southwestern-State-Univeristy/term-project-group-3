@@ -6,7 +6,7 @@
     "format:check": "npx prettier --check \"**/*.{html,css,js,json,md}\"",
     "format:fix": "npx prettier --write \"**/*.{html,css,js,json,md}\"",
     "format": "npx prettier --check \"**/*.{html,css,js,json,md}\"",
-    "test": "node --test __tests__/*.test.js",
+    "test": "node --test tests/*.test.js",
     "lint": "eslint .",
     "build": "echo 'No build step needed for vanilla JS'"
   },

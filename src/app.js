@@ -5,7 +5,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const render = () => {
     const workouts = Storage.getWorkouts();
     listEl.innerHTML = workouts.length
-      ? `<ul>${workouts.map((w) => `<li>${w.type}: ${w.duration}m</li>`).join("")}</ul>`
+      ? `<ul>${workouts
+          .map((w) => `<li>${w.type}: ${w.duration}m</li>`)
+          .join("")}</ul>`
       : "<p>No workouts.</p>";
   };
 

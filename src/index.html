@@ -1,32 +1,26 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FitTrack - Hello Path</title>
+    <title>FitTrack MVP</title>
   </head>
- <body>
-    <div id="status">System ready - localStorage connected</div>
-
+  <body>
+    <div id="status">System ready</div>
     <section id="logging-section">
-        <h3>Log a New Workout</h3>
-        <form id="workout-form">
-            <input type="text" id="workout-type" placeholder="Activity (e.g., Running)" required>
-            <input type="number" id="workout-duration" placeholder="Duration (mins)" required>
-            <button type="submit">Save Workout</button>
-        </form>
+      <h3>Log a New Workout</h3>
+      <form id="workout-form">
+        <input type="text" id="workout-type" placeholder="Activity" required />
+        <input type="number" id="workout-duration" placeholder="Mins" required />
+        <button type="submit">Save</button>
+      </form>
     </section>
-
-    <hr>
-
+    <hr />
     <section id="viewing-section">
-        <h3>Your Activity History</h3>
-        <div id="workout-list">
-            <p>No workouts yet. Add one above!</p>
-        </div>
+      <h3>History</h3>
+      <div id="workout-list"></div>
     </section>
-
     <script src="storage.js"></script>
     <script src="app.js"></script>
-</body>
+  </body>
 </html>

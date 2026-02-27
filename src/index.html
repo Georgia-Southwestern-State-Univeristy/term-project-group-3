@@ -6,19 +6,27 @@
     <title>FitTrack - Hello Path</title>
   </head>
   <body>
-    <div class="container">
-      <h1>FitTrack</h1>
-      <p id="status">Loading...</p>
+    <div id="status">System ready - localStorage connected</div>
 
-      <form id="workout-form">
-        <input type="text" id="workout-name" placeholder="Workout name" required />
-        <button type="submit">Save Workout</button>
-      </form>
+    <section id="logging-section">
+        <h3>Log a New Workout</h3>
+        <form id="workout-form">
+            <input type="text" id="workout-type" placeholder="Activity (e.g., Running)" required>
+            <input type="number" id="workout-duration" placeholder="Duration (mins)" required>
+            <button type="submit">Save Workout</button>
+        </form>
+    </section>
 
-      <div id="workout-list"></div>
-    </div>
+    <hr>
 
-    <script src="js/storage.js"></script>
-    <script src="js/app.js"></script>
-  </body>
+    <section id="viewing-section">
+        <h3>Your Activity History</h3>
+        <div id="workout-list">
+            <p>No workouts yet. Add one above!</p>
+        </div>
+    </section>
+
+    <script src="storage.js"></script>
+    <script src="app.js"></script>
+</body>
 </html>

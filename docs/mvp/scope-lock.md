@@ -85,3 +85,41 @@ Mitigation: Use small pull requests, CI checks, and clearly defined data/service
 Scope Enforcement Rule
 
 If a feature or change is not explicitly listed in this document, it is not part of the MVP and should not be implemented during this sprint. All development work must directly support the user stories and demo path defined above.
+---
+
+## Progress Update — MVP Story Status
+
+| MVP Story | Description | Status | Evidence |
+|-----------|-------------|--------|---------|
+| Workout Logging | Record workouts | In Progress | PR #XX open |
+| Workout Viewing | View workout list | Done | PR #XX merged to main |
+| Workout Editing | Edit workout | In Progress | Branch under development |
+| Workout Deletion | Delete workout | Not Started | Planned next |
+| Local Data Persistence | Save using localStorage | Done | Verified in app |
+| Basic Summary Display | Show totals | Blocked | Depends on data model |
+
+---
+
+## Scope Changes 
+
+No major scope changes were introduced. The team prioritized stabilizing core logging and viewing workflows to ensure a reliable MVP demo.
+
+---
+
+## Updated Demo Script 
+
+1. Open FitTrack SPA in the browser.
+2. Add a new workout entry (activity, duration, timestamp).
+3. Confirm the workout appears immediately in the workout list.
+4. Refresh the browser to demonstrate localStorage persistence.
+5. Attempt to submit an invalid workout entry to demonstrate validation handling.
+6. View updated workout list reflecting saved data.
+
+Note: Editing and deletion features are still under active development and are not yet part of the live demo path.
+
+---
+
+## Project Board Evidence
+
+GitHub Project Board:
+https://github.com/orgs/Georgia-Southwestern-State-Univeristy/projects/25/views/1?layout_template=board

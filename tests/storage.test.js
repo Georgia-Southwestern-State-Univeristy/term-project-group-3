@@ -50,4 +50,4 @@ describe('Storage Module', () => {
     assert.strictEqual(Array.isArray(workouts), true);
     assert.strictEqual(workouts.length, 0);
   });
-  
+});

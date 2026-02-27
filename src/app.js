@@ -1,30 +1,30 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const statusEl = document.getElementById('status');
-  const form = document.getElementById('workout-form');
+  const workoutForm = document.getElementById('workout-form');
   const listEl = document.getElementById('workout-list');
-  const inputEl = document.getElementById('workout-name');
+  const statusEl = document.getElementById('status');
 
   const render = () => {
     const workouts = Storage.getWorkouts();
     listEl.innerHTML = workouts.length
-      ? `<ul>${workouts.map(w => `<li><strong>${w.name}</strong> <small>${new Date(w.createdAt).toLocaleString()}</small></li>`).join('')}</ul>`
+      ? `<ul>${workouts.map(w => `
+          <li>
+            <strong>${w.type}</strong>: ${w.duration} mins 
+            <small>(${new Date(w.createdAt).toLocaleDateString()})</small>
+          </li>`).join('')}</ul>`
       : '<p>No workouts yet. Add one above!</p>';
   };
 
-  render();
-  statusEl.textContent = 'System ready - localStorage connected';
-
-  form.addEventListener('submit', e => {
+  workoutForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    const name = inputEl.value.trim();
-    if (!name) return;
+    const type = document.getElementById('workout-type').value.trim();
+    const duration = document.getElementById('workout-duration').value;
 
-    if (Storage.saveWorkout({ name })) {
-      inputEl.value = '';
+    if (Storage.saveWorkout({ type, duration })) {
+      workoutForm.reset();
       render();
       statusEl.textContent = 'Workout saved successfully!';
-    } else {
-      statusEl.textContent = 'Error saving workout';
     }
   });
+
+  render(); // Essential for demonstrating Local Data Persistence after refresh
 });

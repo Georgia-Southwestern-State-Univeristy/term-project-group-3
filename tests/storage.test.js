@@ -8,16 +8,14 @@ describe('Storage Module', () => {
   test('should save a workout successfully', () => {
     const result = Storage.saveWorkout({ type: 'Running', duration: 30 });
     expect(result).toBe(true);
-    
+
     const savedData = JSON.parse(localStorage.getItem(Storage.STORAGE_KEY));
     expect(savedData.length).toBe(1);
     expect(savedData[0].type).toBe('Running');
   });
 
   test('should retrieve saved workouts', () => {
-    const mockData = [
-      { type: 'Cycling', duration: 45, id: 1, createdAt: '2023-01-01' },
-    ];
+    const mockData = [{ type: 'Cycling', duration: 45, id: 1, createdAt: '2023-01-01' }];
     localStorage.setItem(Storage.STORAGE_KEY, JSON.stringify(mockData));
 
     const workouts = Storage.getWorkouts();

@@ -90,13 +90,13 @@ If a feature or change is not explicitly listed in this document, it is not part
 ## Progress Update — MVP Story Status
 
 | MVP Story | Description | Status | Evidence |
-|-----------|-------------|--------|---------|
-| Workout Logging | Record workouts | In Progress | PR #XX open |
-| Workout Viewing | View workout list | Done | PR #XX merged to main |
-| Workout Editing | Edit workout | In Progress | Branch under development |
-| Workout Deletion | Delete workout | Not Started | Planned next |
-| Local Data Persistence | Save using localStorage | Done | Verified in app |
-| Basic Summary Display | Show totals | Blocked | Depends on data model |
+|-----------|-------------|--------|----------|
+| Workout Logging | Record activity, duration, timestamp | Done | PR #12 merged to main |
+| Workout Viewing | Display saved workouts list | Done | PR #12 merged to main |
+| Workout Editing | Modify existing workout | Not Started | No PR created |
+| Workout Deletion | Remove workout entry | Not Started | No PR created |
+| Local Data Persistence | Save workouts using localStorage | Done | PR #12 merged to main |
+| Basic Summary Display | Show total workouts/duration | Not Started | No PR created |
 
 ---
 

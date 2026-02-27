@@ -1,5 +1,5 @@
 const Storage = {
-  STORAGE_KEY: "fittrack_workouts_v1",
+  STORAGE_KEY: 'fittrack_workouts_v1',
 
   saveWorkout(workout) {
     const workouts = this.getWorkouts();
@@ -18,6 +18,6 @@ const Storage = {
   },
 };
 
-if (typeof module !== "undefined" && module.exports) {
+if (typeof module !== 'undefined' && module.exports) {
   module.exports = Storage;
 }

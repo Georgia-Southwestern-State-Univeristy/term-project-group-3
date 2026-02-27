@@ -1,48 +1,38 @@
-const { describe, it, beforeEach } = require('node:test');
-const assert = require('node:assert');
-
-// Mock localStorage
-const localStorageMock = {
-  data: {},
-  getItem(key) {
-    return this.data[key] || null;
-  },
-  setItem(key, value) {
-    this.data[key] = String(value);
-  },
-  removeItem(key) {
-    delete this.data[key];
-  },
-  clear() {
-    this.data = {};
-  },
-};
-global.localStorage = localStorageMock;
-
 const Storage = require('../src/storage');
 
-describe('Storage module', () => {
+describe('Storage Module', () => {
   beforeEach(() => {
     localStorage.clear();
   });
 
-  it('saveWorkout returns true on success', () => {
-    const result = Storage.saveWorkout({ type: 'run', duration: 30 });
-    assert.strictEqual(result, true);
+  test('should save a workout successfully', () => {
+    const result = Storage.saveWorkout({ type: 'Running', duration: 30 });
+    expect(result).toBe(true);
+    
+    const savedData = JSON.parse(localStorage.getItem(Storage.STORAGE_KEY));
+    expect(savedData.length).toBe(1);
+    expect(savedData[0].type).toBe('Running');
   });
 
-  it('getWorkouts returns empty array initially', () => {
+  test('should retrieve saved workouts', () => {
+    const mockData = [
+      { type: 'Cycling', duration: 45, id: 1, createdAt: '2023-01-01' },
+    ];
+    localStorage.setItem(Storage.STORAGE_KEY, JSON.stringify(mockData));
+
     const workouts = Storage.getWorkouts();
-    assert.deepStrictEqual(workouts, []);
+    expect(workouts.length).toBe(1);
+    expect(workouts[0].type).toBe('Cycling');
   });
 
-  it('getWorkouts returns saved workout', () => {
-    const workout = { type: 'swim', duration: 45 };
-    Storage.saveWorkout(workout);
+  test('should return empty array when no workouts exist', () => {
     const workouts = Storage.getWorkouts();
+    expect(Array.isArray(workouts)).toBe(true);
+    expect(workouts.length).toBe(0);
+  });
 
-    assert.strictEqual(workouts.length, 1);
-    assert.strictEqual(workouts[0].type, 'swim');
-    assert.strictEqual(workouts[0].duration, 45);
+  test('should throw SyntaxError if localStorage data is corrupted', () => {
+    localStorage.setItem(Storage.STORAGE_KEY, 'invalid-json');
+    expect(() => Storage.getWorkouts()).toThrow(SyntaxError);
   });
 });

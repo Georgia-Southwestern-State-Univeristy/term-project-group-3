@@ -1,4 +1,19 @@
+const { describe, test, beforeEach } = require('node:test');
+const assert = require('node:assert');
 const Storage = require('../src/storage');
+
+global.localStorage = {
+  store: {},
+  getItem(key) {
+    return this.store[key] || null;
+  },
+  setItem(key, value) {
+    this.store[key] = String(value);
+  },
+  clear() {
+    this.store = {};
+  },
+};
 
 describe('Storage Module', () => {
   beforeEach(() => {
@@ -7,30 +22,32 @@ describe('Storage Module', () => {
 
   test('should save a workout successfully', () => {
     const result = Storage.saveWorkout({ type: 'Running', duration: 30 });
-    expect(result).toBe(true);
+    assert.strictEqual(result, true);
 
     const savedData = JSON.parse(localStorage.getItem(Storage.STORAGE_KEY));
-    expect(savedData.length).toBe(1);
-    expect(savedData[0].type).toBe('Running');
+    assert.strictEqual(savedData.length, 1);
+    assert.strictEqual(savedData[0].type, 'Running');
   });
 
   test('should retrieve saved workouts', () => {
-    const mockData = [{ type: 'Cycling', duration: 45, id: 1, createdAt: '2023-01-01' }];
+    const mockData = [
+      { type: 'Cycling', duration: 45, id: 1, createdAt: '2023-01-01' },
+    ];
     localStorage.setItem(Storage.STORAGE_KEY, JSON.stringify(mockData));
 
     const workouts = Storage.getWorkouts();
-    expect(workouts.length).toBe(1);
-    expect(workouts[0].type).toBe('Cycling');
+    assert.strictEqual(workouts.length, 1);
+    assert.strictEqual(workouts[0].type, 'Cycling');
   });
 
   test('should return empty array when no workouts exist', () => {
     const workouts = Storage.getWorkouts();
-    expect(Array.isArray(workouts)).toBe(true);
-    expect(workouts.length).toBe(0);
+    assert.strictEqual(Array.isArray(workouts), true);
+    assert.strictEqual(workouts.length, 0);
   });
 
   test('should throw SyntaxError if localStorage data is corrupted', () => {
     localStorage.setItem(Storage.STORAGE_KEY, 'invalid-json');
-    expect(() => Storage.getWorkouts()).toThrow(SyntaxError);
+    assert.throws(() => Storage.getWorkouts(), SyntaxError);
   });
 });

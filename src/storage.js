@@ -12,7 +12,7 @@ const Storage = {
       workouts.push({
         ...workout,
         id: Date.now(),
-        createdAt: new Date().toISOString(),
+        createdAt: new Date().toISOString(), // Required for Story: Workout Logging
       });
       localStorage.setItem(this.STORAGE_KEY, JSON.stringify(workouts));
       return true;
@@ -27,12 +27,7 @@ const Storage = {
       const data = localStorage.getItem(this.STORAGE_KEY);
       return data ? JSON.parse(data) : [];
     } catch (e) {
-      console.error('Storage retrieval failed:', e);
       return [];
     }
   },
 };
-
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = Storage;
-}

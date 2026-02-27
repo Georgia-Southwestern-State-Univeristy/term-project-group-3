@@ -44,8 +44,10 @@ describe('Storage Module', () => {
     assert.strictEqual(workouts.length, 0);
   });
 
-  test('should throw SyntaxError if localStorage data is corrupted', () => {
+  test('should return empty array if localStorage data is corrupted', () => {
     localStorage.setItem(Storage.STORAGE_KEY, 'invalid-json');
-    assert.throws(() => Storage.getWorkouts(), SyntaxError);
+    const workouts = Storage.getWorkouts();
+    assert.strictEqual(Array.isArray(workouts), true);
+    assert.strictEqual(workouts.length, 0);
   });
-});
+  

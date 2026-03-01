@@ -4,6 +4,148 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>FitTrack - Hello Path</title>
+
+    <link rel="stylesheet" href="style.css" />
+
+    <style>
+      .view-toggle {
+        margin: 20px 0;
+        display: flex;
+        gap: 10px;
+      }
+
+      .view-toggle button {
+        padding: 10px 20px;
+        border: 2px solid #007bff;
+        background: white;
+        color: #007bff;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+      }
+
+      .view-toggle button.active {
+        background: #007bff;
+        color: white;
+      }
+
+      #weekly-summary {
+        margin-top: 20px;
+        padding: 20px;
+        background: #f8f9fa;
+        border-radius: 8px;
+      }
+
+      .stats-cards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+
+      .stat-card {
+        background: white;
+        padding: 15px;
+        border-radius: 8px;
+        text-align: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .stat-card h3 {
+        margin: 0 0 10px 0;
+        font-size: 14px;
+        color: #666;
+      }
+
+      .stat-card p {
+        margin: 0;
+        font-size: 24px;
+        font-weight: bold;
+        color: #007bff;
+      }
+
+      .summary-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      .summary-table th,
+      .summary-table td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+
+      .summary-table th {
+        background: #007bff;
+        color: white;
+      }
+
+      .summary-table tr:hover {
+        background: #f5f5f5;
+      }
+
+      .day-bar {
+        display: inline-block;
+        height: 20px;
+        background: #28a745;
+        border-radius: 4px;
+        margin-right: 8px;
+        min-width: 20px;
+        text-align: center;
+        color: white;
+        font-size: 12px;
+        line-height: 20px;
+        padding: 0 5px;
+      }
+
+      .button-group {
+        display: flex;
+        gap: 8px;
+      }
+
+      .edit-btn {
+        background-color: #ffc107;
+        color: #000;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      .edit-btn:hover {
+        background-color: #e0a800;
+      }
+
+      .delete-btn {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      .delete-btn:hover {
+        background-color: #c82333;
+      }
+
+      #cancel-btn {
+        background-color: #6c757d;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      #cancel-btn:hover {
+        background-color: #5a6268;
+      }
+    </style>
   </head>
   <body>
     <div class="container">
@@ -16,9 +158,39 @@
       </form>
 
       <div id="workout-list"></div>
+
+      <div id="weekly-summary" style="display: none">
+        <h2>Weekly Summary</h2>
+        <div class="stats-cards">
+          <div class="stat-card">
+            <h3>Total Workouts</h3>
+            <p id="total-count">0</p>
+          </div>
+          <div class="stat-card">
+            <h3>Most Active Day</h3>
+            <p id="most-active-day">-</p>
+          </div>
+          <div class="stat-card">
+            <h3>This Week</h3>
+            <p id="week-range">-</p>
+          </div>
+        </div>
+
+        <table class="summary-table">
+          <thead>
+            <tr>
+              <th>Day</th>
+              <th>Date</th>
+              <th>Workouts</th>
+              <th>Activities</th>
+            </tr>
+          </thead>
+          <tbody id="summary-table-body"></tbody>
+        </table>
+      </div>
     </div>
 
-    <script src="js/storage.js"></script>
-    <script src="js/app.js"></script>
+    <script src="storage.js"></script>
+    <script src="app.js"></script>
   </body>
 </html>

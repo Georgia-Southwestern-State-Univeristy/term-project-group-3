@@ -1,8 +1,9 @@
 # FitTrack MVP Demo Readiness Checklist
+
 **Version:** 1.0  
 **Last Updated:** 2026-02-28  
 **Demo Duration:** 5-6 minutes  
-**Target Audience:** Dr. Hobbs, peers  
+**Target Audience:** Dr. Hobbs, peers
 
 ---
 
@@ -12,10 +13,12 @@
 **Core Value Proposition:** "Log any activity in 10 seconds, no signup required"
 
 **Live URLs:**
+
 - Local: `http://localhost:3000` (or your port)
 - Deployed: [Your Netlify/Vercel URL here]
 
 **Demo Flow (5 minutes):**
+
 - **0:00-0:30** Introduction & Seeded State
 - **0:30-1:30** Add First Workout (with notes)
 - **1:30-2:30** Add 2 More Workouts (build data)
@@ -30,13 +33,16 @@
 ## 2. Pre-Demo Checklist (5 Minutes Before)
 
 ### Environment Setup
+
 - [ ] Open Chrome/Firefox in **Incognito/Private** window
 - [ ] Navigate to app URL
 - [ ] Open DevTools (F12) → Console tab (clear it)
 - [ ] Open DevTools → Application → LocalStorage (keep handy)
 
 ### Quick Data Reset
+
 Run in console before each demo:
+
 ```javascript
 localStorage.clear();
 location.reload();
@@ -115,3 +121,4 @@ If app won't load at ALL:
 | 7 | 4:00 | Persistence Proof | Press F5 to refresh | All 2 remaining entries still visible | Show Application → LocalStorage in DevTools |
 | 8 | 4:30 | Verify Storage | Open DevTools → Application → LocalStorage | Show JSON data stored | Run `localStorage.getItem('workouts')` in console |
 | 9 | 5:00 | Q&A Buffer | Ask for questions | - | - |
+```

@@ -1,225 +1,264 @@
-document.addEventListener('DOMContentLoaded', () => {
-  
-  // ==========================================
-  // SEED DATA FOR DEMO (Section 4 implementation)
-  // ==========================================
-  function seedDemoData() {
-    if (!localStorage.getItem('workouts') || JSON.parse(localStorage.getItem('workouts')).length === 0) {
-      const demoData = [
-        { name: 'Morning Run', createdAt: new Date('2026-02-25T08:00:00').toISOString(), updatedAt: null },
-        { name: 'Upper Body Weights', createdAt: new Date('2026-02-26T18:00:00').toISOString(), updatedAt: null },
-        { name: 'Yoga Session', createdAt: new Date('2026-02-27T07:00:00').toISOString(), updatedAt: null }
-      ];
-      localStorage.setItem('workouts', JSON.stringify(demoData));
-      console.log('[DEMO] Seed data loaded successfully');
-    }
-  }
-  // Initialize seed data BEFORE other functions run
-  seedDemoData();
-  // ==========================================
+// ==========================================
+// FitTrack - Complete App with localStorage
+// Features: Add, Edit, Delete, Weekly Summary
+// ==========================================
 
-  const statusEl = document.getElementById('status');
-  const form = document.getElementById('workout-form');
-  const listEl = document.getElementById('workout-list');
-  const inputEl = document.getElementById('workout-name');
-  const submitBtn = form.querySelector('button[type="submit"]');
-  const weeklySummaryDiv = document.getElementById('weekly-summary');
-  const summaryTableBody = document.getElementById('summary-table-body');
+document.addEventListener('DOMContentLoaded', function () {
+  console.log('FitTrack loaded');
 
-  let editingIndex = null;
+  // Set today's date as default
+  document.getElementById('date').valueAsDate = new Date();
 
-  const listViewBtn = document.createElement('button');
-  listViewBtn.id = 'list-view-btn';
-  listViewBtn.textContent = 'List View';
-  listViewBtn.className = 'active';
+  // Load and display workouts
+  renderAll();
 
-  const summaryViewBtn = document.createElement('button');
-  summaryViewBtn.id = 'summary-view-btn';
-  summaryViewBtn.textContent = 'Weekly Summary';
-
-  const viewToggleDiv = document.createElement('div');
-  viewToggleDiv.className = 'view-toggle';
-  viewToggleDiv.appendChild(listViewBtn);
-  viewToggleDiv.appendChild(summaryViewBtn);
-  statusEl.parentNode.insertBefore(viewToggleDiv, form);
-
-  const deleteWorkout = index => {
-    if (Storage.deleteWorkout(index)) {
-      cancelEdit();
-      render();
-      statusEl.textContent = 'Workout deleted!';
-    } else {
-      statusEl.textContent = 'Error deleting workout';
-    }
-  };
-
-  const startEdit = index => {
-    const workouts = Storage.getWorkouts();
-    const workout = workouts[index];
-
-    inputEl.value = workout.name;
-    editingIndex = index;
-    submitBtn.textContent = 'Update Workout';
-
-    if (!document.getElementById('cancel-btn')) {
-      const cancelBtn = document.createElement('button');
-      cancelBtn.id = 'cancel-btn';
-      cancelBtn.type = 'button';
-      cancelBtn.textContent = 'Cancel';
-      cancelBtn.style.marginLeft = '10px';
-      cancelBtn.addEventListener('click', cancelEdit);
-      form.appendChild(cancelBtn);
-    }
-
-    statusEl.textContent = 'Editing workout...';
-    inputEl.focus();
-  };
-
-  const cancelEdit = () => {
-    editingIndex = null;
-    inputEl.value = '';
-    submitBtn.textContent = 'Save Workout';
-
-    const cancelBtn = document.getElementById('cancel-btn');
-    if (cancelBtn) {
-      cancelBtn.remove();
-    }
-
-    statusEl.textContent = 'Edit cancelled';
-  };
-
-  const renderWeeklySummary = () => {
-    const weeklyData = Storage.getWeeklyData();
-    const days = Object.keys(weeklyData).sort();
-
-    let totalWorkouts = 0;
-    let maxCount = 0;
-    let mostActiveDay = '-';
-
-    summaryTableBody.innerHTML = '';
-
-    [...days].reverse().forEach(dateKey => {
-      const dayData = weeklyData[dateKey];
-      const date = new Date(dateKey);
-      const dayName = date.toLocaleDateString('en-US', { weekday: 'short' });
-      const formattedDate = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-
-      totalWorkouts += dayData.count;
-
-      if (dayData.count > maxCount) {
-        maxCount = dayData.count;
-        mostActiveDay = dayName;
-      }
-
-      const row = document.createElement('tr');
-      row.innerHTML = `
-        <td><strong>${dayName}</strong></td>
-        <td>${formattedDate}</td>
-        <td>
-          <span class="day-bar" style="width: ${Math.max(dayData.count * 30, 20)}px">
-            ${dayData.count}
-          </span>
-        </td>
-        <td>${dayData.workouts.join(', ') || '-'}</td>
-      `;
-      summaryTableBody.appendChild(row);
-    });
-
-    document.getElementById('total-count').textContent = totalWorkouts;
-    document.getElementById('most-active-day').textContent = mostActiveDay;
-
-    if (days.length > 0) {
-      const oldest = new Date(days[0]);
-      const newest = new Date(days[days.length - 1]);
-      document.getElementById('week-range').textContent =
-        `${oldest.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - ${newest.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`;
-    }
-  };
-
-  const showListView = () => {
-    listEl.style.display = 'block';
-    form.style.display = 'block';
-    weeklySummaryDiv.style.display = 'none';
-    listViewBtn.classList.add('active');
-    summaryViewBtn.classList.remove('active');
-    statusEl.textContent = 'Showing workout list';
-  };
-
-  const showSummaryView = () => {
-    renderWeeklySummary();
-    listEl.style.display = 'none';
-    form.style.display = 'none';
-    weeklySummaryDiv.style.display = 'block';
-    listViewBtn.classList.remove('active');
-    summaryViewBtn.classList.add('active');
-    statusEl.textContent = 'Showing weekly summary';
-  };
-
-  listViewBtn.addEventListener('click', showListView);
-  summaryViewBtn.addEventListener('click', showSummaryView);
-
-  const render = () => {
-    const workouts = Storage.getWorkouts();
-    listEl.innerHTML = workouts.length
-      ? `<ul class="workout-list">${workouts
-          .map(
-            (w, index) => `
-          <li class="workout-item">
-            <div class="workout-info">
-              <strong>${w.name}</strong> 
-              <small>${new Date(w.createdAt).toLocaleString()}
-                ${w.updatedAt ? '<em> (edited)</em>' : ''}
-              </small>
-            </div>
-            <div class="button-group">
-              <button class="edit-btn" data-index="${index}">Edit</button>
-              <button class="delete-btn" data-index="${index}">Delete</button>
-            </div>
-          </li>`
-          )
-          .join('')}
-      </ul>`
-      : '<p>No workouts yet. Add one above!</p>';
-
-    document.querySelectorAll('.edit-btn').forEach(btn => {
-      btn.addEventListener('click', e => {
-        const index = parseInt(e.target.getAttribute('data-index'));
-        startEdit(index);
-      });
-    });
-
-    document.querySelectorAll('.delete-btn').forEach(btn => {
-      btn.addEventListener('click', e => {
-        const index = parseInt(e.target.getAttribute('data-index'));
-        deleteWorkout(index);
-      });
-    });
-  };
-
-  render();
-  statusEl.textContent = 'System ready - localStorage connected';
-
-  form.addEventListener('submit', e => {
+  // Handle form submission (Add)
+  document.getElementById('workout-form').addEventListener('submit', function (e) {
     e.preventDefault();
-    const name = inputEl.value.trim();
-    if (!name) return;
-
-    if (editingIndex !== null) {
-      if (Storage.updateWorkout(editingIndex, { name })) {
-        cancelEdit();
-        render();
-        statusEl.textContent = 'Workout updated successfully!';
-      } else {
-        statusEl.textContent = 'Error updating workout';
-      }
-    } else {
-      if (Storage.saveWorkout({ name })) {
-        inputEl.value = '';
-        render();
-        statusEl.textContent = 'Workout saved successfully!';
-      } else {
-        statusEl.textContent = 'Error saving workout';
-      }
-    }
+    addWorkout();
   });
 });
+
+// ==========================================
+// CRUD OPERATIONS
+// ==========================================
+
+function addWorkout() {
+  const dateInput = document.getElementById('date');
+  const typeInput = document.getElementById('type');
+  const durationInput = document.getElementById('duration');
+
+  const date = dateInput.value;
+  const type = typeInput.value;
+  const duration = parseInt(durationInput.value);
+
+  if (!date || !type || !duration) {
+    alert('Please fill all fields');
+    return;
+  }
+
+  const workout = {
+    id: Date.now(),
+    date: date,
+    type: type,
+    duration: duration,
+    created: new Date().toISOString(),
+  };
+
+  let workouts = getWorkouts();
+  workouts.push(workout);
+
+  saveWorkouts(workouts);
+
+  const lastUsedDate = dateInput.value;
+  document.getElementById('workout-form').reset();
+  dateInput.value = lastUsedDate;
+
+  typeInput.value = '';
+  durationInput.value = '';
+
+  renderAll();
+
+  console.log('Workout added:', workout);
+}
+
+function deleteWorkout(id) {
+  if (!confirm('Are you sure you want to delete this workout?')) return;
+
+  let workouts = getWorkouts();
+  workouts = workouts.filter(w => w.id !== id);
+  saveWorkouts(workouts);
+
+  renderAll();
+  console.log('Workout deleted:', id);
+}
+
+function startEdit(id) {
+  const workouts = getWorkouts();
+  const workout = workouts.find(w => w.id === id);
+  if (!workout) return;
+
+  const container = document.getElementById(`workout-${id}`);
+  container.innerHTML = `
+        <div class="edit-form">
+            <div class="form-row">
+                <input type="date" id="edit-date-${id}" value="${workout.date}">
+                <select id="edit-type-${id}">
+                    <option value="Running" ${workout.type === 'Running' ? 'selected' : ''}>Running</option>
+                    <option value="Cycling" ${workout.type === 'Cycling' ? 'selected' : ''}>Cycling</option>
+                    <option value="Swimming" ${workout.type === 'Swimming' ? 'selected' : ''}>Swimming</option>
+                    <option value="Weights" ${workout.type === 'Weights' ? 'selected' : ''}>Weights</option>
+                    <option value="Yoga" ${workout.type === 'Yoga' ? 'selected' : ''}>Yoga</option>
+                    <option value="Walking" ${workout.type === 'Walking' ? 'selected' : ''}>Walking</option>
+                </select>
+                <input type="number" id="edit-duration-${id}" value="${workout.duration}" min="1">
+                <button class="btn btn-success" onclick="saveEdit(${id})">Save</button>
+                <button class="btn btn-secondary" onclick="renderAll()">Cancel</button>
+            </div>
+        </div>
+    `;
+}
+
+function saveEdit(id) {
+  const date = document.getElementById(`edit-date-${id}`).value;
+  const type = document.getElementById(`edit-type-${id}`).value;
+  const duration = parseInt(document.getElementById(`edit-duration-${id}`).value);
+
+  if (!date || !type || !duration) {
+    alert('Please fill all fields');
+    return;
+  }
+
+  let workouts = getWorkouts();
+  const index = workouts.findIndex(w => w.id === id);
+
+  if (index !== -1) {
+    workouts[index] = { ...workouts[index], date, type, duration };
+    saveWorkouts(workouts);
+    renderAll();
+    console.log('Workout edited:', id);
+  }
+}
+
+// ==========================================
+// LOCALSTORAGE HELPERS
+// ==========================================
+
+function getWorkouts() {
+  const data = localStorage.getItem('fittrack_workouts');
+  return data ? JSON.parse(data) : [];
+}
+
+function saveWorkouts(workouts) {
+  localStorage.setItem('fittrack_workouts', JSON.stringify(workouts));
+}
+
+// ==========================================
+// RENDER FUNCTIONS
+// ==========================================
+
+function renderAll() {
+  renderWorkoutList();
+  renderWeeklySummary();
+}
+
+function renderWorkoutList() {
+  const workouts = getWorkouts();
+  const container = document.getElementById('workouts-container');
+
+  if (workouts.length === 0) {
+    container.innerHTML = '<div class="empty-state">No workouts yet. Add one above!</div>';
+    return;
+  }
+
+  // Sort by date (newest first) - parse as local date to avoid timezone issues
+  const sorted = workouts.sort((a, b) => {
+    const dateA = new Date(a.date + 'T00:00:00');
+    const dateB = new Date(b.date + 'T00:00:00');
+    return dateB - dateA;
+  });
+
+  container.innerHTML = sorted
+    .map(
+      w => `
+        <div class="workout-item" id="workout-${w.id}">
+            <div class="workout-info">
+                <strong>${w.type}</strong><br>
+                <small>${formatDate(w.date)} • ${w.duration} minutes</small>
+            </div>
+            <div class="workout-actions">
+                <button class="btn btn-primary" onclick="startEdit(${w.id})" style="padding: 8px 16px;">Edit</button>
+                <button class="btn btn-danger" onclick="deleteWorkout(${w.id})" style="padding: 8px 16px;">Delete</button>
+            </div>
+        </div>
+    `
+    )
+    .join('');
+}
+
+function renderWeeklySummary() {
+  const allWorkouts = getWorkouts();
+
+  const today = new Date();
+  today.setHours(23, 59, 59, 999);
+  const sevenDaysAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+  sevenDaysAgo.setHours(0, 0, 0, 0);
+
+  const weeklyWorkouts = allWorkouts.filter(w => {
+    const workoutDate = new Date(w.date + 'T00:00:00');
+    return workoutDate >= sevenDaysAgo && workoutDate <= today;
+  });
+
+  document.getElementById('total-workouts').textContent = weeklyWorkouts.length;
+
+  const totalMinutes = weeklyWorkouts.reduce((sum, w) => sum + (w.duration || 0), 0);
+  document.getElementById('total-minutes').textContent = totalMinutes;
+
+  const avg = weeklyWorkouts.length > 0 ? Math.round(totalMinutes / weeklyWorkouts.length) : 0;
+  document.getElementById('avg-duration').textContent = avg;
+
+  const typeMinutes = {};
+  weeklyWorkouts.forEach(w => {
+    typeMinutes[w.type] = (typeMinutes[w.type] || 0) + (w.duration || 0);
+  });
+
+  const sortedTypes = Object.entries(typeMinutes).sort((a, b) => b[1] - a[1]);
+  const favorite = sortedTypes[0];
+
+  document.getElementById('favorite-type').textContent = favorite ? favorite[0] : '-';
+
+  console.log('Weekly summary updated:', {
+    workouts: weeklyWorkouts.length,
+    minutes: totalMinutes,
+    topActivity: favorite ? favorite[0] : 'none',
+    breakdown: typeMinutes,
+  });
+}
+
+// ==========================================
+// UTILITIES
+// ==========================================
+
+function formatDate(dateString) {
+  // Parse as local time by appending T00:00:00 to avoid timezone shift
+  const date = new Date(dateString + 'T00:00:00');
+  const options = { weekday: 'short', month: 'short', day: 'numeric' };
+  return date.toLocaleDateString('en-US', options);
+}
+
+// ==========================================
+// SEED DATA (for demo purposes)
+// ==========================================
+function seedDemoData() {
+  const existing = getWorkouts();
+  if (existing.length === 0) {
+    const demoData = [
+      {
+        id: Date.now() - 1000,
+        date: '2026-03-01',
+        type: 'Running',
+        duration: 30,
+        created: new Date().toISOString(),
+      },
+      {
+        id: Date.now() - 2000,
+        date: '2026-02-28',
+        type: 'Cycling',
+        duration: 45,
+        created: new Date().toISOString(),
+      },
+      {
+        id: Date.now() - 3000,
+        date: '2026-02-27',
+        type: 'Yoga',
+        duration: 20,
+        created: new Date().toISOString(),
+      },
+    ];
+    saveWorkouts(demoData);
+    renderAll();
+    console.log('Demo data loaded');
+  }
+}
+
+// Uncomment for demo: seedDemoData();

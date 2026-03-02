@@ -17,6 +17,8 @@ document.addEventListener('DOMContentLoaded', function () {
     e.preventDefault();
     addWorkout();
   });
+
+  render();
 });
 
 // ==========================================

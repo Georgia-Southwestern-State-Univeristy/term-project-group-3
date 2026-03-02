@@ -1,10 +1,28 @@
 document.addEventListener('DOMContentLoaded', () => {
+  
+  // ==========================================
+  // SEED DATA FOR DEMO (Section 4 implementation)
+  // ==========================================
+  function seedDemoData() {
+    if (!localStorage.getItem('workouts') || JSON.parse(localStorage.getItem('workouts')).length === 0) {
+      const demoData = [
+        { name: 'Morning Run', createdAt: new Date('2026-02-25T08:00:00').toISOString(), updatedAt: null },
+        { name: 'Upper Body Weights', createdAt: new Date('2026-02-26T18:00:00').toISOString(), updatedAt: null },
+        { name: 'Yoga Session', createdAt: new Date('2026-02-27T07:00:00').toISOString(), updatedAt: null }
+      ];
+      localStorage.setItem('workouts', JSON.stringify(demoData));
+      console.log('[DEMO] Seed data loaded successfully');
+    }
+  }
+  // Initialize seed data BEFORE other functions run
+  seedDemoData();
+  // ==========================================
+
   const statusEl = document.getElementById('status');
   const form = document.getElementById('workout-form');
   const listEl = document.getElementById('workout-list');
   const inputEl = document.getElementById('workout-name');
   const submitBtn = form.querySelector('button[type="submit"]');
-
   const weeklySummaryDiv = document.getElementById('weekly-summary');
   const summaryTableBody = document.getElementById('summary-table-body');
 
@@ -110,10 +128,12 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('total-count').textContent = totalWorkouts;
     document.getElementById('most-active-day').textContent = mostActiveDay;
 
-    const oldest = new Date(days[0]);
-    const newest = new Date(days[days.length - 1]);
-    document.getElementById('week-range').textContent =
-      `${oldest.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - ${newest.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`;
+    if (days.length > 0) {
+      const oldest = new Date(days[0]);
+      const newest = new Date(days[days.length - 1]);
+      document.getElementById('week-range').textContent =
+        `${oldest.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - ${newest.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`;
+    }
   };
 
   const showListView = () => {

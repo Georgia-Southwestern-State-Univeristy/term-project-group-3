@@ -11,15 +11,15 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
-      description: "MVP Placeholder: We will use a simple JWT token passed in the Authorization header."
+      description: 'MVP Placeholder: We will use a simple JWT token passed in the Authorization header.'
   schemas:
     WorkoutInput:
       type: object
       properties:
-        type: { type: string, example: "Running" }
+        type: { type: string, example: 'Running' }
         duration_minutes: { type: integer, example: 45 }
         calories_burned: { type: integer, example: 400 }
-        date: { type: string, format: date, example: "2026-02-20" }
+        date: { type: string, format: date, example: '2026-02-20' }
     Workout:
       allOf:
         - $ref: '#/components/schemas/WorkoutInput'
@@ -39,9 +39,9 @@ paths:
             schema:
               type: object
               properties:
-                email: { type: string, example: "user@example.com" }
-                password: { type: string, example: "securepass123" }
-                name: { type: string, example: "Jasmine" }
+                email: { type: string, example: 'user@example.com' }
+                password: { type: string, example: 'securepass123' }
+                name: { type: string, example: 'Jasmine' }
       responses:
         '201':
           description: User created successfully
@@ -56,8 +56,8 @@ paths:
             schema:
               type: object
               properties:
-                email: { type: string, example: "user@example.com" }
-                password: { type: string, example: "securepass123" }
+                email: { type: string, example: 'user@example.com' }
+                password: { type: string, example: 'securepass123' }
       responses:
         '200':
           description: Successful login
@@ -66,7 +66,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  token: { type: string, example: "eyJhbGciOiJIUzI1NiIsInR..." }
+                  token: { type: string, example: 'eyJhbGciOiJIUzI1NiIsInR...' }
 
   /api/workouts:
     get:

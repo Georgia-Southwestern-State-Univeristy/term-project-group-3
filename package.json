@@ -4,12 +4,11 @@
   "description": "FitTrack Activity Logger - Client SPA with localStorage",
   "main": "index.html",
   "scripts": {
-  "start": "npx live-server ./ --port=3000 --open=/",
-  "test": "node --test",
-  "format:check": "npx prettier --check \"**/*.{html,css,js,json,md}\"",
-  "format": "prettier --write \"**/*.{html,css,js,json,md}\""
-}
-,
+    "start": "npx live-server ./ --port=3000 --open=/",
+    "test": "node --test",
+    "format:check": "npx prettier --check \"**/*.{html,css,js,json,md}\"",
+    "format": "prettier --write \"**/*.{html,css,js,json,md}\""
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Georgia-Southwestern-State-Univeristy/term-project-group-3.git"

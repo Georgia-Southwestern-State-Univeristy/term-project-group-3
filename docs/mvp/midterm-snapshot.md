@@ -4,7 +4,7 @@ Project: FitTrack Activity Logger
 Team: Group 3  
 Date: 2026-03-05  
 Branch: week8-mvp-demo-evidence  
-Commit: 5c4048b4f4eae86c3785ef36ec9e3eb461855bf3
+Commit: 098f4c07a9163d464ca3ed54a091600b292f82fb
 
 ---
 

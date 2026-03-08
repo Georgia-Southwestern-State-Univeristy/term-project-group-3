@@ -39,6 +39,20 @@ function addWorkout() {
     return;
   }
 
+  // Check if future date
+  const selectedDate = new Date(date + 'T00:00:00');
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  if (selectedDate > today) {
+    if (
+      !confirm(
+        'This date is in the future. This workout will NOT count toward your weekly summary until that date. Add anyway?'
+      )
+    )
+      return;
+  }
+
   const workout = {
     id: Date.now(),
     date: date,
@@ -82,23 +96,23 @@ function startEdit(id) {
 
   const container = document.getElementById(`workout-${id}`);
   container.innerHTML = `
-        <div class="edit-form">
-            <div class="form-row">
-                <input type="date" id="edit-date-${id}" value="${workout.date}">
-                <select id="edit-type-${id}">
-                    <option value="Running" ${workout.type === 'Running' ? 'selected' : ''}>Running</option>
-                    <option value="Cycling" ${workout.type === 'Cycling' ? 'selected' : ''}>Cycling</option>
-                    <option value="Swimming" ${workout.type === 'Swimming' ? 'selected' : ''}>Swimming</option>
-                    <option value="Weights" ${workout.type === 'Weights' ? 'selected' : ''}>Weights</option>
-                    <option value="Yoga" ${workout.type === 'Yoga' ? 'selected' : ''}>Yoga</option>
-                    <option value="Walking" ${workout.type === 'Walking' ? 'selected' : ''}>Walking</option>
-                </select>
-                <input type="number" id="edit-duration-${id}" value="${workout.duration}" min="1">
-                <button class="btn btn-success" onclick="saveEdit(${id})">Save</button>
-                <button class="btn btn-secondary" onclick="renderAll()">Cancel</button>
-            </div>
-        </div>
-    `;
+       <div class="edit-form">
+           <div class="form-row">
+               <input type="date" id="edit-date-${id}" value="${workout.date}">
+               <select id="edit-type-${id}">
+                   <option value="Running" ${workout.type === 'Running' ? 'selected' : ''}>Running</option>
+                   <option value="Cycling" ${workout.type === 'Cycling' ? 'selected' : ''}>Cycling</option>
+                   <option value="Swimming" ${workout.type === 'Swimming' ? 'selected' : ''}>Swimming</option>
+                   <option value="Weights" ${workout.type === 'Weights' ? 'selected' : ''}>Weights</option>
+                   <option value="Yoga" ${workout.type === 'Yoga' ? 'selected' : ''}>Yoga</option>
+                   <option value="Walking" ${workout.type === 'Walking' ? 'selected' : ''}>Walking</option>
+               </select>
+               <input type="number" id="edit-duration-${id}" value="${workout.duration}" min="1">
+               <button class="btn btn-success" onclick="saveEdit(${id})">Save</button>
+               <button class="btn btn-secondary" onclick="renderAll()">Cancel</button>
+           </div>
+       </div>
+   `;
 }
 
 function saveEdit(id) {
@@ -144,6 +158,13 @@ function renderAll() {
   renderWeeklySummary();
 }
 
+function isFutureDate(dateString) {
+  const date = new Date(dateString + 'T00:00:00');
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  return date > today;
+}
+
 function renderWorkoutList() {
   const workouts = getWorkouts();
   const container = document.getElementById('workouts-container');
@@ -161,20 +182,25 @@ function renderWorkoutList() {
   });
 
   container.innerHTML = sorted
-    .map(
-      w => `
-        <div class="workout-item" id="workout-${w.id}">
-            <div class="workout-info">
-                <strong>${w.type}</strong><br>
-                <small>${formatDate(w.date)} • ${w.duration} minutes</small>
-            </div>
-            <div class="workout-actions">
-                <button class="btn btn-primary" onclick="startEdit(${w.id})" style="padding: 8px 16px;">Edit</button>
-                <button class="btn btn-danger" onclick="deleteWorkout(${w.id})" style="padding: 8px 16px;">Delete</button>
-            </div>
-        </div>
-    `
-    )
+    .map(w => {
+      const future = isFutureDate(w.date);
+      const futureClass = future ? 'future-workout' : '';
+      const futureLabel = future ? ' <span class="future-badge">(Pending)</span>' : '';
+      const futureText = future ? ' (future)' : '';
+
+      return `
+       <div class="workout-item ${futureClass}" id="workout-${w.id}">
+           <div class="workout-info">
+               <strong>${w.type}${futureLabel}</strong><br>
+               <small>${formatDate(w.date)}${futureText} • ${w.duration} minutes</small>
+           </div>
+           <div class="workout-actions">
+               <button class="btn btn-primary" onclick="startEdit(${w.id})" style="padding: 8px 16px;">Edit</button>
+               <button class="btn btn-danger" onclick="deleteWorkout(${w.id})" style="padding: 8px 16px;">Delete</button>
+           </div>
+       </div>
+   `;
+    })
     .join('');
 }
 
@@ -262,5 +288,3 @@ function seedDemoData() {
     console.log('Demo data loaded');
   }
 }
-
-// Uncomment for demo: seedDemoData();

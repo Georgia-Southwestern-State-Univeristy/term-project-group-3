@@ -67,3 +67,20 @@ button[type='submit']:hover {
   margin-top: 10px;
   color: #333;
 }
+
+/* Future workout styling */
+.future-workout {
+  opacity: 0.6;
+  background: #e0e0e0;
+  border-left: 4px solid #9e9e9e;
+}
+
+.future-badge {
+  background: #ff9800;
+  color: white;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 10px;
+  margin-left: 8px;
+  font-weight: normal;
+}

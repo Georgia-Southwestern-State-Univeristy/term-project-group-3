@@ -88,14 +88,14 @@ Scope Enforcement Rule
 
 ## Progress Update — MVP Story Status
 
-| MVP Story              | Description                          | Status      | Evidence              |
-| ---------------------- | ------------------------------------ | ----------- | --------------------- |
-| Workout Logging        | Record activity, duration, timestamp | Done        | PR #12 merged to main |
-| Workout Viewing        | Display saved workouts list          | Done        | PR #12 merged to main |
-| Workout Editing        | Modify existing workout              | Done        |                       |
-| Workout Deletion       | Remove workout entry                 | Done        |                       |
-| Local Data Persistence | Save workouts using localStorage     | Done        | PR #12 merged to main |
-| Basic Summary Display  | Show total workouts/duration         | Done        | No PR created         |
+| MVP Story              | Description                          | Status | Evidence              |
+| ---------------------- | ------------------------------------ | ------ | --------------------- |
+| Workout Logging        | Record activity, duration, timestamp | Done   | PR #12 merged to main |
+| Workout Viewing        | Display saved workouts list          | Done   | PR #12 merged to main |
+| Workout Editing        | Modify existing workout              | Done   |                       |
+| Workout Deletion       | Remove workout entry                 | Done   |                       |
+| Local Data Persistence | Save workouts using localStorage     | Done   | PR #12 merged to main |
+| Basic Summary Display  | Show total workouts/duration         | Done   | No PR created         |
 
 ---
 

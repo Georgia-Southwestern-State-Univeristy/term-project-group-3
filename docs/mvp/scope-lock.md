@@ -92,10 +92,10 @@ Scope Enforcement Rule
 | ---------------------- | ------------------------------------ | ----------- | --------------------- |
 | Workout Logging        | Record activity, duration, timestamp | Done        | PR #12 merged to main |
 | Workout Viewing        | Display saved workouts list          | Done        | PR #12 merged to main |
-| Workout Editing        | Modify existing workout              | Not Started | No PR created         |
-| Workout Deletion       | Remove workout entry                 | Not Started | No PR created         |
+| Workout Editing        | Modify existing workout              | Done        |                       |
+| Workout Deletion       | Remove workout entry                 | Done        |                       |
 | Local Data Persistence | Save workouts using localStorage     | Done        | PR #12 merged to main |
-| Basic Summary Display  | Show total workouts/duration         | Not Started | No PR created         |
+| Basic Summary Display  | Show total workouts/duration         | Done        | No PR created         |
 
 ---
 

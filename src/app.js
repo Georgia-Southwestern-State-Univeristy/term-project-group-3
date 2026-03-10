@@ -3,9 +3,11 @@
 // Includes: Beta Phase Observability & Logging
 document.addEventListener('DOMContentLoaded', function () {
   console.log('FitTrack loaded');
-  
+
   // ACTION LOG: App Initialization & History Load
-  console.log(`[${new Date().toISOString()}] [ACTION: LOAD_HISTORY] Successfully loaded workouts from localStorage.`);
+  console.log(
+    `[${new Date().toISOString()}] [ACTION: LOAD_HISTORY] Successfully loaded workouts from localStorage.`
+  );
 
   // Set today's date as default
   document.getElementById('date').valueAsDate = new Date();
@@ -20,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   if (typeof render === 'function') {
-      render();
+    render();
   }
 });
 
@@ -36,14 +38,18 @@ function addWorkout() {
 
   // ERROR HANDLING: Failure Case 1 - Empty Fields
   if (!date || !type || !duration) {
-    console.error(`[${new Date().toISOString()}] [ERROR: VALIDATION] Failed to save: Missing required fields.`);
+    console.error(
+      `[${new Date().toISOString()}] [ERROR: VALIDATION] Failed to save: Missing required fields.`
+    );
     alert('Please fill all fields');
     return;
   }
 
   // ERROR HANDLING: Failure Case 2 - Invalid Duration
   if (duration <= 0) {
-    console.error(`[${new Date().toISOString()}] [ERROR: VALIDATION] Failed to save: Invalid duration. User input: ${durationInput.value}`);
+    console.error(
+      `[${new Date().toISOString()}] [ERROR: VALIDATION] Failed to save: Invalid duration. User input: ${durationInput.value}`
+    );
     alert('Duration must be a positive number greater than 0.');
     return;
   }
@@ -82,9 +88,11 @@ function deleteWorkout(id) {
   saveWorkouts(workouts);
 
   renderAll();
-  
+
   // ACTION LOG: Delete Workout
-  console.log(`[${new Date().toISOString()}] [ACTION: DELETE_WORKOUT] User deleted workout ID: ${id}`);
+  console.log(
+    `[${new Date().toISOString()}] [ACTION: DELETE_WORKOUT] User deleted workout ID: ${id}`
+  );
 }
 
 function startEdit(id) {

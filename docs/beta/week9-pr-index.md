@@ -2,7 +2,7 @@
 
 Project: FitTrack Activity Logger  
 Team: Group 3  
-Sprint: Week 9 Beta Sprint  
+Sprint: Week 9 Beta Sprint
 
 This document lists the pull requests that delivered completed backlog items during the Week 9 Beta Sprint.
 

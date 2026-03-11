@@ -1,17 +1,21 @@
 # FitTrack Midterm Release (midterm)
 
 ## What's Included in the Midterm Build
+
 This release represents the core MVP functionality for the FitTrack application, focusing entirely on local, client-side execution.
-* **Workout Logging:** Users can record an activity type and duration.
-* **Workout Viewing:** Saved workouts are immediately displayed in a historical list.
-* **Local Data Persistence:** All data is saved directly to the browser's `localStorage` and persists across browser refreshes.
+
+- **Workout Logging:** Users can record an activity type and duration.
+- **Workout Viewing:** Saved workouts are immediately displayed in a historical list.
+- **Local Data Persistence:** All data is saved directly to the browser's `localStorage` and persists across browser refreshes.
 
 ## Known Issues & Limitations
-* **No Backend or Cloud Sync:** There is no database. If a user clears their browser cache, their workout history will be lost.
-* **No Authentication:** User login is an explicit non-goal for the MVP.
-* **Incomplete UI Features:** The logic for Workout Editing and Deletion exists, but UI integration is deferred to Beta.
+
+- **No Backend or Cloud Sync:** There is no database. If a user clears their browser cache, their workout history will be lost.
+- **No Authentication:** User login is an explicit non-goal for the MVP.
+- **Incomplete UI Features:** The logic for Workout Editing and Deletion exists, but UI integration is deferred to Beta.
 
 ## How to Reproduce the Demo Path
+
 To run the app and verify this release, please use the following steps in a Bash terminal:
 
 **1. Open the Project in VS Code**

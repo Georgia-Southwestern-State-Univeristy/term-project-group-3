@@ -1,10 +1,13 @@
-// ==========================================
 // FitTrack - Complete App with localStorage
 // Features: Add, Edit, Delete, Weekly Summary
-// ==========================================
-
+// Includes: Beta Phase Observability & Logging
 document.addEventListener('DOMContentLoaded', function () {
   console.log('FitTrack loaded');
+
+  // ACTION LOG: App Initialization & History Load
+  console.log(
+    `[${new Date().toISOString()}] [ACTION: LOAD_HISTORY] Successfully loaded workouts from localStorage.`
+  );
 
   // Set today's date as default
   document.getElementById('date').valueAsDate = new Date();
@@ -18,13 +21,12 @@ document.addEventListener('DOMContentLoaded', function () {
     addWorkout();
   });
 
-  render();
+  if (typeof render === 'function') {
+    render();
+  }
 });
 
-// ==========================================
 // CRUD OPERATIONS
-// ==========================================
-
 function addWorkout() {
   const dateInput = document.getElementById('date');
   const typeInput = document.getElementById('type');
@@ -34,8 +36,21 @@ function addWorkout() {
   const type = typeInput.value;
   const duration = parseInt(durationInput.value);
 
+  // ERROR HANDLING: Failure Case 1 - Empty Fields
   if (!date || !type || !duration) {
+    console.error(
+      `[${new Date().toISOString()}] [ERROR: VALIDATION] Failed to save: Missing required fields.`
+    );
     alert('Please fill all fields');
+    return;
+  }
+
+  // ERROR HANDLING: Failure Case 2 - Invalid Duration
+  if (duration <= 0) {
+    console.error(
+      `[${new Date().toISOString()}] [ERROR: VALIDATION] Failed to save: Invalid duration. User input: ${durationInput.value}`
+    );
+    alert('Duration must be a positive number greater than 0.');
     return;
   }
 
@@ -46,6 +61,9 @@ function addWorkout() {
     duration: duration,
     created: new Date().toISOString(),
   };
+
+  // ACTION LOG: Save Workout
+  console.log(`[${new Date().toISOString()}] [ACTION: LOG_WORKOUT] Attempting to save:`, workout);
 
   let workouts = getWorkouts();
   workouts.push(workout);
@@ -60,8 +78,6 @@ function addWorkout() {
   durationInput.value = '';
 
   renderAll();
-
-  console.log('Workout added:', workout);
 }
 
 function deleteWorkout(id) {
@@ -72,7 +88,11 @@ function deleteWorkout(id) {
   saveWorkouts(workouts);
 
   renderAll();
-  console.log('Workout deleted:', id);
+
+  // ACTION LOG: Delete Workout
+  console.log(
+    `[${new Date().toISOString()}] [ACTION: DELETE_WORKOUT] User deleted workout ID: ${id}`
+  );
 }
 
 function startEdit(id) {
@@ -118,14 +138,11 @@ function saveEdit(id) {
     workouts[index] = { ...workouts[index], date, type, duration };
     saveWorkouts(workouts);
     renderAll();
-    console.log('Workout edited:', id);
+    console.log(`[${new Date().toISOString()}] [ACTION: EDIT_WORKOUT] Workout edited:`, id);
   }
 }
 
-// ==========================================
 // LOCALSTORAGE HELPERS
-// ==========================================
-
 function getWorkouts() {
   const data = localStorage.getItem('fittrack_workouts');
   return data ? JSON.parse(data) : [];
@@ -135,10 +152,7 @@ function saveWorkouts(workouts) {
   localStorage.setItem('fittrack_workouts', JSON.stringify(workouts));
 }
 
-// ==========================================
 // RENDER FUNCTIONS
-// ==========================================
-
 function renderAll() {
   renderWorkoutList();
   renderWeeklySummary();
@@ -208,19 +222,9 @@ function renderWeeklySummary() {
   const favorite = sortedTypes[0];
 
   document.getElementById('favorite-type').textContent = favorite ? favorite[0] : '-';
-
-  console.log('Weekly summary updated:', {
-    workouts: weeklyWorkouts.length,
-    minutes: totalMinutes,
-    topActivity: favorite ? favorite[0] : 'none',
-    breakdown: typeMinutes,
-  });
 }
 
-// ==========================================
 // UTILITIES
-// ==========================================
-
 function formatDate(dateString) {
   // Parse as local time by appending T00:00:00 to avoid timezone shift
   const date = new Date(dateString + 'T00:00:00');
@@ -228,9 +232,7 @@ function formatDate(dateString) {
   return date.toLocaleDateString('en-US', options);
 }
 
-// ==========================================
 // SEED DATA (for demo purposes)
-// ==========================================
 function seedDemoData() {
   const existing = getWorkouts();
   if (existing.length === 0) {

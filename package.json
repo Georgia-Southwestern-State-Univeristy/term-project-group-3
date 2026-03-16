@@ -28,5 +28,8 @@
   "homepage": "https://github.com/Georgia-Southwestern-State-Univeristy/term-project-group-3#readme",
   "engines": {
     "node": ">=14.0.0"
+  },
+  "devDependencies": {
+    "prettier": "^3.8.1"
   }
 }

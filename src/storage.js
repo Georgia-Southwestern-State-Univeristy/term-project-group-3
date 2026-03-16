@@ -2,14 +2,33 @@ const Storage = {
   STORAGE_KEY: 'fittrack_workouts_v1',
 
   saveWorkout(workout) {
-    const workouts = this.getWorkouts();
-    workouts.push({
-      ...workout,
-      id: Date.now(),
-      createdAt: new Date().toISOString(),
-    });
-    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(workouts));
-    return true;
+    try {
+      const workouts = this.getWorkouts();
+      workouts.push({
+        ...workout,
+        id: Date.now(),
+        createdAt: new Date().toISOString(),
+      });
+      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(workouts));
+      return { success: true, id: workouts[workouts.length - 1].id };
+    } catch (error) {
+      console.error('Storage save failed:', error);
+      
+      // Check for quota exceeded error (Issue #2)
+      if (error.name === 'QuotaExceededError' || 
+          error.code === 22 || 
+          error.code === 1014) {
+        return { 
+          success: false, 
+          error: 'Storage quota exceeded. Please clear some data or try again.'
+        };
+      }
+      
+      return { 
+        success: false, 
+        error: 'Failed to save workout. Please try again.'
+      };
+    }
   },
 
   getWorkouts() {

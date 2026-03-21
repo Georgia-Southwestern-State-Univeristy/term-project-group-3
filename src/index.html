@@ -3,22 +3,237 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FitTrack - Hello Path</title>
+    <title>FitTrack - Activity Logger</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: 'Segoe UI', Arial, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+      }
+      .container {
+        background: white;
+        border-radius: 12px;
+        padding: 25px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      }
+      h1 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 5px;
+      }
+      .subtitle {
+        text-align: center;
+        color: #666;
+        margin-bottom: 20px;
+      }
+
+      /* Form Section */
+      .form-section {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+      }
+      .form-row {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      input,
+      select {
+        padding: 12px;
+        border: 2px solid #ddd;
+        border-radius: 6px;
+        font-size: 14px;
+        flex: 1;
+        min-width: 120px;
+      }
+      input:focus,
+      select:focus {
+        border-color: #667eea;
+        outline: none;
+      }
+      .btn {
+        padding: 12px 24px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: bold;
+        transition: 0.2s;
+      }
+      .btn-primary {
+        background: #667eea;
+        color: white;
+      }
+      .btn-primary:hover {
+        background: #5a6fd6;
+      }
+      .btn-success {
+        background: #4caf50;
+        color: white;
+      }
+      .btn-danger {
+        background: #ff4444;
+        color: white;
+      }
+      .btn-danger:hover {
+        background: #cc0000;
+      }
+      .btn-secondary {
+        background: #6c757d;
+        color: white;
+        margin-left: 10px;
+      }
+
+      /* Weekly Summary */
+      .summary-section {
+        background: #e3f2fd;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+      }
+      .summary-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+        margin-top: 15px;
+      }
+      .summary-card {
+        background: white;
+        padding: 15px;
+        border-radius: 8px;
+        text-align: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .summary-number {
+        font-size: 32px;
+        font-weight: bold;
+        color: #667eea;
+      }
+      .summary-label {
+        font-size: 12px;
+        color: #666;
+        text-transform: uppercase;
+      }
+
+      /* Workout List */
+      .workout-list {
+        margin-top: 20px;
+      }
+      .workout-item {
+        background: #f8f9fa;
+        padding: 15px;
+        margin: 10px 0;
+        border-radius: 8px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-left: 4px solid #667eea;
+      }
+      .workout-info {
+        flex: 1;
+      }
+      .workout-info strong {
+        color: #333;
+        font-size: 16px;
+      }
+      .workout-info small {
+        color: #666;
+      }
+      .workout-actions {
+        display: flex;
+        gap: 10px;
+      }
+
+      /* Edit Form */
+      .edit-form {
+        background: #fff3cd;
+        padding: 15px;
+        border-radius: 8px;
+        margin: 10px 0;
+        border: 2px solid #ffc107;
+      }
+
+      .empty-state {
+        text-align: center;
+        padding: 40px;
+        color: #999;
+      }
+
+      /* Debug info */
+      .debug-info {
+        font-size: 11px;
+        color: #999;
+        text-align: center;
+        margin-top: 20px;
+      }
+    </style>
   </head>
   <body>
     <div class="container">
-      <h1>FitTrack</h1>
-      <p id="status">Loading...</p>
+      <h1>🏃‍♂️ FitTrack</h1>
+      <p class="subtitle">Log any activity in 10 seconds</p>
 
-      <form id="workout-form">
-        <input type="text" id="workout-name" placeholder="Workout name" required />
-        <button type="submit">Save Workout</button>
-      </form>
+      <!-- Add Workout Form -->
+      <div class="form-section">
+        <h3>➕ Add New Workout</h3>
+        <form id="workout-form" class="form-row">
+          <input type="date" id="date" required />
+          <select id="type" required>
+            <option value="">Select Activity</option>
+            <option value="Running">🏃 Running</option>
+            <option value="Cycling">🚴 Cycling</option>
+            <option value="Swimming">🏊 Swimming</option>
+            <option value="Weights">🏋️ Weights</option>
+            <option value="Yoga">🧘 Yoga</option>
+            <option value="Walking">🚶 Walking</option>
+          </select>
+          <input type="number" id="duration" placeholder="Minutes" min="1" required />
+          <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+      </div>
 
-      <div id="workout-list"></div>
+      <!-- Weekly Summary -->
+      <div class="summary-section">
+        <h3>📊 Weekly Summary</h3>
+        <div class="summary-grid">
+          <div class="summary-card">
+            <div class="summary-number" id="total-workouts">0</div>
+            <div class="summary-label">Total Workouts</div>
+          </div>
+          <div class="summary-card">
+            <div class="summary-number" id="total-minutes">0</div>
+            <div class="summary-label">Total Minutes</div>
+          </div>
+          <div class="summary-card">
+            <div class="summary-number" id="favorite-type">-</div>
+            <div class="summary-label">Top Activity</div>
+          </div>
+          <div class="summary-card">
+            <div class="summary-number" id="avg-duration">0</div>
+            <div class="summary-label">Avg Minutes</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Workout List -->
+      <div class="workout-list">
+        <h3>📝 Your Workouts</h3>
+        <div id="workouts-container">
+          <div class="empty-state">No workouts yet. Add one above!</div>
+        </div>
+      </div>
+
+      <p class="debug-info">Data stored locally in your browser • Refresh to test persistence</p>
     </div>
 
-    <script src="js/storage.js"></script>
-    <script src="js/app.js"></script>
+    <script src="app.js"></script>
   </body>
 </html>

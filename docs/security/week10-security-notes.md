@@ -73,9 +73,9 @@ Unauthorized users are redirected to login page.
 
 PR Links:
 
-- [PR link for validation]
-- [PR link for auth]
-- [PR link for bug fix]
+- https://github.com/Georgia-Southwestern-State-Univeristy/term-project-group-3/pull/65 (validation)
+- https://github.com/Georgia-Southwestern-State-Univeristy/term-project-group-3/pull/65 (auth)
+- https://github.com/Georgia-Southwestern-State-Univeristy/term-project-group-3/pull/65 (bug fix)
 
 Before/After Behavior:
 

@@ -1,43 +1,18 @@
 {
-  "name": "fittrack",
-  "version": "3.0.0",
+  "name": "fittrack-activity-logger",
+  "version": "1.0.0",
   "description": "FitTrack Activity Logger - Client SPA with localStorage",
   "main": "index.html",
   "scripts": {
-<<<<<<< HEAD
-  "start": "npx live-server ./ --port=3000 --open=/",
-  "test": "node --test tests/*.test.js",
-  "lint": "eslint .",
-  "build": "echo 'No build step needed for vanilla JS'",
-  "format:check": "npx prettier --check \"docs/**/*.md\" \"src/**/*.js\" \"src/**/*.html\" \"src/**/*.json\"",
-  "format:fix": "npx prettier --write \"docs/**/*.md\" \"src/**/*.js\" \"src/**/*.html\" \"src/**/*.json\""
-}
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Georgia-Southwestern-State-Univeristy/term-project-group-3.git"
-=======
     "start": "npx live-server ./ --port=3000 --open=/",
     "test": "node --test tests/*.test.js",
     "lint": "eslint .",
-    "build": "echo 'No build step needed for vanilla JS'",
-    "format:check": "npx prettier --check \"docs/**/*.md\" \"src/**/*.js\" \"src/**/*.html\" \"*.json\"",
-    "format:fix": "npx prettier --write \"docs/**/*.md\" \"src/**/*.js\" \"src/**/*.html\" \"*.json\""
->>>>>>> 3a7f7f2 (Fix package.json scripts for Prettier and CI)
+    "build": "echo \"No build step needed for vanilla JS\"",
+    "format:check": "npx prettier --check \"docs/**/*.md\" \"src/**/*.js\" \"src/**/*.html\" \"src/**/*.json\"",
+    "format:fix": "npx prettier --write \"docs/**/*.md\" \"src/**/*.js\" \"src/**/*.html\" \"src/**/*.json\""
   },
-  "keywords": [
-    "fitness",
-    "activity-tracker",
-    "localstorage",
-    "spa",
-    "javascript"
-  ],
-  "author": "Group 3",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Georgia-Southwestern-State-Univeristy/term-project-group-3/issues"
-  },
-  "homepage": "https://github.com/Georgia-Southwestern-State-Univeristy/term-project-group-3#readme",
-  "engines": {
-    "node": ">=14.0.0"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Georgia-Southwestern-State-Univeristy/term-project-group-3.git"
   }
 }

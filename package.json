@@ -14,5 +14,24 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Georgia-Southwestern-State-Univeristy/term-project-group-3.git"
+  },
+  "keywords": [
+    "fitness",
+    "activity-tracker",
+    "localstorage",
+    "spa",
+    "javascript"
+  ],
+  "author": "Group 3",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Georgia-Southwestern-State-Univeristy/term-project-group-3/issues"
+  },
+  "homepage": "https://github.com/Georgia-Southwestern-State-Univeristy/term-project-group-3#readme",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "devDependencies": {
+    "prettier": "^3.8.1"
   }
 }

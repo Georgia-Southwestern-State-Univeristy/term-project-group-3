@@ -4,7 +4,7 @@
   "description": "FitTrack Activity Logger - Client SPA with localStorage",
   "main": "index.html",
   "scripts": {
-    "start": "npx live-server ./ --port=3000 --open=/",
+    "start": "npx live-server ./index.html --port=3000",
     "test": "node --test tests/*.test.js",
     "lint": "eslint .",
     "build": "echo \"No build step needed for vanilla JS\"",
@@ -15,3 +15,4 @@
     "type": "git",
     "url": "git+https://github.com/Georgia-Southwestern-State-Univeristy/term-project-group-3.git"
   }
+}

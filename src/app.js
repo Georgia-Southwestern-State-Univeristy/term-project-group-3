@@ -78,6 +78,20 @@ function addWorkout() {
   durationInput.value = '';
 
   renderAll();
+
+  // UX 2
+  const submitBtn = document.querySelector('#workout-form button[type="submit"]');
+  if (submitBtn) {
+    const originalText = submitBtn.innerText;
+    submitBtn.innerText = '✅ Saved!';
+    setTimeout(() => {
+      submitBtn.innerText = originalText;
+    }, 2000);
+  }
+
+  // UX 2
+  const typeField = document.getElementById('type');
+  if (typeField) typeField.focus();
 }
 
 function deleteWorkout(id) {

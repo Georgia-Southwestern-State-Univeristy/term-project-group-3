@@ -8,7 +8,7 @@
     "test": "node --test tests/*.test.js",
     "lint": "eslint .",
     "build": "echo \"No build step needed for vanilla JS\"",
-    "format:check": "npx prettier --check \"docs/**/*.md\" \"src/**/*.js\" \"src/**/*.html\" \"src/**/*.json\"",
+    "format:check": "prettier --check ."
     "format:fix": "npx prettier --write \"docs/**/*.md\" \"src/**/*.js\" \"src/**/*.html\" \"src/**/*.json\""
   },
   "repository": {

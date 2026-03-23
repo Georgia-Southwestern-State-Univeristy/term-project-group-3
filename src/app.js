@@ -105,7 +105,7 @@ function startEdit(id) {
         <div class="edit-form">
             <div class="form-row">
                 <input type="date" id="edit-date-${id}" value="${workout.date}">
-                <select id="edit-type-${id}">
+                 <select id="edit-type-${id}">
                     <option value="Running" ${workout.type === 'Running' ? 'selected' : ''}>Running</option>
                     <option value="Cycling" ${workout.type === 'Cycling' ? 'selected' : ''}>Cycling</option>
                     <option value="Swimming" ${workout.type === 'Swimming' ? 'selected' : ''}>Swimming</option>
@@ -264,5 +264,3 @@ function seedDemoData() {
     console.log('Demo data loaded');
   }
 }
-
-// Uncomment for demo: seedDemoData();

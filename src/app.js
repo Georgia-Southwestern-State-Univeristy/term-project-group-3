@@ -78,20 +78,6 @@ function addWorkout() {
   durationInput.value = '';
 
   renderAll();
-
-  // UX 2
-  const submitBtn = document.querySelector('#workout-form button[type="submit"]');
-  if (submitBtn) {
-    const originalText = submitBtn.innerText;
-    submitBtn.innerText = '✅ Saved!';
-    setTimeout(() => {
-      submitBtn.innerText = originalText;
-    }, 2000);
-  }
-
-  // UX 2
-  const typeField = document.getElementById('type');
-  if (typeField) typeField.focus();
 }
 
 function deleteWorkout(id) {
@@ -119,7 +105,7 @@ function startEdit(id) {
         <div class="edit-form">
             <div class="form-row">
                 <input type="date" id="edit-date-${id}" value="${workout.date}">
-                <select id="edit-type-${id}">
+                 <select id="edit-type-${id}">
                     <option value="Running" ${workout.type === 'Running' ? 'selected' : ''}>Running</option>
                     <option value="Cycling" ${workout.type === 'Cycling' ? 'selected' : ''}>Cycling</option>
                     <option value="Swimming" ${workout.type === 'Swimming' ? 'selected' : ''}>Swimming</option>
@@ -278,5 +264,3 @@ function seedDemoData() {
     console.log('Demo data loaded');
   }
 }
-
-// Uncomment for demo: seedDemoData();

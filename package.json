@@ -1,13 +1,17 @@
 {
-  "name": "fittrack",
-  "version": "3.0.0",
+  "name": "fittrack-activity-logger",
+  "version": "1.0.0",
   "description": "FitTrack Activity Logger - Client SPA with localStorage",
   "main": "index.html",
   "scripts": {
-    "start": "npx live-server ./ --port=3000 --open=/",
-    "test": "node --test",
-    "format:check": "npx prettier --check \"**/*.{html,css,js,json,md}\"",
-    "format": "prettier --write \"**/*.{html,css,js,json,md}\""
+    "start": "npx live-server ./index.html --port=3000",
+    "test": "node --test tests/*.test.js",
+    "lint": "eslint .",
+    "build": "echo \"No build step needed for vanilla JS\"",
+    "format:check": "npx prettier --check \"docs/**/*.md\" \"src/**/*.{js,html}\"",
+    "format:fix": "npx prettier --write \"docs/**/*.md\" \"src/**/*.js\" \"src/**/*.html\" \"src/**/*.json\"",
+    "format:check": "npx prettier --check \"docs/**/*.md\" \"src/**/*.{js,html}\"",
+    "format:fix": "npx prettier --write \"docs/**/*.md\" \"src/**/*.{js,html}\""
   },
   "repository": {
     "type": "git",

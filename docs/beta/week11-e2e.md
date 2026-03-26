@@ -8,26 +8,26 @@ User logs a workout, views it in the dashboard, edits the workout, and confirms 
 
 ## Entry Point and User Role
 
-* Entry Point: Workout logging interface (main application page)
-* User Role: General user (no authentication required)
+- Entry Point: Workout logging interface (main application page)
+- User Role: General user (no authentication required)
 
 ---
 
 ## System Components Involved
 
-* Single Page Application (HTML, CSS, JavaScript)
-* Browser localStorage (Web Storage API)
-* UI rendering and DOM manipulation logic
-* JSON data parsing and serialization
+- Single Page Application (HTML, CSS, JavaScript)
+- Browser localStorage (Web Storage API)
+- UI rendering and DOM manipulation logic
+- JSON data parsing and serialization
 
 ---
 
 ## Expected Output / System State
 
-* Newly created workout appears in the dashboard
-* Edited workout replaces the previous version
-* All workout data persists after page refresh
-* No application errors occur during the workflow
+- Newly created workout appears in the dashboard
+- Edited workout replaces the previous version
+- All workout data persists after page refresh
+- No application errors occur during the workflow
 
 ---
 
@@ -46,13 +46,12 @@ User logs a workout, views it in the dashboard, edits the workout, and confirms 
 
 ## Evidence
 
-* PR Links: [#64 Fix/issue 2 write storage failures code update] (https://github.com/Georgia-Southwestern-State-Univeristy/term-project-group-3/pull/64)
-* CI Run: [Passing CI for PR #64] (https://github.com/Georgia-Southwestern-State-Univeristy/term-project-group-3/actions/runs/23147688045)
-* Screenshots / Notes:
-
-  * Dashboard displays saved workout
-  * Edited workout reflects updated values
-  * Data persists after refresh without loss
+- PR Links: [#64 Fix/issue 2 write storage failures code update] (https://github.com/Georgia-Southwestern-State-Univeristy/term-project-group-3/pull/64)
+- CI Run: [Passing CI for PR #64] (https://github.com/Georgia-Southwestern-State-Univeristy/term-project-group-3/actions/runs/23147688045)
+- Screenshots / Notes:
+  - Dashboard displays saved workout
+  - Edited workout reflects updated values
+  - Data persists after refresh without loss
 
 ---
 

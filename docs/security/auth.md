@@ -18,11 +18,13 @@ Access is enforced using the requireAuth middleware, which checks for a valid se
 
 Role Model
 
-    User: Authenticated user who can create and manage their own goals
+    User: Authenticated user with a session. Can create and manage their own goals.
 
     Admin: Not implemented in this release (future enhancement)
 
-Currently, all authenticated users have the same permissions.
+    Currently, all authenticated users have the same permissions.
+
+    Anonymous users cannot access protected routes without login.
 
 Access Control Rules Enforced
 
@@ -30,13 +32,13 @@ Access Control Rules Enforced
 
     Server checks: if (!req.session.userId) → respond with 401 Unauthorized
 
-    Evidence: PR #12, commit a1b2c3d
+    Evidence: PR #66, commit 7f59816
 
     Only the goal owner can delete a goal
 
     Server checks: if (goal.userId !== req.session.userId) → respond with 403 Forbidden
 
-    Evidence: PR #15, commit e4f5g6h
+Evidence: PR #66, commit 7f59816
 
 Minimum bar met: Protection is enforced server-side. Unauthorized requests are rejected with proper HTTP status codes — not just UI hidden.
 
@@ -50,11 +52,11 @@ Security Assumptions and Limitations
 
     Limitation: No CSRF protection implemented yet
 
-    Limitation: Passwords are hashed with bcrypt (good), but no 2FA or account lockout
+    Limitation: Passwords are hashed with bcrypt, but no 2FA or account lockout
 
 Evidence
 
-    PR #1: Add session-based authentication and requireAuth middleware – implements login session and protects /api/goals
+    PR #66: Add session-based authentication and requireAuth middleware – implements login session and protects /api/goals
 
     PR #2: Add ownership check on goal deletion – ensures users can only delete their own goals
 
@@ -65,3 +67,25 @@ Demo Notes
     When user tries to delete another user’s goal (via direct API call), server returns 403 Forbidden
 
     These checks are made in route handlers before database operations
+
+\*\*\*Security Assumptions and Limitations
+
+Assumptions:
+
+    Sessions are stored server-side securely.
+
+    The SESS_SECRET is kept confidential and is cryptographically strong.
+
+    The app runs behind HTTPS in production (not just HTTP).
+
+    User IDs from the session are trusted (sanitized on login).
+
+Limitations:
+
+    No rate limiting on login attempts.
+
+    No account lockout or 2FA.
+
+    Session timeout is not explicitly configured.
+
+    No admin role or granular permissions.

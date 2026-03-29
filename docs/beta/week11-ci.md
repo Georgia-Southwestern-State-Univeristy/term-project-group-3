@@ -11,5 +11,5 @@ Failure-Path Regression Test: Verifies that the application gracefully catches t
 ## 2. CI Stability & Evidence
 
 Confirming that the primary user workflow remains stable and our error handling functions as expected.
-GitHub Actions CI Run:
-Pull Request Link:
+GitHub Actions CI Run: https://github.com/Georgia-Southwestern-State-Univeristy/term-project-group-3/actions/runs/23715544046
+Pull Request Link: https://github.com/Georgia-Southwestern-State-Univeristy/term-project-group-3/pull/72

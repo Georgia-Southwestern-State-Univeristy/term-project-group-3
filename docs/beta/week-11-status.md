@@ -1,10 +1,11 @@
 Week 11: Reliability Improvements
 
 We identified and resolved three failure points to improve system resilience and user trust.
+
 1. CI Fails Due to Incorrect File Glob Pattern
 
 Before:
-Running npx prettier --check "src/**/*.json" caused CI to fail with:
+Running npx prettier --check "src/\*_/_.json" caused CI to fail with:
 [error] No files matching the pattern were found
 Even when no .json files were changed, this was confusing (no root cause shown) and blocked
 PRs from merging.
@@ -18,7 +19,7 @@ Updated script in package.json to only check real source files:
 json
 copy
 download
-"format:check": "npx prettier --check \"docs/**/*.md\" \"src/**/*.{js,html}\""
+"format:check": "npx prettier --check \"docs/**/\*.md\" \"src/**/\*.{js,html}\""
 
 After: CI now runs fast and only reports real formatting issues. No more false failures.
 

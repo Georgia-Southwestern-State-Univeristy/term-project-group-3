@@ -1,6 +1,7 @@
 # FitTrack Beta Release v0.1
 
 ## Release Information
+
 - **Release Name:** FitTrack Beta
 - **Tag:** beta-v0.1
 - **Release Date:** 2026-04-03

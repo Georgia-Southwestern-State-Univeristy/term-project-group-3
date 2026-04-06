@@ -16,10 +16,12 @@ document.addEventListener('DOMContentLoaded', function () {
   renderAll();
 
   // Handle form submission (Add)
-  document.getElementById('workout-form').addEventListener('submit', function (e) {
-    e.preventDefault();
-    addWorkout();
-  });
+  document
+    .getElementById('workout-form')
+    .addEventListener('submit', function (e) {
+      e.preventDefault();
+      addWorkout();
+    });
 
   if (typeof render === 'function') {
     render();
@@ -63,7 +65,10 @@ function addWorkout() {
   };
 
   // ACTION LOG: Save Workout
-  console.log(`[${new Date().toISOString()}] [ACTION: LOG_WORKOUT] Attempting to save:`, workout);
+  console.log(
+    `[${new Date().toISOString()}] [ACTION: LOG_WORKOUT] Attempting to save:`,
+    workout
+  );
 
   let workouts = getWorkouts();
   workouts.push(workout);
@@ -84,7 +89,7 @@ function deleteWorkout(id) {
   if (!confirm('Are you sure you want to delete this workout?')) return;
 
   let workouts = getWorkouts();
-  workouts = workouts.filter(w => w.id !== id);
+  workouts = workouts.filter((w) => w.id !== id);
   saveWorkouts(workouts);
 
   renderAll();
@@ -97,7 +102,7 @@ function deleteWorkout(id) {
 
 function startEdit(id) {
   const workouts = getWorkouts();
-  const workout = workouts.find(w => w.id === id);
+  const workout = workouts.find((w) => w.id === id);
   if (!workout) return;
 
   const container = document.getElementById(`workout-${id}`);
@@ -124,7 +129,9 @@ function startEdit(id) {
 function saveEdit(id) {
   const date = document.getElementById(`edit-date-${id}`).value;
   const type = document.getElementById(`edit-type-${id}`).value;
-  const duration = parseInt(document.getElementById(`edit-duration-${id}`).value);
+  const duration = parseInt(
+    document.getElementById(`edit-duration-${id}`).value
+  );
 
   if (!date || !type || !duration) {
     alert('Please fill all fields');
@@ -132,13 +139,16 @@ function saveEdit(id) {
   }
 
   let workouts = getWorkouts();
-  const index = workouts.findIndex(w => w.id === id);
+  const index = workouts.findIndex((w) => w.id === id);
 
   if (index !== -1) {
     workouts[index] = { ...workouts[index], date, type, duration };
     saveWorkouts(workouts);
     renderAll();
-    console.log(`[${new Date().toISOString()}] [ACTION: EDIT_WORKOUT] Workout edited:`, id);
+    console.log(
+      `[${new Date().toISOString()}] [ACTION: EDIT_WORKOUT] Workout edited:`,
+      id
+    );
   }
 }
 
@@ -163,7 +173,8 @@ function renderWorkoutList() {
   const container = document.getElementById('workouts-container');
 
   if (workouts.length === 0) {
-    container.innerHTML = '<div class="empty-state">No workouts yet. Add one above!</div>';
+    container.innerHTML =
+      '<div class="empty-state">No workouts yet. Add one above!</div>';
     return;
   }
 
@@ -176,7 +187,7 @@ function renderWorkoutList() {
 
   container.innerHTML = sorted
     .map(
-      w => `
+      (w) => `
         <div class="workout-item" id="workout-${w.id}">
             <div class="workout-info">
                 <strong>${w.type}</strong><br>
@@ -200,28 +211,36 @@ function renderWeeklySummary() {
   const sevenDaysAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
   sevenDaysAgo.setHours(0, 0, 0, 0);
 
-  const weeklyWorkouts = allWorkouts.filter(w => {
+  const weeklyWorkouts = allWorkouts.filter((w) => {
     const workoutDate = new Date(w.date + 'T00:00:00');
     return workoutDate >= sevenDaysAgo && workoutDate <= today;
   });
 
   document.getElementById('total-workouts').textContent = weeklyWorkouts.length;
 
-  const totalMinutes = weeklyWorkouts.reduce((sum, w) => sum + (w.duration || 0), 0);
+  const totalMinutes = weeklyWorkouts.reduce(
+    (sum, w) => sum + (w.duration || 0),
+    0
+  );
   document.getElementById('total-minutes').textContent = totalMinutes;
 
-  const avg = weeklyWorkouts.length > 0 ? Math.round(totalMinutes / weeklyWorkouts.length) : 0;
+  const avg =
+    weeklyWorkouts.length > 0
+      ? Math.round(totalMinutes / weeklyWorkouts.length)
+      : 0;
   document.getElementById('avg-duration').textContent = avg;
 
   const typeMinutes = {};
-  weeklyWorkouts.forEach(w => {
+  weeklyWorkouts.forEach((w) => {
     typeMinutes[w.type] = (typeMinutes[w.type] || 0) + (w.duration || 0);
   });
 
   const sortedTypes = Object.entries(typeMinutes).sort((a, b) => b[1] - a[1]);
   const favorite = sortedTypes[0];
 
-  document.getElementById('favorite-type').textContent = favorite ? favorite[0] : '-';
+  document.getElementById('favorite-type').textContent = favorite
+    ? favorite[0]
+    : '-';
 }
 
 // UTILITIES

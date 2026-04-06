@@ -30,7 +30,13 @@ These tests help protect us from reintroducing old bugs. For example, last week 
 
 Our project uses GitHub Actions to run tests automatically whenever code is pushed. This helps catch problems before they reach users.
 
-I will provide a link later with a real run after pushing these changes.
+**CI Status**: All checks passed
+
+**Link**
+
+https://github.com/Georgia-Southwestern-State-Univeristy/term-project-group-3/actions/runs/24048605448/job/70138235198?pr=79
+
+**Commit**: Auto-formatted with Prettier, staged and pushed.
 
 ## New Tests Added This Week
 

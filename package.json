@@ -4,14 +4,12 @@
   "description": "FitTrack Activity Logger - Client SPA with localStorage",
   "main": "index.html",
   "scripts": {
-    "start": "npx live-server ./index.html --port=3000",
+    "start": "npx live-server src --port=3000",
     "test": "node --test tests/*.test.js",
     "lint": "eslint .",
     "build": "echo \"No build step needed for vanilla JS\"",
     "format:check": "npx prettier --check \"docs/**/*.md\" \"src/**/*.{js,html}\"",
-    "format:fix": "npx prettier --write \"docs/**/*.md\" \"src/**/*.js\" \"src/**/*.html\" \"src/**/*.json\"",
-    "format:check": "npx prettier --check \"docs/**/*.md\" \"src/**/*.{js,html}\"",
-    "format:fix": "npx prettier --write \"docs/**/*.md\" \"src/**/*.{js,html}\""
+    "format:fix": "npx prettier --write \"docs/**/*.md\" \"src/**/*.{js,html,json}\""
   },
   "repository": {
     "type": "git",

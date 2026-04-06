@@ -30,7 +30,13 @@ These tests help protect us from reintroducing old bugs. For example, last week 
 
 Our project uses GitHub Actions to run tests automatically whenever code is pushed. This helps catch problems before they reach users.
 
-I will provide a link later with a real run after pushing these changes.
+**CI Status**: All checks passed
+
+**Link**
+
+https://github.com/Georgia-Southwestern-State-Univeristy/term-project-group-3/actions/runs/24048605448/job/70138235198?pr=79
+
+**Commit**: Auto-formatted with Prettier, staged and pushed.
 
 ## New Tests Added This Week
 
@@ -55,7 +61,11 @@ We are testing these manually for now, but I know we should automate them eventu
 This week, we fixed a bug where users could accidentally save the same workout twice. To make sure it doesn’t come back:
 
 - I wrote a new test called "should prevent saving duplicate workouts"
+
 - I updated the saveWorkout function to check for existing entries before saving
+
 - Now the test fails if duplicates get through
 
 Having this test gives me more confidence when changing other parts of the code.
+
+<!-- Committed by C0D3-Y on 2026-04-06 -->

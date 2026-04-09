@@ -24,4 +24,4 @@
 
 ## Evidence
 
-- **Passing CI Pipeline:** [Insert Link to your passing GitHub Actions run here]
+- **Passing CI Pipeline:** https://github.com/Georgia-Southwestern-State-Univeristy/term-project-group-3/pull/80

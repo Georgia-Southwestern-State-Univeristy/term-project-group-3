@@ -24,4 +24,4 @@
 
 ## Evidence
 
-- **Passing CI Pipeline:**
+- **Passing CI Pipeline:** https://github.com/Georgia-Southwestern-State-Univeristy/term-project-group-3/pull/81

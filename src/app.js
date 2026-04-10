@@ -1,6 +1,8 @@
-// FitTrack - Stable Version (No test hacks)
+// FitTrack App
 
 document.addEventListener('DOMContentLoaded', function () {
+  console.log('FitTrack loaded');
+
   const dateField = document.getElementById('date');
   if (dateField) {
     dateField.valueAsDate = new Date();
@@ -18,32 +20,60 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function addWorkout() {
-  const date = document.getElementById('date')?.value;
-  const type = document.getElementById('type')?.value;
-  const duration = parseInt(document.getElementById('duration')?.value, 10);
+  const dateInput = document.getElementById('date');
+  const typeInput = document.getElementById('type');
+  const durationInput = document.getElementById('duration');
 
-  if (!date || !type || !duration) {
-    alert('Please fill all fields correctly.');
+  const date = dateInput.value;
+  const type = typeInput.value.trim();
+  const duration = parseInt(durationInput.value, 10);
+
+  // Validation
+  if (!date || !type || !durationInput.value) {
+    console.error('Missing required fields');
+    alert('Please fill all fields.');
+    return;
+  }
+
+  if (Number.isNaN(duration) || duration <= 0) {
+    console.error('Invalid duration');
+    alert('Duration must be greater than 0.');
     return;
   }
 
   const workout = { date, type, duration };
 
-  Storage.saveWorkout(workout);
+  console.log('Saving workout:', workout);
 
-  document.getElementById('workout-form')?.reset();
+  const saved = Storage.saveWorkout(workout);
+
+  if (!saved) {
+    alert('Failed to save workout.');
+    return;
+  }
+
+  const lastDate = dateInput.value;
+  document.getElementById('workout-form').reset();
+  dateInput.value = lastDate;
 
   renderAll();
 }
 
 function deleteWorkout(id) {
-  Storage.deleteWorkoutById(id);
+  const success = Storage.deleteWorkoutById(id);
+
+  if (!success) {
+    alert('Delete failed.');
+    return;
+  }
+
   renderAll();
 }
 
 function startEdit(id) {
   const workouts = Storage.getWorkouts();
-  const workout = workouts.find((w) => w.id === id);
+  const workout = workouts.find(w => w.id === id);
+
   if (!workout) return;
 
   const container = document.getElementById(`workout-${id}`);
@@ -58,16 +88,24 @@ function startEdit(id) {
 }
 
 function saveEdit(id) {
-  const date = document.getElementById(`edit-date-${id}`)?.value;
-  const type = document.getElementById(`edit-type-${id}`)?.value;
+  const date = document.getElementById(`edit-date-${id}`).value;
+  const type = document.getElementById(`edit-type-${id}`).value.trim();
   const duration = parseInt(
-    document.getElementById(`edit-duration-${id}`)?.value,
+    document.getElementById(`edit-duration-${id}`).value,
     10
   );
 
-  if (!date || !type || !duration) return;
+  if (!date || !type || Number.isNaN(duration) || duration <= 0) {
+    alert('Invalid input');
+    return;
+  }
 
-  Storage.updateWorkoutById(id, { date, type, duration });
+  const updated = Storage.updateWorkoutById(id, { date, type, duration });
+
+  if (!updated) {
+    alert('Update failed.');
+    return;
+  }
 
   renderAll();
 }
@@ -90,7 +128,7 @@ function renderWorkoutList() {
 
   container.innerHTML = workouts
     .map(
-      (w) => `
+      w => `
         <div id="workout-${w.id}">
           <strong>${w.type}</strong> - ${w.duration} min
           <button onclick="startEdit(${w.id})">Edit</button>
@@ -111,7 +149,10 @@ function renderWeeklySummary() {
     totalWorkoutsEl.textContent = workouts.length;
   }
 
-  const totalMinutes = workouts.reduce((sum, w) => sum + (w.duration || 0), 0);
+  const totalMinutes = workouts.reduce(
+    (sum, w) => sum + (w.duration || 0),
+    0
+  );
 
   if (totalMinutesEl) {
     totalMinutesEl.textContent = totalMinutes;

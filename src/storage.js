@@ -1,29 +1,6 @@
 const Storage = {
   STORAGE_KEY: 'fittrack_workouts_v1',
 
-  getWorkouts() {
-    try {
-      const data = localStorage.getItem(this.STORAGE_KEY);
-      if (!data) return [];
-
-      const workouts = JSON.parse(data);
-      return Array.isArray(workouts) ? workouts : [];
-    } catch (error) {
-      console.error('Error reading storage:', error);
-      return [];
-    }
-  },
-
-  saveAllWorkouts(workouts) {
-    try {
-      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(workouts));
-      return true;
-    } catch (error) {
-      console.error('Save failed:', error);
-      return false;
-    }
-  },
-
   saveWorkout(workout) {
     const workouts = this.getWorkouts();
 
@@ -33,47 +10,95 @@ const Storage = {
       createdAt: new Date().toISOString(),
     });
 
-    return this.saveAllWorkouts(workouts);
+    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(workouts));
+    return true;
   },
 
-  deleteWorkoutById(id) {
-    const workouts = this.getWorkouts();
-    const filtered = workouts.filter((w) => w.id !== id);
-    return this.saveAllWorkouts(filtered);
+  getWorkouts() {
+    const data = localStorage.getItem(this.STORAGE_KEY);
+
+    if (!data) {
+      return [];
+    }
+
+    try {
+      return JSON.parse(data);
+    } catch (e) {
+      console.error('Error parsing workouts from localStorage:', e);
+      return [];
+    }
   },
 
-  updateWorkoutById(id, updatedData) {
-    const workouts = this.getWorkouts();
-    const index = workouts.findIndex((w) => w.id === id);
+  deleteWorkout(index) {
+    try {
+      const workouts = this.getWorkouts();
+      workouts.splice(index, 1);
 
-    if (index === -1) return false;
+      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(workouts));
+      return true;
+    } catch (e) {
+      console.error('Storage delete failed:', e);
+      return false;
+    }
+  },
 
-    workouts[index] = {
-      ...workouts[index],
-      ...updatedData,
-      updatedAt: new Date().toISOString(),
-    };
+  updateWorkout(index, updatedData) {
+    try {
+      const workouts = this.getWorkouts();
 
-    return this.saveAllWorkouts(workouts);
+      workouts[index] = {
+        ...workouts[index],
+        ...updatedData,
+        updatedAt: new Date().toISOString(),
+      };
+
+      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(workouts));
+      return true;
+    } catch (e) {
+      console.error('Storage update failed:', e);
+      return false;
+    }
   },
 
   getWeeklyData() {
     const workouts = this.getWorkouts();
+    const now = new Date();
+    const oneWeekAgo = new Date(
+      now.getTime() - 7 * 24 * 60 * 60 * 1000
+    );
+
     const weeklyData = {};
 
+    // Initialize last 7 days
+    for (let i = 6; i >= 0; i--) {
+      const d = new Date(now.getTime() - i * 24 * 60 * 60 * 1000);
+      const dateKey = d.toISOString().split('T')[0];
+
+      weeklyData[dateKey] = {
+        count: 0,
+        workouts: [],
+      };
+    }
+
+    // Fill data
     workouts.forEach((w) => {
-      const dateKey = w.date;
-      if (!weeklyData[dateKey]) {
-        weeklyData[dateKey] = { count: 0, workouts: [] };
+      const workoutDate = new Date(w.createdAt);
+
+      if (workoutDate >= oneWeekAgo) {
+        const dateKey = workoutDate.toISOString().split('T')[0];
+
+        if (weeklyData[dateKey]) {
+          weeklyData[dateKey].count++;
+          weeklyData[dateKey].workouts.push(w.name);
+        }
       }
-      weeklyData[dateKey].count++;
-      weeklyData[dateKey].workouts.push(w.type);
     });
 
     return weeklyData;
   },
 };
 
+// For Node.js testing
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = Storage;
 }

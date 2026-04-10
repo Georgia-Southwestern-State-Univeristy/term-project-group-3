@@ -1,25 +1,28 @@
 // FitTrack - Complete App with localStorage
 // Features: Add, Edit, Delete, Weekly Summary
-// Includes: Beta Phase Observability & Logging
+// Includes: Week 13 Observability & Support Improvements
+
 document.addEventListener('DOMContentLoaded', function () {
   console.log('FitTrack loaded');
 
-  // ACTION LOG: App Initialization & History Load
   console.log(
-    `[${new Date().toISOString()}] [ACTION: LOAD_HISTORY] Successfully loaded workouts from localStorage.`
+    `[${new Date().toISOString()}] [ACTION: LOAD_HISTORY] App initialized and workout history requested.`
   );
 
-  // Set today's date as default
-  document.getElementById('date').valueAsDate = new Date();
+  const dateField = document.getElementById('date');
+  if (dateField) {
+    dateField.valueAsDate = new Date();
+  }
 
-  // Load and display workouts
   renderAll();
 
-  // Handle form submission (Add)
-  document.getElementById('workout-form').addEventListener('submit', function (e) {
-    e.preventDefault();
-    addWorkout();
-  });
+  const workoutForm = document.getElementById('workout-form');
+  if (workoutForm) {
+    workoutForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      addWorkout();
+    });
+  }
 
   if (typeof render === 'function') {
     render();
@@ -33,20 +36,18 @@ function addWorkout() {
   const durationInput = document.getElementById('duration');
 
   const date = dateInput.value;
-  const type = typeInput.value;
-  const duration = parseInt(durationInput.value);
+  const type = typeInput.value.trim();
+  const duration = parseInt(durationInput.value, 10);
 
-  // ERROR HANDLING: Failure Case 1 - Empty Fields
-  if (!date || !type || !duration) {
+  if (!date || !type || !durationInput.value) {
     console.error(
       `[${new Date().toISOString()}] [ERROR: VALIDATION] Failed to save: Missing required fields.`
     );
-    alert('Please fill all fields');
+    alert('Please fill all fields.');
     return;
   }
 
-  // ERROR HANDLING: Failure Case 2 - Invalid Duration
-  if (duration <= 0) {
+  if (Number.isNaN(duration) || duration <= 0) {
     console.error(
       `[${new Date().toISOString()}] [ERROR: VALIDATION] Failed to save: Invalid duration. User input: ${durationInput.value}`
     );
@@ -55,20 +56,22 @@ function addWorkout() {
   }
 
   const workout = {
-    id: Date.now(),
-    date: date,
-    type: type,
-    duration: duration,
-    created: new Date().toISOString(),
+    date,
+    type,
+    duration,
   };
 
-  // ACTION LOG: Save Workout
-  console.log(`[${new Date().toISOString()}] [ACTION: LOG_WORKOUT] Attempting to save:`, workout);
+  console.log(
+    `[${new Date().toISOString()}] [ACTION: LOG_WORKOUT] Attempting to save workout.`,
+    workout
+  );
 
-  let workouts = getWorkouts();
-  workouts.push(workout);
+  const saved = Storage.saveWorkout(workout);
 
-  saveWorkouts(workouts);
+  if (!saved) {
+    alert('Unable to save workout data right now.');
+    return;
+  }
 
   const lastUsedDate = dateInput.value;
   document.getElementById('workout-form').reset();
@@ -81,75 +84,96 @@ function addWorkout() {
 }
 
 function deleteWorkout(id) {
-  if (!confirm('Are you sure you want to delete this workout?')) return;
+  if (!confirm('Are you sure you want to delete this workout?')) {
+    return;
+  }
 
-  let workouts = getWorkouts();
-  workouts = workouts.filter(w => w.id !== id);
-  saveWorkouts(workouts);
+  const deleted = Storage.deleteWorkoutById(id);
 
-  renderAll();
+  if (!deleted) {
+    alert('Unable to delete workout right now.');
+    return;
+  }
 
-  // ACTION LOG: Delete Workout
   console.log(
     `[${new Date().toISOString()}] [ACTION: DELETE_WORKOUT] User deleted workout ID: ${id}`
   );
+
+  renderAll();
 }
 
 function startEdit(id) {
-  const workouts = getWorkouts();
+  const workouts = Storage.getWorkouts();
   const workout = workouts.find(w => w.id === id);
-  if (!workout) return;
+
+  if (!workout) {
+    console.error(
+      `[${new Date().toISOString()}] [ERROR: EDIT] Workout not found for edit. ID: ${id}`
+    );
+    return;
+  }
 
   const container = document.getElementById(`workout-${id}`);
+
+  if (!container) {
+    console.error(
+      `[${new Date().toISOString()}] [ERROR: UI] Workout container not found for edit. ID: ${id}`
+    );
+    return;
+  }
+
   container.innerHTML = `
-        <div class="edit-form">
-            <div class="form-row">
-                <input type="date" id="edit-date-${id}" value="${workout.date}">
-                 <select id="edit-type-${id}">
-                    <option value="Running" ${workout.type === 'Running' ? 'selected' : ''}>Running</option>
-                    <option value="Cycling" ${workout.type === 'Cycling' ? 'selected' : ''}>Cycling</option>
-                    <option value="Swimming" ${workout.type === 'Swimming' ? 'selected' : ''}>Swimming</option>
-                    <option value="Weights" ${workout.type === 'Weights' ? 'selected' : ''}>Weights</option>
-                    <option value="Yoga" ${workout.type === 'Yoga' ? 'selected' : ''}>Yoga</option>
-                    <option value="Walking" ${workout.type === 'Walking' ? 'selected' : ''}>Walking</option>
-                </select>
-                <input type="number" id="edit-duration-${id}" value="${workout.duration}" min="1">
-                <button class="btn btn-success" onclick="saveEdit(${id})">Save</button>
-                <button class="btn btn-secondary" onclick="renderAll()">Cancel</button>
-            </div>
-        </div>
-    `;
+    <div class="edit-form">
+      <div class="form-row">
+        <input type="date" id="edit-date-${id}" value="${workout.date}">
+        <select id="edit-type-${id}">
+          <option value="Running" ${workout.type === 'Running' ? 'selected' : ''}>Running</option>
+          <option value="Cycling" ${workout.type === 'Cycling' ? 'selected' : ''}>Cycling</option>
+          <option value="Swimming" ${workout.type === 'Swimming' ? 'selected' : ''}>Swimming</option>
+          <option value="Weights" ${workout.type === 'Weights' ? 'selected' : ''}>Weights</option>
+          <option value="Yoga" ${workout.type === 'Yoga' ? 'selected' : ''}>Yoga</option>
+          <option value="Walking" ${workout.type === 'Walking' ? 'selected' : ''}>Walking</option>
+        </select>
+        <input type="number" id="edit-duration-${id}" value="${workout.duration}" min="1">
+        <button class="btn btn-success" onclick="saveEdit(${id})">Save</button>
+        <button class="btn btn-secondary" onclick="renderAll()">Cancel</button>
+      </div>
+    </div>
+  `;
 }
 
 function saveEdit(id) {
   const date = document.getElementById(`edit-date-${id}`).value;
-  const type = document.getElementById(`edit-type-${id}`).value;
-  const duration = parseInt(document.getElementById(`edit-duration-${id}`).value);
+  const type = document.getElementById(`edit-type-${id}`).value.trim();
+  const durationInput = document.getElementById(`edit-duration-${id}`).value;
+  const duration = parseInt(durationInput, 10);
 
-  if (!date || !type || !duration) {
-    alert('Please fill all fields');
+  if (!date || !type || !durationInput) {
+    console.error(
+      `[${new Date().toISOString()}] [ERROR: VALIDATION] Failed to edit: Missing required fields.`
+    );
+    alert('Please fill all fields.');
     return;
   }
 
-  let workouts = getWorkouts();
-  const index = workouts.findIndex(w => w.id === id);
-
-  if (index !== -1) {
-    workouts[index] = { ...workouts[index], date, type, duration };
-    saveWorkouts(workouts);
-    renderAll();
-    console.log(`[${new Date().toISOString()}] [ACTION: EDIT_WORKOUT] Workout edited:`, id);
+  if (Number.isNaN(duration) || duration <= 0) {
+    console.error(
+      `[${new Date().toISOString()}] [ERROR: VALIDATION] Failed to edit: Invalid duration.`
+    );
+    alert('Duration must be a positive number greater than 0.');
+    return;
   }
-}
 
-// LOCALSTORAGE HELPERS
-function getWorkouts() {
-  const data = localStorage.getItem('fittrack_workouts');
-  return data ? JSON.parse(data) : [];
-}
+  const updated = Storage.updateWorkoutById(id, { date, type, duration });
 
-function saveWorkouts(workouts) {
-  localStorage.setItem('fittrack_workouts', JSON.stringify(workouts));
+  if (!updated) {
+    alert('Unable to update workout right now.');
+    return;
+  }
+
+  console.log(`[${new Date().toISOString()}] [ACTION: EDIT_WORKOUT] Workout edited:`, id);
+
+  renderAll();
 }
 
 // RENDER FUNCTIONS
@@ -159,16 +183,22 @@ function renderAll() {
 }
 
 function renderWorkoutList() {
-  const workouts = getWorkouts();
+  const workouts = Storage.getWorkouts();
   const container = document.getElementById('workouts-container');
 
-  if (workouts.length === 0) {
+  if (!container) {
+    console.error(
+      `[${new Date().toISOString()}] [ERROR: UI] Workouts container not found.`
+    );
+    return;
+  }
+
+  if (!workouts || workouts.length === 0) {
     container.innerHTML = '<div class="empty-state">No workouts yet. Add one above!</div>';
     return;
   }
 
-  // Sort by date (newest first) - parse as local date to avoid timezone issues
-  const sorted = workouts.sort((a, b) => {
+  const sorted = [...workouts].sort((a, b) => {
     const dateA = new Date(a.date + 'T00:00:00');
     const dateB = new Date(b.date + 'T00:00:00');
     return dateB - dateA;
@@ -176,57 +206,69 @@ function renderWorkoutList() {
 
   container.innerHTML = sorted
     .map(
-      w => `
-        <div class="workout-item" id="workout-${w.id}">
-            <div class="workout-info">
-                <strong>${w.type}</strong><br>
-                <small>${formatDate(w.date)} • ${w.duration} minutes</small>
-            </div>
-            <div class="workout-actions">
-                <button class="btn btn-primary" onclick="startEdit(${w.id})" style="padding: 8px 16px;">Edit</button>
-                <button class="btn btn-danger" onclick="deleteWorkout(${w.id})" style="padding: 8px 16px;">Delete</button>
-            </div>
+      workout => `
+        <div class="workout-item" id="workout-${workout.id}">
+          <div class="workout-info">
+            <strong>${workout.type}</strong><br>
+            <small>${formatDate(workout.date)} • ${workout.duration} minutes</small>
+          </div>
+          <div class="workout-actions">
+            <button class="btn btn-primary" onclick="startEdit(${workout.id})" style="padding: 8px 16px;">Edit</button>
+            <button class="btn btn-danger" onclick="deleteWorkout(${workout.id})" style="padding: 8px 16px;">Delete</button>
+          </div>
         </div>
-    `
+      `
     )
     .join('');
 }
 
 function renderWeeklySummary() {
-  const allWorkouts = getWorkouts();
+  const allWorkouts = Storage.getWorkouts();
 
   const today = new Date();
   today.setHours(23, 59, 59, 999);
+
   const sevenDaysAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
   sevenDaysAgo.setHours(0, 0, 0, 0);
 
-  const weeklyWorkouts = allWorkouts.filter(w => {
-    const workoutDate = new Date(w.date + 'T00:00:00');
+  const weeklyWorkouts = allWorkouts.filter(workout => {
+    const workoutDate = new Date(workout.date + 'T00:00:00');
     return workoutDate >= sevenDaysAgo && workoutDate <= today;
   });
 
-  document.getElementById('total-workouts').textContent = weeklyWorkouts.length;
+  const totalWorkoutsEl = document.getElementById('total-workouts');
+  const totalMinutesEl = document.getElementById('total-minutes');
+  const avgDurationEl = document.getElementById('avg-duration');
+  const favoriteTypeEl = document.getElementById('favorite-type');
 
-  const totalMinutes = weeklyWorkouts.reduce((sum, w) => sum + (w.duration || 0), 0);
-  document.getElementById('total-minutes').textContent = totalMinutes;
+  if (!totalWorkoutsEl || !totalMinutesEl || !avgDurationEl || !favoriteTypeEl) {
+    console.error(
+      `[${new Date().toISOString()}] [ERROR: UI] Weekly summary elements not found.`
+    );
+    return;
+  }
+
+  totalWorkoutsEl.textContent = weeklyWorkouts.length;
+
+  const totalMinutes = weeklyWorkouts.reduce((sum, workout) => sum + (workout.duration || 0), 0);
+  totalMinutesEl.textContent = totalMinutes;
 
   const avg = weeklyWorkouts.length > 0 ? Math.round(totalMinutes / weeklyWorkouts.length) : 0;
-  document.getElementById('avg-duration').textContent = avg;
+  avgDurationEl.textContent = avg;
 
   const typeMinutes = {};
-  weeklyWorkouts.forEach(w => {
-    typeMinutes[w.type] = (typeMinutes[w.type] || 0) + (w.duration || 0);
+  weeklyWorkouts.forEach(workout => {
+    typeMinutes[workout.type] = (typeMinutes[workout.type] || 0) + (workout.duration || 0);
   });
 
   const sortedTypes = Object.entries(typeMinutes).sort((a, b) => b[1] - a[1]);
   const favorite = sortedTypes[0];
 
-  document.getElementById('favorite-type').textContent = favorite ? favorite[0] : '-';
+  favoriteTypeEl.textContent = favorite ? favorite[0] : '-';
 }
 
 // UTILITIES
 function formatDate(dateString) {
-  // Parse as local time by appending T00:00:00 to avoid timezone shift
   const date = new Date(dateString + 'T00:00:00');
   const options = { weekday: 'short', month: 'short', day: 'numeric' };
   return date.toLocaleDateString('en-US', options);
@@ -234,7 +276,8 @@ function formatDate(dateString) {
 
 // SEED DATA (for demo purposes)
 function seedDemoData() {
-  const existing = getWorkouts();
+  const existing = Storage.getWorkouts();
+
   if (existing.length === 0) {
     const demoData = [
       {
@@ -242,25 +285,29 @@ function seedDemoData() {
         date: '2026-03-01',
         type: 'Running',
         duration: 30,
-        created: new Date().toISOString(),
+        createdAt: new Date().toISOString(),
       },
       {
         id: Date.now() - 2000,
         date: '2026-02-28',
         type: 'Cycling',
         duration: 45,
-        created: new Date().toISOString(),
+        createdAt: new Date().toISOString(),
       },
       {
         id: Date.now() - 3000,
         date: '2026-02-27',
         type: 'Yoga',
         duration: 20,
-        created: new Date().toISOString(),
+        createdAt: new Date().toISOString(),
       },
     ];
-    saveWorkouts(demoData);
-    renderAll();
-    console.log('Demo data loaded');
+
+    const saved = Storage.saveAllWorkouts(demoData);
+
+    if (saved) {
+      renderAll();
+      console.log('Demo data loaded');
+    }
   }
 }

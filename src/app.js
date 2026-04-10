@@ -38,7 +38,6 @@ main
   }
 });
 
-// CRUD OPERATIONS
 function addWorkout() {
   const dateInput = document.getElementById('date');
   const typeInput = document.getElementById('type');
@@ -218,7 +217,6 @@ main
   renderAll();
 }
 
-// RENDER FUNCTIONS
 function renderAll() {
   renderWorkoutList();
   renderWeeklySummary();
@@ -230,9 +228,7 @@ function renderWorkoutList() {
 
 week13-quality-maintainability
   if (!container) {
-    console.error(
-      `[${new Date().toISOString()}] [ERROR: UI] Workouts container not found.`
-    );
+    console.error(`[${new Date().toISOString()}] [ERROR: UI] Workouts container not found.`);
     return;
   }
 
@@ -306,9 +302,7 @@ main
 
 week13-quality-maintainability
   if (!totalWorkoutsEl || !totalMinutesEl || !avgDurationEl || !favoriteTypeEl) {
-    console.error(
-      `[${new Date().toISOString()}] [ERROR: UI] Weekly summary elements not found.`
-    );
+    console.error(`[${new Date().toISOString()}] [ERROR: UI] Weekly summary elements not found.`);
     return;
   }
 
@@ -352,14 +346,12 @@ week13-quality-maintainability
 main
 }
 
-// UTILITIES
 function formatDate(dateString) {
   const date = new Date(dateString + 'T00:00:00');
   const options = { weekday: 'short', month: 'short', day: 'numeric' };
   return date.toLocaleDateString('en-US', options);
 }
 
-// SEED DATA (for demo purposes)
 function seedDemoData() {
   const existing = Storage.getWorkouts();
 

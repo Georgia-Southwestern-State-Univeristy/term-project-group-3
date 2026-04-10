@@ -53,10 +53,7 @@ const Storage = {
 
       return this.saveAllWorkouts(workouts);
     } catch (error) {
-      console.error(
-        `[${new Date().toISOString()}] [ERROR: STORAGE] Failed to add workout.`,
-        error
-      );
+      console.error(`[${new Date().toISOString()}] [ERROR: STORAGE] Failed to add workout.`, error);
       return false;
     }
   },

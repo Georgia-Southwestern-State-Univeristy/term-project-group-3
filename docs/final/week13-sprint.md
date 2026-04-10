@@ -9,9 +9,11 @@ Improve FitTrack’s maintainability, reliability, and support readiness by stre
 ## Committed Backlog Items
 
 ### 1. Improve workout input validation
+
 **Primary Owner:** Misbah
 
 **Acceptance Criteria:**
+
 - Empty or incomplete workout submissions are rejected before saving.
 - Users receive a clear message when required fields are missing or invalid.
 - Invalid workout entries are not written to localStorage.
@@ -19,9 +21,11 @@ Improve FitTrack’s maintainability, reliability, and support readiness by stre
 ---
 
 ### 2. Add safer localStorage read/write handling
+
 **Primary Owner:** Gary
 
 **Acceptance Criteria:**
+
 - The app handles missing, empty, or malformed localStorage data without crashing.
 - Storage access errors are caught and logged with clear messages.
 - The app falls back to a safe default state when stored data cannot be parsed.
@@ -29,9 +33,11 @@ Improve FitTrack’s maintainability, reliability, and support readiness by stre
 ---
 
 ### 3. Refactor workout data flow for clarity
+
 **Primary Owner:** Khoa
 
 **Acceptance Criteria:**
+
 - Storage-related responsibilities are separated more clearly from UI rendering logic.
 - At least one high-risk or confusing code area is reorganized for readability and maintainability.
 - Existing functionality continues to pass automated tests after the refactor.
@@ -39,9 +45,11 @@ Improve FitTrack’s maintainability, reliability, and support readiness by stre
 ---
 
 ### 4. Add support-oriented fallback states in the UI
+
 **Primary Owner:** Misbah
 
 **Acceptance Criteria:**
+
 - Users see a clear message when no workouts are available.
 - Users see a clear message when data cannot be loaded correctly.
 - Fallback states reduce silent failures and make issues easier to diagnose.
@@ -49,9 +57,11 @@ Improve FitTrack’s maintainability, reliability, and support readiness by stre
 ---
 
 ### 5. Strengthen automated regression coverage
+
 **Primary Owner:** Gary
 
 **Acceptance Criteria:**
+
 - At least 4 new or improved automated tests are added this week.
 - At least 2 tests protect against recently identified bugs or weak spots.
 - At least 1 test covers refactored code and 1 covers reliability or error handling behavior.
@@ -59,9 +69,11 @@ Improve FitTrack’s maintainability, reliability, and support readiness by stre
 ---
 
 ### 6. Improve developer/support documentation for final hand-off
+
 **Primary Owner:** Khoa
 
 **Acceptance Criteria:**
+
 - Technical behavior added this week is documented clearly in final deliverables.
 - Support-related notes explain how maintainers should interpret errors or fallback behavior.
 - Documentation reflects the actual current system, not the original plan.

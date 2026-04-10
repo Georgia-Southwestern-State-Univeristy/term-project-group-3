@@ -1,6 +1,11 @@
 // FitTrack - Complete App with localStorage
 // Features: Add, Edit, Delete, Weekly Summary
 // Includes: Week 13 Observability & Support Improvements
+// Support Node.js testing environment
+
+if (typeof require !== 'undefined') {
+  var Storage = require('../src/storage');
+}
 
 document.addEventListener('DOMContentLoaded', function () {
   console.log('FitTrack loaded');

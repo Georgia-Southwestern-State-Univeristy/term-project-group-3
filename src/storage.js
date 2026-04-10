@@ -53,7 +53,10 @@ const Storage = {
 
       return this.saveAllWorkouts(workouts);
     } catch (error) {
-      console.error(`[${new Date().toISOString()}] [ERROR: STORAGE] Failed to add workout.`, error);
+      console.error(
+        `[${new Date().toISOString()}] [ERROR: STORAGE] Failed to add workout.`,
+        error
+      );
       return false;
     }
   },
@@ -61,7 +64,7 @@ const Storage = {
   deleteWorkoutById(id) {
     try {
       const workouts = this.getWorkouts();
-      const filtered = workouts.filter(workout => workout.id !== id);
+      const filtered = workouts.filter((workout) => workout.id !== id);
       return this.saveAllWorkouts(filtered);
     } catch (error) {
       console.error(
@@ -75,7 +78,7 @@ const Storage = {
   updateWorkoutById(id, updatedData) {
     try {
       const workouts = this.getWorkouts();
-      const index = workouts.findIndex(workout => workout.id === id);
+      const index = workouts.findIndex((workout) => workout.id === id);
 
       if (index === -1) {
         console.error(
@@ -104,7 +107,6 @@ const Storage = {
     const workouts = this.getWorkouts();
     const now = new Date();
     const oneWeekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
-
     const weeklyData = {};
 
     for (let i = 6; i >= 0; i--) {
@@ -113,16 +115,12 @@ const Storage = {
       weeklyData[dateKey] = { count: 0, workouts: [] };
     }
 
-week13-quality-maintainability
-    workouts.forEach(workout => {
+    workouts.forEach((workout) => {
       const workoutDate = new Date(workout.date + 'T00:00:00');
-    workouts.forEach((w) => {
-      const workoutDate = new Date(w.createdAt);
-main
       if (workoutDate >= oneWeekAgo) {
         const dateKey = workoutDate.toISOString().split('T')[0];
         if (weeklyData[dateKey]) {
-          weeklyData[dateKey].count++;
+          weeklyData[dateKey].count += 1;
           weeklyData[dateKey].workouts.push(workout.type);
         }
       }

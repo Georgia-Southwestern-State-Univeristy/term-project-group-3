@@ -16,13 +16,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
   renderAll();
 
+  week13-quality-maintainability
   const workoutForm = document.getElementById('workout-form');
   if (workoutForm) {
     workoutForm.addEventListener('submit', function (e) {
       e.preventDefault();
       addWorkout();
     });
-  }
+  } 
+  // Handle form submission (Add)
+  document
+    .getElementById('workout-form')
+    .addEventListener('submit', function (e) {
+      e.preventDefault();
+      addWorkout();
+    });
+main
 
   if (typeof render === 'function') {
     render();
@@ -34,7 +43,6 @@ function addWorkout() {
   const dateInput = document.getElementById('date');
   const typeInput = document.getElementById('type');
   const durationInput = document.getElementById('duration');
-
   const date = dateInput.value;
   const type = typeInput.value.trim();
   const duration = parseInt(durationInput.value, 10);
@@ -61,8 +69,14 @@ function addWorkout() {
     duration,
   };
 
+week13-quality-maintainability
   console.log(
     `[${new Date().toISOString()}] [ACTION: LOG_WORKOUT] Attempting to save workout.`,
+
+  // ACTION LOG: Save Workout
+  console.log(
+    `[${new Date().toISOString()}] [ACTION: LOG_WORKOUT] Attempting to save:`,
+main
     workout
   );
 
@@ -88,7 +102,12 @@ function deleteWorkout(id) {
     return;
   }
 
+week13-quality-maintainability
   const deleted = Storage.deleteWorkoutById(id);
+  let workouts = getWorkouts();
+  workouts = workouts.filter((w) => w.id !== id);
+  saveWorkouts(workouts);
+ main
 
   if (!deleted) {
     alert('Unable to delete workout right now.');
@@ -103,6 +122,7 @@ function deleteWorkout(id) {
 }
 
 function startEdit(id) {
+week13-quality-maintainability
   const workouts = Storage.getWorkouts();
   const workout = workouts.find(w => w.id === id);
 
@@ -112,6 +132,10 @@ function startEdit(id) {
     );
     return;
   }
+  const workouts = getWorkouts();
+  const workout = workouts.find((w) => w.id === id);
+  if (!workout) return;
+main
 
   const container = document.getElementById(`workout-${id}`);
 
@@ -144,9 +168,15 @@ function startEdit(id) {
 
 function saveEdit(id) {
   const date = document.getElementById(`edit-date-${id}`).value;
+  week13-quality-maintainability
   const type = document.getElementById(`edit-type-${id}`).value.trim();
   const durationInput = document.getElementById(`edit-duration-${id}`).value;
   const duration = parseInt(durationInput, 10);
+  const type = document.getElementById(`edit-type-${id}`).value;
+  const duration = parseInt(
+    document.getElementById(`edit-duration-${id}`).value
+  );
+  main
 
   if (!date || !type || !durationInput) {
     console.error(
@@ -163,12 +193,24 @@ function saveEdit(id) {
     alert('Duration must be a positive number greater than 0.');
     return;
   }
-
+ week13-quality-maintainability
   const updated = Storage.updateWorkoutById(id, { date, type, duration });
 
   if (!updated) {
     alert('Unable to update workout right now.');
     return;
+  let workouts = getWorkouts();
+  const index = workouts.findIndex((w) => w.id === id);
+
+  if (index !== -1) {
+    workouts[index] = { ...workouts[index], date, type, duration };
+    saveWorkouts(workouts);
+    renderAll();
+    console.log(
+      `[${new Date().toISOString()}] [ACTION: EDIT_WORKOUT] Workout edited:`,
+      id
+    );
+main
   }
 
   console.log(`[${new Date().toISOString()}] [ACTION: EDIT_WORKOUT] Workout edited:`, id);
@@ -186,6 +228,7 @@ function renderWorkoutList() {
   const workouts = Storage.getWorkouts();
   const container = document.getElementById('workouts-container');
 
+week13-quality-maintainability
   if (!container) {
     console.error(
       `[${new Date().toISOString()}] [ERROR: UI] Workouts container not found.`
@@ -195,6 +238,10 @@ function renderWorkoutList() {
 
   if (!workouts || workouts.length === 0) {
     container.innerHTML = '<div class="empty-state">No workouts yet. Add one above!</div>';
+  if (workouts.length === 0) {
+    container.innerHTML =
+      '<div class="empty-state">No workouts yet. Add one above!</div>';
+main
     return;
   }
 
@@ -206,6 +253,7 @@ function renderWorkoutList() {
 
   container.innerHTML = sorted
     .map(
+week13-quality-maintainability
       workout => `
         <div class="workout-item" id="workout-${workout.id}">
           <div class="workout-info">
@@ -216,6 +264,17 @@ function renderWorkoutList() {
             <button class="btn btn-primary" onclick="startEdit(${workout.id})" style="padding: 8px 16px;">Edit</button>
             <button class="btn btn-danger" onclick="deleteWorkout(${workout.id})" style="padding: 8px 16px;">Delete</button>
           </div>
+      (w) => `
+        <div class="workout-item" id="workout-${w.id}">
+            <div class="workout-info">
+                <strong>${w.type}</strong><br>
+                <small>${formatDate(w.date)} • ${w.duration} minutes</small>
+            </div>
+            <div class="workout-actions">
+                <button class="btn btn-primary" onclick="startEdit(${w.id})" style="padding: 8px 16px;">Edit</button>
+                <button class="btn btn-danger" onclick="deleteWorkout(${w.id})" style="padding: 8px 16px;">Delete</button>
+            </div>
+main
         </div>
       `
     )
@@ -231,8 +290,12 @@ function renderWeeklySummary() {
   const sevenDaysAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
   sevenDaysAgo.setHours(0, 0, 0, 0);
 
+week13-quality-maintainability
   const weeklyWorkouts = allWorkouts.filter(workout => {
     const workoutDate = new Date(workout.date + 'T00:00:00');
+  const weeklyWorkouts = allWorkouts.filter((w) => {
+    const workoutDate = new Date(w.date + 'T00:00:00');
+main
     return workoutDate >= sevenDaysAgo && workoutDate <= today;
   });
 
@@ -241,6 +304,7 @@ function renderWeeklySummary() {
   const avgDurationEl = document.getElementById('avg-duration');
   const favoriteTypeEl = document.getElementById('favorite-type');
 
+week13-quality-maintainability
   if (!totalWorkoutsEl || !totalMinutesEl || !avgDurationEl || !favoriteTypeEl) {
     console.error(
       `[${new Date().toISOString()}] [ERROR: UI] Weekly summary elements not found.`
@@ -259,12 +323,33 @@ function renderWeeklySummary() {
   const typeMinutes = {};
   weeklyWorkouts.forEach(workout => {
     typeMinutes[workout.type] = (typeMinutes[workout.type] || 0) + (workout.duration || 0);
+  const totalMinutes = weeklyWorkouts.reduce(
+    (sum, w) => sum + (w.duration || 0),
+    0
+  );
+  document.getElementById('total-minutes').textContent = totalMinutes;
+
+  const avg =
+    weeklyWorkouts.length > 0
+      ? Math.round(totalMinutes / weeklyWorkouts.length)
+      : 0;
+  document.getElementById('avg-duration').textContent = avg;
+
+  const typeMinutes = {};
+  weeklyWorkouts.forEach((w) => {
+    typeMinutes[w.type] = (typeMinutes[w.type] || 0) + (w.duration || 0);
+main
   });
 
   const sortedTypes = Object.entries(typeMinutes).sort((a, b) => b[1] - a[1]);
   const favorite = sortedTypes[0];
 
+week13-quality-maintainability
   favoriteTypeEl.textContent = favorite ? favorite[0] : '-';
+  document.getElementById('favorite-type').textContent = favorite
+    ? favorite[0]
+    : '-';
+main
 }
 
 // UTILITIES

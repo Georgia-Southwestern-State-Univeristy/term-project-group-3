@@ -116,8 +116,12 @@ const Storage = {
       weeklyData[dateKey] = { count: 0, workouts: [] };
     }
 
+week13-quality-maintainability
     workouts.forEach(workout => {
       const workoutDate = new Date(workout.date + 'T00:00:00');
+    workouts.forEach((w) => {
+      const workoutDate = new Date(w.createdAt);
+main
       if (workoutDate >= oneWeekAgo) {
         const dateKey = workoutDate.toISOString().split('T')[0];
         if (weeklyData[dateKey]) {

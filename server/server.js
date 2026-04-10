@@ -26,7 +26,9 @@ const users = [
 
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
-  const user = users.find(u => u.username === username && u.password === password);
+  const user = users.find(
+    (u) => u.username === username && u.password === password
+  );
 
   if (user) {
     req.session.loggedIn = true;
@@ -52,5 +54,7 @@ app.get('/api/workouts', (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`✅ Server running on http://localhost:${PORT}`);
-  console.log(`💡 Open your browser to http://localhost:${PORT} to view the app`);
+  console.log(
+    `💡 Open your browser to http://localhost:${PORT} to view the app`
+  );
 });

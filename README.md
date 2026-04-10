@@ -43,3 +43,4 @@ git clone https://github.com/Georgia-Southwestern-State-Univeristy/term-project-
 cd term-project-group-3
 npm install
 npm start
+```

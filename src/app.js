@@ -1,6 +1,6 @@
 // Support Node.js testing environment
 if (typeof require !== 'undefined') {
-  var Storage = require('../src/storage');
+  var Storage = require('./storage');
 }
 
 // Safe DOM helper (important for tests)
@@ -40,7 +40,7 @@ function saveEdit(id) {
   if (!date || !type || !duration) return;
 
   const workouts = Storage.getWorkouts();
-  const index = workouts.findIndex(w => w.id === id);
+  const index = workouts.findIndex((w) => w.id === id);
 
   if (index !== -1) {
     workouts[index] = { ...workouts[index], date, type, duration };
@@ -62,9 +62,7 @@ function renderWorkoutList() {
   }
 
   container.innerHTML = workouts
-    .map(
-      w => `<li id="workout-${w.id}">${w.type} - ${w.duration}</li>`
-    )
+    .map((w) => `<li id="workout-${w.id}">${w.type} - ${w.duration}</li>`)
     .join('');
 }
 
@@ -90,6 +88,6 @@ if (typeof module !== 'undefined') {
   module.exports = {
     addWorkout,
     saveEdit,
-    renderAll
+    renderAll,
   };
 }

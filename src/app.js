@@ -1,5 +1,6 @@
 // FitTrack App
 
+const workoutStorage = globalThis.Storage || window.Storage;
 document.addEventListener('DOMContentLoaded', function () {
   console.log('FitTrack loaded');
 
@@ -45,7 +46,7 @@ function addWorkout() {
 
   console.log('Saving workout:', workout);
 
-  const saved = Storage.saveWorkout(workout);
+  const saved = workoutStorage.saveWorkout(workout);
 
   if (!saved) {
     alert('Failed to save workout.');
@@ -60,7 +61,7 @@ function addWorkout() {
 }
 
 function deleteWorkout(id) {
-  const success = Storage.deleteWorkoutById(id);
+  const success = workoutStorage.deleteWorkoutById(id);
 
   if (!success) {
     alert('Delete failed.');
@@ -71,7 +72,7 @@ function deleteWorkout(id) {
 }
 
 function startEdit(id) {
-  const workouts = Storage.getWorkouts();
+  const workouts = workoutStorage.getWorkouts();
   const workout = workouts.find((w) => w.id === id);
 
   if (!workout) return;
@@ -100,7 +101,11 @@ function saveEdit(id) {
     return;
   }
 
-  const updated = Storage.updateWorkoutById(id, { date, type, duration });
+  const updated = workoutStorage.updateWorkoutById(id, {
+    date,
+    type,
+    duration,
+  });
 
   if (!updated) {
     alert('Update failed.');
@@ -116,7 +121,7 @@ function renderAll() {
 }
 
 function renderWorkoutList() {
-  const workouts = Storage.getWorkouts();
+  const workouts = workoutStorage.getWorkouts();
   const container = document.getElementById('workouts-container');
 
   if (!container) return;
@@ -140,7 +145,7 @@ function renderWorkoutList() {
 }
 
 function renderWeeklySummary() {
-  const workouts = Storage.getWorkouts();
+  const workouts = workoutStorage.getWorkouts();
 
   const totalWorkoutsEl = document.getElementById('total-workouts');
   const totalMinutesEl = document.getElementById('total-minutes');

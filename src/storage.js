@@ -3,24 +3,20 @@ const Storage = {
 
   saveWorkout(workout) {
     const workouts = this.getWorkouts();
-
     workouts.push({
       ...workout,
       id: Date.now(),
       createdAt: new Date().toISOString(),
     });
-
     localStorage.setItem(this.STORAGE_KEY, JSON.stringify(workouts));
     return true;
   },
 
   getWorkouts() {
     const data = localStorage.getItem(this.STORAGE_KEY);
-
     if (!data) {
       return [];
     }
-
     try {
       return JSON.parse(data);
     } catch (e) {
@@ -33,7 +29,6 @@ const Storage = {
     try {
       const workouts = this.getWorkouts();
       workouts.splice(index, 1);
-
       localStorage.setItem(this.STORAGE_KEY, JSON.stringify(workouts));
       return true;
     } catch (e) {
@@ -45,13 +40,11 @@ const Storage = {
   updateWorkout(index, updatedData) {
     try {
       const workouts = this.getWorkouts();
-
       workouts[index] = {
         ...workouts[index],
         ...updatedData,
         updatedAt: new Date().toISOString(),
       };
-
       localStorage.setItem(this.STORAGE_KEY, JSON.stringify(workouts));
       return true;
     } catch (e) {
@@ -67,24 +60,16 @@ const Storage = {
 
     const weeklyData = {};
 
-    // Initialize last 7 days
     for (let i = 6; i >= 0; i--) {
       const d = new Date(now.getTime() - i * 24 * 60 * 60 * 1000);
       const dateKey = d.toISOString().split('T')[0];
-
-      weeklyData[dateKey] = {
-        count: 0,
-        workouts: [],
-      };
+      weeklyData[dateKey] = { count: 0, workouts: [] };
     }
 
-    // Fill data
     workouts.forEach((w) => {
       const workoutDate = new Date(w.createdAt);
-
       if (workoutDate >= oneWeekAgo) {
         const dateKey = workoutDate.toISOString().split('T')[0];
-
         if (weeklyData[dateKey]) {
           weeklyData[dateKey].count++;
           weeklyData[dateKey].workouts.push(w.name);
@@ -96,7 +81,6 @@ const Storage = {
   },
 };
 
-// For Node.js testing
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = Storage;
 }

@@ -1,8 +1,8 @@
 # Week 13: Refactoring & Code Health
 
 ## 1. Technical Debt Identified
-* **Debt 1 (Fixed):** `app.js` was a massive monolith. It mixed UI rendering, event listeners, and `localStorage` data access all in one file, making it brittle and hard to test.
-* **Debt 2 (Deferred):** Backend API routes are tightly coupled to a local `activities.json` file. This violates the Single Responsibility Principle and will be addressed during our final database migration.
+* **Debt 1:** `app.js` was a massive monolith. It mixed UI rendering, event listeners, and `localStorage` data access all in one file, making it brittle and hard to test.
+* **Debt 2:** Backend API routes are tightly coupled to a local `activities.json` file. This violates the Single Responsibility Principle and will be addressed during our final database migration.
 
 ## 2. The Refactor: Decoupling the Frontend
 This week, we tackled Debt 1 by decoupling our frontend architecture. We split `app.js` into two distinct files:

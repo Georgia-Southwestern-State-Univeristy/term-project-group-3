@@ -20,4 +20,4 @@ This week, we tackled Debt 1 by decoupling our frontend architecture. We split `
 
 ## 4. Evidence
 
-- **PR Link:**
+- **PR Link:** https://github.com/Georgia-Southwestern-State-Univeristy/term-project-group-3/pull/84

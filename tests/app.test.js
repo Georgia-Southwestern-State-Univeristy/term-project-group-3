@@ -35,7 +35,8 @@ global.localStorage = {
 global.alert = () => {};
 global.confirm = () => true;
 
-require('../src/app');
+global.Storage = require('../src/storage.js');
+
 const appCode = fs.readFileSync(path.join(__dirname, '../src/app.js'), 'utf8');
 eval(appCode);
 
@@ -61,7 +62,7 @@ describe('Week 11: End-to-End and Reliability Tests', () => {
   it('E2E: Should successfully add a new workout and render it to the dashboard', () => {
     addWorkout();
 
-    const savedData = JSON.parse(localStorage.getItem('fittrack_workouts'));
+    const savedData = JSON.parse(localStorage.getItem('fittrack_workouts_v1'));
     assert.strictEqual(savedData.length, 1);
     assert.strictEqual(savedData[0].type, 'Running');
     assert.strictEqual(savedData[0].duration, 30);
@@ -69,7 +70,7 @@ describe('Week 11: End-to-End and Reliability Tests', () => {
 
   it('E2E: Should successfully edit an existing workout and persist changes', () => {
     const mockWorkout = [{ id: 123, date: '2026-03-30', type: 'Running', duration: 30 }];
-    localStorage.setItem('fittrack_workouts', JSON.stringify(mockWorkout));
+    localStorage.setItem('fittrack_workouts_v1', JSON.stringify(mockWorkout));
 
     startEdit(123);
 
@@ -79,7 +80,7 @@ describe('Week 11: End-to-End and Reliability Tests', () => {
     
     saveEdit(123);
 
-    const updatedData = JSON.parse(localStorage.getItem('fittrack_workouts'));
+    const updatedData = JSON.parse(localStorage.getItem('fittrack_workouts_v1'));
     assert.strictEqual(updatedData[0].duration, 45);
   });
 
@@ -90,7 +91,7 @@ describe('Week 11: End-to-End and Reliability Tests', () => {
       { id: 1, date: today, type: 'Running', duration: 20 },
       { id: 2, date: today, type: 'Cycling', duration: 40 }
     ];
-    localStorage.setItem('fittrack_workouts', JSON.stringify(mockWorkouts));
+    localStorage.setItem('fittrack_workouts_v1', JSON.stringify(mockWorkouts));
 
     renderWeeklySummary();
 
@@ -99,14 +100,9 @@ describe('Week 11: End-to-End and Reliability Tests', () => {
   });
 
   it('Failure Path: Should handle corrupted localStorage data gracefully and return empty array', () => {
-    localStorage.setItem('fittrack_workouts', '{ invalid_json: ');
+    localStorage.setItem('fittrack_workouts_v1', '{ invalid_json: ');
 
-    let workouts;
-    try {
-      workouts = getWorkouts();
-    } catch (e) {
-      workouts = []; 
-    }
+    let workouts = Storage.getWorkouts();
 
     assert.deepStrictEqual(workouts, []);
   });

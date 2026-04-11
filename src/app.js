@@ -1,4 +1,3 @@
-
 // FitTrack - Complete App with localStorage
 // Features: Add, Edit, Delete, Weekly Summary
 // Includes: Beta Phase Observability & Logging

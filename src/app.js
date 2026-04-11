@@ -87,7 +87,7 @@ function deleteWorkout(id) {
 
   const workouts = Storage.getWorkouts();
   const index = workouts.findIndex((w) => w.id === id);
-  
+
   if (index !== -1) {
     Storage.deleteWorkout(index);
   }
@@ -250,8 +250,8 @@ function seedDemoData() {
       { date: '2026-02-27', type: 'Yoga', duration: 20 },
     ];
     // Loop through and use our new save method
-    demoData.forEach(workout => Storage.saveWorkout(workout));
-    
+    demoData.forEach((workout) => Storage.saveWorkout(workout));
+
     renderAll();
     console.log('Demo data loaded');
   }

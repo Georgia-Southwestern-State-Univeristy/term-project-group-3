@@ -72,7 +72,7 @@ function deleteWorkout(id) {
 
 function startEdit(id) {
   const workouts = Storage.getWorkouts();
-  const workout = workouts.find(w => w.id === id);
+  const workout = workouts.find((w) => w.id === id);
 
   if (!workout) return;
 
@@ -128,7 +128,7 @@ function renderWorkoutList() {
 
   container.innerHTML = workouts
     .map(
-      w => `
+      (w) => `
         <div id="workout-${w.id}">
           <strong>${w.type}</strong> - ${w.duration} min
           <button onclick="startEdit(${w.id})">Edit</button>
@@ -149,10 +149,7 @@ function renderWeeklySummary() {
     totalWorkoutsEl.textContent = workouts.length;
   }
 
-  const totalMinutes = workouts.reduce(
-    (sum, w) => sum + (w.duration || 0),
-    0
-  );
+  const totalMinutes = workouts.reduce((sum, w) => sum + (w.duration || 0), 0);
 
   if (totalMinutesEl) {
     totalMinutesEl.textContent = totalMinutes;

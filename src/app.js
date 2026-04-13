@@ -57,11 +57,10 @@ function addWorkout() {
   }
 
   const workout = {
-    id: Date.now(),
     date: date,
     type: type,
     duration: duration,
-    created: new Date().toISOString(),
+    // ID and createdAt are now handled safely by storage.js!
   };
 
   // ACTION LOG: Save Workout
@@ -70,10 +69,8 @@ function addWorkout() {
     workout
   );
 
-  let workouts = getWorkouts();
-  workouts.push(workout);
-
-  saveWorkouts(workouts);
+  // Use the new storage module
+  Storage.saveWorkout(workout);
 
   const lastUsedDate = dateInput.value;
   document.getElementById('workout-form').reset();
@@ -88,9 +85,12 @@ function addWorkout() {
 function deleteWorkout(id) {
   if (!confirm('Are you sure you want to delete this workout?')) return;
 
-  let workouts = getWorkouts();
-  workouts = workouts.filter((w) => w.id !== id);
-  saveWorkouts(workouts);
+  const workouts = Storage.getWorkouts();
+  const index = workouts.findIndex((w) => w.id === id);
+
+  if (index !== -1) {
+    Storage.deleteWorkout(index);
+  }
 
   renderAll();
 
@@ -101,7 +101,7 @@ function deleteWorkout(id) {
 }
 
 function startEdit(id) {
-  const workouts = getWorkouts();
+  const workouts = Storage.getWorkouts();
   const workout = workouts.find((w) => w.id === id);
   if (!workout) return;
 
@@ -138,28 +138,17 @@ function saveEdit(id) {
     return;
   }
 
-  let workouts = getWorkouts();
+  const workouts = Storage.getWorkouts();
   const index = workouts.findIndex((w) => w.id === id);
 
   if (index !== -1) {
-    workouts[index] = { ...workouts[index], date, type, duration };
-    saveWorkouts(workouts);
+    Storage.updateWorkout(index, { date, type, duration });
     renderAll();
     console.log(
       `[${new Date().toISOString()}] [ACTION: EDIT_WORKOUT] Workout edited:`,
       id
     );
   }
-}
-
-// LOCALSTORAGE HELPERS
-function getWorkouts() {
-  const data = localStorage.getItem('fittrack_workouts');
-  return data ? JSON.parse(data) : [];
-}
-
-function saveWorkouts(workouts) {
-  localStorage.setItem('fittrack_workouts', JSON.stringify(workouts));
 }
 
 // RENDER FUNCTIONS
@@ -169,7 +158,7 @@ function renderAll() {
 }
 
 function renderWorkoutList() {
-  const workouts = getWorkouts();
+  const workouts = Storage.getWorkouts();
   const container = document.getElementById('workouts-container');
 
   if (workouts.length === 0) {
@@ -204,7 +193,7 @@ function renderWorkoutList() {
 }
 
 function renderWeeklySummary() {
-  const allWorkouts = getWorkouts();
+  const allWorkouts = Storage.getWorkouts();
 
   const today = new Date();
   today.setHours(23, 59, 59, 999);
@@ -253,32 +242,16 @@ function formatDate(dateString) {
 
 // SEED DATA (for demo purposes)
 function seedDemoData() {
-  const existing = getWorkouts();
+  const existing = Storage.getWorkouts();
   if (existing.length === 0) {
     const demoData = [
-      {
-        id: Date.now() - 1000,
-        date: '2026-03-01',
-        type: 'Running',
-        duration: 30,
-        created: new Date().toISOString(),
-      },
-      {
-        id: Date.now() - 2000,
-        date: '2026-02-28',
-        type: 'Cycling',
-        duration: 45,
-        created: new Date().toISOString(),
-      },
-      {
-        id: Date.now() - 3000,
-        date: '2026-02-27',
-        type: 'Yoga',
-        duration: 20,
-        created: new Date().toISOString(),
-      },
+      { date: '2026-03-01', type: 'Running', duration: 30 },
+      { date: '2026-02-28', type: 'Cycling', duration: 45 },
+      { date: '2026-02-27', type: 'Yoga', duration: 20 },
     ];
-    saveWorkouts(demoData);
+    // Loop through and use our new save method
+    demoData.forEach((workout) => Storage.saveWorkout(workout));
+
     renderAll();
     console.log('Demo data loaded');
   }

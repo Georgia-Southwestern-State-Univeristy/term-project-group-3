@@ -1,11 +1,13 @@
 # Week 14: Documentation Alignment & Repo Polish
 
 ## Reorganized, Renamed, and Clarified
+
 **Consolidated Deliverables:** Grouped all final assignment deliverables into the `/docs/final/` directory so evaluators do not have to hunt for them.
 **README Overhaul:** Completely updated the root `README.md` to remove old Beta messaging and reflect our new "Release Candidate" status. Added direct links to core documentation.
 **Architecture Alignment:** Ensured all docs accurately reflect our recent Week 13 refactoring (the decoupling of `storage.js`).
 
 ## Evaluator Guide: Where to Start
+
 If you are evaluating this repository, please follow this path:
 **`README.md`** (Root) - High-level project overview and feature list.
 **`/docs/final/week14-runbook.md`** - Exact instructions for booting the application locally.

@@ -106,9 +106,8 @@ describe('Week 11: End-to-End and Reliability Tests', () => {
 
     assert.deepStrictEqual(workouts, []);
   });
-});
 
-// Rejects negative duration inputs
+  // Rejects negative duration inputs
   it('Edge Case: Should block adding a workout with zero or negative duration', () => {
     global.mockElements['duration'] = { value: '-5' }; 
     let alertCalled = false;

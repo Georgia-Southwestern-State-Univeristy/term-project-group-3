@@ -15,6 +15,8 @@ global.localStorage = {
   },
 };
 
+global.alert = () => {};
+
 describe('Storage Module', () => {
   beforeEach(() => {
     localStorage.clear();

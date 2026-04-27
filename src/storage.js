@@ -1,6 +1,9 @@
 const STORAGE_KEY = 'fittrack_workouts';
 
 class Storage {
+  // Expose the key so tests can reference it
+  static STORAGE_KEY = STORAGE_KEY;
+
   // Read
   static getWorkouts() {
     try {
@@ -72,3 +75,5 @@ class Storage {
     return Storage.saveWorkouts(workouts);
   }
 }
+
+module.exports = Storage;

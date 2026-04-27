@@ -14,7 +14,7 @@ global.document = {
         innerHTML: '',
         textContent: '',
         focus: () => {},
-        reset: () => {}
+        reset: () => {},
       };
     }
     return global.mockElements[id];
@@ -27,9 +27,15 @@ global.window = {};
 
 global.localStorage = {
   store: {},
-  getItem(key) { return this.store[key] || null; },
-  setItem(key, value) { this.store[key] = String(value); },
-  clear() { this.store = {}; }
+  getItem(key) {
+    return this.store[key] || null;
+  },
+  setItem(key, value) {
+    this.store[key] = String(value);
+  },
+  clear() {
+    this.store = {};
+  },
 };
 
 global.alert = () => {};
@@ -47,7 +53,6 @@ describe('App module', () => {
 });
 
 describe('Week 11: End-to-End and Reliability Tests', () => {
-
   beforeEach(() => {
     localStorage.clear();
     global.mockElements['date'] = { value: '2026-03-30' };
@@ -69,7 +74,9 @@ describe('Week 11: End-to-End and Reliability Tests', () => {
   });
 
   it('E2E: Should successfully edit an existing workout and persist changes', () => {
-    const mockWorkout = [{ id: 123, date: '2026-03-30', type: 'Running', duration: 30 }];
+    const mockWorkout = [
+      { id: 123, date: '2026-03-30', type: 'Running', duration: 30 },
+    ];
     localStorage.setItem('fittrack_workouts_v1', JSON.stringify(mockWorkout));
 
     startEdit(123);
@@ -77,26 +84,34 @@ describe('Week 11: End-to-End and Reliability Tests', () => {
     global.mockElements['edit-date-123'] = { value: '2026-03-30' };
     global.mockElements['edit-type-123'] = { value: 'Running' };
     global.mockElements['edit-duration-123'] = { value: '45' };
-    
+
     saveEdit(123);
 
-    const updatedData = JSON.parse(localStorage.getItem('fittrack_workouts_v1'));
+    const updatedData = JSON.parse(
+      localStorage.getItem('fittrack_workouts_v1')
+    );
     assert.strictEqual(updatedData[0].duration, 45);
   });
 
   it('Integration: Dashboard summary totals update correctly when multiple workouts are added', () => {
     const today = new Date().toISOString().split('T')[0];
-    
+
     const mockWorkouts = [
       { id: 1, date: today, type: 'Running', duration: 20 },
-      { id: 2, date: today, type: 'Cycling', duration: 40 }
+      { id: 2, date: today, type: 'Cycling', duration: 40 },
     ];
     localStorage.setItem('fittrack_workouts_v1', JSON.stringify(mockWorkouts));
 
     renderWeeklySummary();
 
-    assert.strictEqual(String(global.mockElements['total-workouts'].textContent), '2');
-    assert.strictEqual(String(global.mockElements['total-minutes'].textContent), '60');
+    assert.strictEqual(
+      String(global.mockElements['total-workouts'].textContent),
+      '2'
+    );
+    assert.strictEqual(
+      String(global.mockElements['total-minutes'].textContent),
+      '60'
+    );
   });
 
   it('Failure Path: Should handle corrupted localStorage data gracefully and return empty array', () => {

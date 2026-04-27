@@ -30,7 +30,9 @@ describe('Storage Module', () => {
   });
 
   test('should retrieve saved workouts', () => {
-    const mockData = [{ type: 'Cycling', duration: 45, id: 1, createdAt: '2023-01-01' }];
+    const mockData = [
+      { type: 'Cycling', duration: 45, id: 1, createdAt: '2023-01-01' },
+    ];
     localStorage.setItem(Storage.STORAGE_KEY, JSON.stringify(mockData));
 
     const workouts = Storage.getWorkouts();

@@ -10,10 +10,15 @@ global.localStorage = {
   setItem(key, value) {
     this.store[key] = String(value);
   },
+  removeItem(key) {
+    delete this.store[key];
+  },
   clear() {
     this.store = {};
   },
 };
+
+global.alert = () => {};
 
 describe('Storage Module', () => {
   beforeEach(() => {
@@ -30,7 +35,9 @@ describe('Storage Module', () => {
   });
 
   test('should retrieve saved workouts', () => {
-    const mockData = [{ type: 'Cycling', duration: 45, id: 1, createdAt: '2023-01-01' }];
+    const mockData = [
+      { type: 'Cycling', duration: 45, id: 1, createdAt: '2023-01-01' },
+    ];
     localStorage.setItem(Storage.STORAGE_KEY, JSON.stringify(mockData));
 
     const workouts = Storage.getWorkouts();

@@ -1,14 +1,17 @@
 # Final Presentation + Live Demo Plan
 
 ## Presentation Title
+
 FitTrack: Lightweight Activity Tracking Application
 
 ## Duration
+
 12–15 minutes
 
 ## Team Members
-- Misbah Vahora 
-- Gary Tates 
+
+- Misbah Vahora
+- Gary Tates
 - Khoa Nguyen
 
 ---
@@ -16,7 +19,9 @@ FitTrack: Lightweight Activity Tracking Application
 ## Presentation Structure & Speaking Roles
 
 ### 1. Introduction + Problem + Demo Start (0:00 – 3:00)
+
 **Speaker: Misbah**
+
 - Introduce team and project
 - Explain problem and target users
 - Brief system overview
@@ -25,7 +30,9 @@ FitTrack: Lightweight Activity Tracking Application
 ---
 
 ### 2. Demo Continuation (3:00 – 6:00)
+
 **Speaker: Gary**
+
 - Continue demo
 - Show additional functionality and UI behavior
 - Demonstrate usability and workflow clarity
@@ -33,7 +40,9 @@ FitTrack: Lightweight Activity Tracking Application
 ---
 
 ### 3. Architecture + Technical Decisions (6:00 – 9:00)
+
 **Speaker: Khoa**
+
 - Explain SPA architecture
 - Describe use of localStorage
 - Justify design decisions and trade-offs
@@ -41,7 +50,9 @@ FitTrack: Lightweight Activity Tracking Application
 ---
 
 ### 4. Challenges (9:00 – 11:00)
+
 **Speaker: Misbah**
+
 - Challenge: Documentation and architecture mismatch
 - Solution: Standardized documentation to reflect actual system (localStorage-based SPA)
 - Impact: Improved clarity and maintainability
@@ -49,7 +60,9 @@ FitTrack: Lightweight Activity Tracking Application
 ---
 
 ### 5. Team Collaboration & Conflict (11:00 – 13:00)
+
 **Speaker: Gary**
+
 - Example of team disagreement
 - How conflict was resolved professionally
 - Importance of communication and shared ownership
@@ -57,7 +70,9 @@ FitTrack: Lightweight Activity Tracking Application
 ---
 
 ### 6. Testing, CI/CD & Improvements (13:00 – 15:00)
+
 **Speaker: Khoa**
+
 - Initial lack of strong test coverage
 - Added tests and improved reliability
 - CI/CD pipeline and automated checks
@@ -66,6 +81,7 @@ FitTrack: Lightweight Activity Tracking Application
 ---
 
 ## Demo Owner
+
 Misbah will drive the demo and screen sharing.
 
 ---

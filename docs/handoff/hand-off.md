@@ -21,6 +21,7 @@ FitTrack uses a client-only architecture:
   - Stores all workout data locally
 
 There is:
+
 - No backend server
 - No database
 - No authentication system
@@ -43,6 +44,7 @@ This stack was chosen to prioritize simplicity, accessibility, and rapid develop
 2. Run:
 3. Run tests:
 4. Open app:
+
 - Use Live Server OR
 - Open `index.html`
 

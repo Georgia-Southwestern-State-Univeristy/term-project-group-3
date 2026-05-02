@@ -3,260 +3,294 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FitTrack - Activity Logger</title>
+    <title>FitTrack Dashboard</title>
     <style>
-      * {
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #333;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
         box-sizing: border-box;
       }
-      body {
-        font-family: 'Segoe UI', Arial, sans-serif;
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 20px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        min-height: 100vh;
-      }
-      .container {
-        background: white;
+      .dashboard-container {
+        background: #ffffff;
+        padding: 30px 40px;
         border-radius: 12px;
-        padding: 25px;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        max-width: 800px;
+        width: 100%;
+        box-sizing: border-box;
       }
-      h1 {
-        text-align: center;
-        color: #333;
-        margin-bottom: 5px;
-      }
-      .subtitle {
-        text-align: center;
-        color: #666;
-        margin-bottom: 20px;
-      }
-
-      /* Form Section */
-      .form-section {
-        background: #f8f9fa;
-        padding: 20px;
-        border-radius: 8px;
-        margin-bottom: 20px;
-      }
-      .form-row {
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-      }
-      input,
-      select {
-        padding: 12px;
-        border: 2px solid #ddd;
-        border-radius: 6px;
-        font-size: 14px;
-        flex: 1;
-        min-width: 120px;
-      }
-      input:focus,
-      select:focus {
-        border-color: #667eea;
-        outline: none;
-      }
-      .btn {
-        padding: 12px 24px;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        font-size: 14px;
-        font-weight: bold;
-        transition: 0.2s;
-      }
-      .btn-primary {
-        background: #667eea;
-        color: white;
-      }
-      .btn-primary:hover {
-        background: #5a6fd6;
-      }
-      .btn-success {
-        background: #4caf50;
-        color: white;
-      }
-      .btn-danger {
-        background: #ff4444;
-        color: white;
-      }
-      .btn-danger:hover {
-        background: #cc0000;
-      }
-      .btn-secondary {
-        background: #6c757d;
-        color: white;
-        margin-left: 10px;
-      }
-
-      /* Weekly Summary */
-      .summary-section {
-        background: #e3f2fd;
-        padding: 20px;
-        border-radius: 8px;
-        margin-bottom: 20px;
-      }
-      .summary-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: 15px;
-        margin-top: 15px;
-      }
-      .summary-card {
-        background: white;
-        padding: 15px;
-        border-radius: 8px;
-        text-align: center;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      }
-      .summary-number {
-        font-size: 32px;
-        font-weight: bold;
-        color: #667eea;
-      }
-      .summary-label {
-        font-size: 12px;
-        color: #666;
-        text-transform: uppercase;
-      }
-
-      /* Workout List */
-      .workout-list {
-        margin-top: 20px;
-      }
-      .workout-item {
-        background: #f8f9fa;
-        padding: 15px;
-        margin: 10px 0;
-        border-radius: 8px;
+      .header-controls {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        border-left: 4px solid #667eea;
+        margin-bottom: 20px;
+      }
+      .header-controls h1 {
+        margin: 0;
+        flex-grow: 1;
+        text-align: center;
+      }
+      #logout-btn {
+        background-color: #f44336;
+        padding: 8px 15px;
+        border-radius: 6px;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 0.9em;
+        transition: background-color 0.2s;
+      }
+      #logout-btn:hover {
+        background-color: #d32f2f;
+      }
+      #backendBadge {
+        font-size: 0.75em;
+        color: #888;
+        text-align: right;
+        margin-bottom: 10px;
+      }
+      .workout-form {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .workout-form input[type='text'],
+      .workout-form input[type='number'],
+      .workout-form input[type='date'],
+      .workout-form select {
+        flex: 1;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 16px;
+        min-width: 120px;
+      }
+      .workout-form button {
+        padding: 12px 25px;
+        background: #667eea;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.2s;
+      }
+      .workout-form button:hover {
+        background: #5a6fd6;
+      }
+      .workout-list {
+        list-style: none;
+        padding: 0;
+      }
+      .workout-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 20px;
+        margin-bottom: 10px;
+        background-color: #f9f9f9;
+        border: 1px solid #eee;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
       }
       .workout-info {
-        flex: 1;
+        flex-grow: 1;
       }
       .workout-info strong {
-        color: #333;
-        font-size: 16px;
+        color: #444;
       }
       .workout-info small {
         color: #666;
       }
       .workout-actions {
         display: flex;
-        gap: 10px;
+        gap: 8px;
+        align-items: center;
       }
-
-      /* Edit Form */
+      .btn {
+        border: none;
+        padding: 8px 15px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 0.9em;
+        transition: background-color 0.2s;
+      }
+      .btn-primary {
+        background-color: #667eea;
+        color: white;
+      }
+      .btn-primary:hover {
+        background-color: #5a6fd6;
+      }
+      .btn-success {
+        background-color: #28a745;
+        color: white;
+      }
+      .btn-success:hover {
+        background-color: #218838;
+      }
+      .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+      }
+      .btn-secondary:hover {
+        background-color: #5a6268;
+      }
+      .btn-danger {
+        background-color: #ff4444;
+        color: white;
+      }
+      .btn-danger:hover {
+        background-color: #cc0000;
+      }
       .edit-form {
-        background: #fff3cd;
+        margin-top: 10px;
         padding: 15px;
+        background-color: #eef2ff;
         border-radius: 8px;
-        margin: 10px 0;
-        border: 2px solid #ffc107;
+        border: 1px solid #c5cae9;
       }
-
+      .form-row {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 8px;
+        flex-wrap: wrap;
+      }
+      .form-row input,
+      .form-row select {
+        flex: 1;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 14px;
+        min-width: 100px;
+      }
       .empty-state {
         text-align: center;
-        padding: 40px;
-        color: #999;
-      }
-
-      /* Debug info */
-      .debug-info {
-        font-size: 11px;
-        color: #999;
-        text-align: center;
+        color: #888;
+        padding: 20px;
+        background-color: #f0f0f0;
+        border-radius: 8px;
         margin-top: 20px;
+      }
+      .alert {
+        padding: 12px;
+        margin-bottom: 15px;
+        border-radius: 6px;
+        font-weight: bold;
+        text-align: center;
+        display: none;
+      }
+      .alert-danger {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+      }
+      .alert-success {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+      }
+      .summary-section {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px solid #eee;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+      .summary-card {
+        background-color: #eef2ff;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        flex: 1;
+        min-width: 150px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      }
+      .summary-card h4 {
+        color: #5a6fd6;
+        margin-top: 0;
+        margin-bottom: 10px;
+      }
+      .summary-card p {
+        font-size: 1.8em;
+        font-weight: bold;
+        color: #333;
+        margin: 0;
       }
     </style>
   </head>
   <body>
-    <!-- THIS IS THE NEW LOGIN CHECK SCRIPT -->
-    <script>
-      // Prevent direct access to dashboard if not logged in
-      // This script runs BEFORE any other content or app.js to ensure immediate redirection.
-      if (!localStorage.getItem('isLoggedIn')) {
-        // Only redirect if we are on index.html and not already on login.html
-        if (
-          window.location.pathname.includes('index.html') ||
-          window.location.pathname === '/'
-        ) {
-          window.location.href = 'login.html';
-        }
-      }
-    </script>
-
-    <div class="container">
-      <h1>🏃‍♂️ FitTrack</h1>
-      <p class="subtitle">Log any activity in 10 seconds</p>
-
-      <!-- Add Workout Form -->
-      <div class="form-section">
-        <h3>➕ Add New Workout</h3>
-        <form id="workout-form" class="form-row">
-          <input type="date" id="date" required />
-          <select id="type" required>
-            <option value="">Select Activity</option>
-            <option value="Running">🏃 Running</option>
-            <option value="Cycling">🚴 Cycling</option>
-            <option value="Swimming">🏊 Swimming</option>
-            <option value="Weights">🏋️ Weights</option>
-            <option value="Yoga">🧘 Yoga</option>
-            <option value="Walking">🚶 Walking</option>
-          </select>
-          <input
-            type="number"
-            id="duration"
-            placeholder="Minutes"
-            min="1"
-            required
-          />
-          <button type="submit" class="btn btn-primary">Save</button>
-        </form>
+    <div class="dashboard-container">
+      <div class="header-controls">
+        <h1>FitTrack Dashboard</h1>
+        <button id="logout-btn">Log Out</button>
       </div>
 
-      <!-- Weekly Summary -->
+      <div id="backendBadge"></div>
+
+      <div id="status" class="alert"></div>
+
+      <form id="workout-form" class="workout-form">
+        <input type="date" id="date" required />
+        <select id="type" required>
+          <option value="" disabled selected>Workout Type</option>
+          <option value="Running">Running</option>
+          <option value="Cycling">Cycling</option>
+          <option value="Swimming">Swimming</option>
+          <option value="Weights">Weights</option>
+          <option value="Yoga">Yoga</option>
+          <option value="Walking">Walking</option>
+        </select>
+        <input
+          type="number"
+          id="duration"
+          placeholder="Minutes"
+          required
+          min="1"
+          max="1440"
+        />
+        <button type="submit">Add Workout</button>
+      </form>
+
+      <div id="editFormContainer"></div>
+
       <div class="summary-section">
-        <h3>📊 Weekly Summary</h3>
-        <div class="summary-grid">
-          <div class="summary-card">
-            <div class="summary-number" id="total-workouts">0</div>
-            <div class="summary-label">Total Workouts</div>
-          </div>
-          <div class="summary-card">
-            <div class="summary-number" id="total-minutes">0</div>
-            <div class="summary-label">Total Minutes</div>
-          </div>
-          <div class="summary-card">
-            <div class="summary-number" id="favorite-type">-</div>
-            <div class="summary-label">Top Activity</div>
-          </div>
-          <div class="summary-card">
-            <div class="summary-number" id="avg-duration">0</div>
-            <div class="summary-label">Avg Minutes</div>
-          </div>
+        <div class="summary-card">
+          <h4>Total Workouts</h4>
+          <p id="total-workouts">0</p>
+        </div>
+        <div class="summary-card">
+          <h4>Total Minutes</h4>
+          <p id="total-minutes">0</p>
+        </div>
+        <div class="summary-card">
+          <h4>Avg Duration</h4>
+          <p id="avg-duration">0</p>
+        </div>
+        <div class="summary-card">
+          <h4>Favorite Type</h4>
+          <p id="favorite-type">-</p>
         </div>
       </div>
 
-      <!-- Workout List -->
-      <div class="workout-list">
-        <h3>📝 Your Workouts</h3>
-        <div id="workouts-container">
-          <div class="empty-state">No workouts yet. Add one above!</div>
-        </div>
-      </div>
-
-      <p class="debug-info">
-        Data stored locally in your browser • Refresh to test persistence
-      </p>
+      <h2>Your Workouts</h2>
+      <div id="workouts-container"></div>
     </div>
 
+    <script src="storage.js"></script>
     <script src="app.js"></script>
   </body>
 </html>

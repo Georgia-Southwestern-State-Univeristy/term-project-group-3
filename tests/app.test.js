@@ -15,6 +15,11 @@ global.document = {
         textContent: '',
         focus: () => {},
         reset: () => {},
+week13-quality-maintainability
+        
+        style: { display: '' },
+        className: '',
+main
       };
     }
     return global.mockElements[id];
@@ -33,6 +38,12 @@ global.localStorage = {
   setItem(key, value) {
     this.store[key] = String(value);
   },
+week13-quality-maintainability
+
+  removeItem(key) {
+    delete this.store[key];
+  },
+main
   clear() {
     this.store = {};
   },
@@ -41,9 +52,25 @@ global.localStorage = {
 global.alert = () => {};
 global.confirm = () => true;
 
-require('../src/app');
+global.Storage = require('../src/storage.js');
+
+// Load app.js using new Function so ALL declarations (const + function)
+// share the same scope and can reference each other
 const appCode = fs.readFileSync(path.join(__dirname, '../src/app.js'), 'utf8');
-eval(appCode);
+const createApp = new Function(
+  appCode +
+    `;\n
+  return {
+    addWorkout,
+    deleteWorkout,
+    startEdit,
+    saveEdit,
+    renderAll,
+    renderWorkoutList,
+    renderWeeklySummary
+  };`
+);
+const app = createApp();
 
 describe('App module', () => {
   it('loads without errors', () => {
@@ -54,7 +81,9 @@ describe('App module', () => {
 describe('Week 11: End-to-End and Reliability Tests', () => {
   beforeEach(() => {
     localStorage.clear();
-    global.mockElements['date'] = { value: '2026-03-30' };
+    global.mockElements = {};
+    const today = new Date().toISOString().split('T')[0];
+    global.mockElements['date'] = { value: today };
     global.mockElements['type'] = { value: 'Running' };
     global.mockElements['duration'] = { value: '30' };
     global.mockElements['workouts-container'] = { innerHTML: '' };
@@ -64,7 +93,7 @@ describe('Week 11: End-to-End and Reliability Tests', () => {
   });
 
   it('E2E: Should successfully add a new workout and render it to the dashboard', () => {
-    addWorkout();
+    app.addWorkout();
 
     const savedData = JSON.parse(localStorage.getItem('fittrack_workouts'));
     assert.strictEqual(savedData.length, 1);
@@ -73,18 +102,28 @@ describe('Week 11: End-to-End and Reliability Tests', () => {
   });
 
   it('E2E: Should successfully edit an existing workout and persist changes', () => {
+week13-quality-maintainability
     const mockWorkout = [
       { id: 123, date: '2026-03-30', type: 'Running', duration: 30 },
+
+    const today = new Date().toISOString().split('T')[0];
+    const mockWorkout = [
+      { id: 123, date: today, type: 'Running', duration: 30 },
+main
     ];
     localStorage.setItem('fittrack_workouts', JSON.stringify(mockWorkout));
 
-    startEdit(123);
+    app.startEdit(123);
 
-    global.mockElements['edit-date-123'] = { value: '2026-03-30' };
+    global.mockElements['edit-date-123'] = { value: today };
     global.mockElements['edit-type-123'] = { value: 'Running' };
     global.mockElements['edit-duration-123'] = { value: '45' };
 
+week13-quality-maintainability
     saveEdit(123);
+
+    app.saveEdit(123);
+main
 
     const updatedData = JSON.parse(localStorage.getItem('fittrack_workouts'));
     assert.strictEqual(updatedData[0].duration, 45);
@@ -99,7 +138,7 @@ describe('Week 11: End-to-End and Reliability Tests', () => {
     ];
     localStorage.setItem('fittrack_workouts', JSON.stringify(mockWorkouts));
 
-    renderWeeklySummary();
+    app.renderWeeklySummary();
 
     assert.strictEqual(
       String(global.mockElements['total-workouts'].textContent),
@@ -114,12 +153,16 @@ describe('Week 11: End-to-End and Reliability Tests', () => {
   it('Failure Path: Should handle corrupted localStorage data gracefully and return empty array', () => {
     localStorage.setItem('fittrack_workouts', '{ invalid_json: ');
 
+week13-quality-maintainability
     let workouts;
     try {
       workouts = getWorkouts();
     } catch (e) {
       workouts = [];
     }
+
+    let workouts = Storage.getWorkouts();
+main
 
     assert.deepStrictEqual(workouts, []);
   });

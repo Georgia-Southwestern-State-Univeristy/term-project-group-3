@@ -1,6 +1,9 @@
 // Handle login
-document.getElementById('loginBtn').addEventListener('click', function () {
-  localStorage.setItem('isLoggedIn', 'true');
-  alert('Logged in!');
-  window.location.href = 'index.html';
+document.addEventListener('DOMContentLoaded', () => {
+  const loginBtn = document.getElementById('loginBtn');
+
+  loginBtn.addEventListener('click', () => {
+    localStorage.setItem('isLoggedIn', 'true');
+    window.location.href = 'index.html';
+  });
 });

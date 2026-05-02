@@ -1,1 +1,11 @@
 node_modules/
+tmp/
+temp/
+.text
+.txt
+npm-debug.log*
+dist/
+build/
+.env
+.vscode
+*.log

@@ -28,21 +28,14 @@ Explicit Non-Goals
 
 The following features are intentionally excluded to maintain delivery focus:
 
-User authentication or login systems
-
-Cloud storage or backend database integration
-
-Multi-device synchronization
-
-Social sharing or community features
-
-Advanced analytics or AI recommendations
-
-Complex filtering, searching, or reporting dashboards
-
-Mobile app versions (native iOS/Android)
-
-Real-time integrations with fitness devices or APIs
+    User authentication or login systems
+    Cloud storage or backend database integration
+    Multi-device synchronization
+    Social sharing or community features
+    Advanced analytics or AI recommendations
+    Complex filtering, searching, or reporting dashboards
+    Mobile app versions (native iOS/Android)
+    Real-time integrations with fitness devices or APIs
 
 These may be considered future enhancements but will not consume development time during MVP implementation.
 
@@ -50,75 +43,66 @@ Demo Script Outline
 
 The MVP demo will follow a clear end-to-end workflow:
 
-Open FitTrack in the browser.
-
-Add a new workout entry (activity, duration, timestamp).
-
-Verify the workout appears in the workout list.
-
-Refresh the browser to demonstrate localStorage persistence.
-
-Edit an existing workout entry.
-
-Delete a workout entry.
-
-View updated summary information reflecting the changes.
+    Open FitTrack in the browser.
+    Add a new workout entry (activity, duration, timestamp).
+    Verify the workout appears in the workout list.
+    Refresh the browser to demonstrate localStorage persistence.
+    Edit an existing workout entry.
+    Delete a workout entry.
+    View updated summary information reflecting the changes.
 
 This script represents the exact functionality required for MVP completion.
 
 Top Risks and Mitigation Plan
 Risk 1: localStorage Capacity and Performance
 
-Issue: Large datasets may slow loading and processing.
-Mitigation: Keep MVP dataset small, structure JSON efficiently, and load data lazily where possible.
+    Issue: Large datasets may slow loading and processing.
+    Mitigation: Keep MVP dataset small, structure JSON efficiently, and load data lazily where possible.
 
 Risk 2: Client-Side Data Integrity
 
-Issue: Invalid or malformed entries could break summaries or display logic.
-Mitigation: Implement input validation and standardized data models before storage.
+    Issue: Invalid or malformed entries could break summaries or display logic.
+    Mitigation: Implement input validation and standardized data models before storage.
 
 Risk 3: Integration Conflicts During Team Development
 
-Issue: Multiple contributors modifying shared frontend logic may cause merge conflicts.
-Mitigation: Use small pull requests, CI checks, and clearly defined data/service boundaries.
+    Issue: Multiple contributors modifying shared frontend logic may cause merge conflicts.
+    Mitigation: Use small pull requests, CI checks, and clearly defined data/service boundaries.
 
 Scope Enforcement Rule
 
-## If a feature or change is not explicitly listed in this document, it is not part of the MVP and should not be implemented during this sprint. All development work must directly support the user stories and demo path defined above.
+If a feature or change is not explicitly listed in this document, it is not part of the MVP and should not be implemented during this sprint. All development work must directly support the user stories and demo path defined above.
+Progress Update - MVP Story Status
 
-## Progress Update — MVP Story Status
+    Workout Logging: Record activity, duration, timestamp -- Done -- PR 12 merged to main
 
-| MVP Story              | Description                          | Status | Evidence              |
-| ---------------------- | ------------------------------------ | ------ | --------------------- |
-| Workout Logging        | Record activity, duration, timestamp | Done   | PR #12 merged to main |
-| Workout Viewing        | Display saved workouts list          | Done   | PR #12 merged to main |
-| Workout Editing        | Modify existing workout              | Done   |                       |
-| Workout Deletion       | Remove workout entry                 | Done   |                       |
-| Local Data Persistence | Save workouts using localStorage     | Done   | PR #12 merged to main |
-| Basic Summary Display  | Show total workouts/duration         | Done   | No PR created         |
+    Workout Viewing: Display saved workouts list -- Done -- PR 12 merged to main
 
----
+    Workout Editing: Modify existing workout -- Done -- Implemented in Sprint
 
-## Scope Changes
+    Workout Deletion: Remove workout entry -- Done -- Implemented in Sprint
+
+    Local Data Persistence: Save workouts using localStorage -- Done -- PR 12 merged to main
+
+    Basic Summary Display: Show total workouts/duration -- Done -- Implemented in Sprint
+
+Scope Changes
 
 No major scope changes were introduced. The team prioritized stabilizing core logging and viewing workflows to ensure a reliable MVP demo.
 
----
+Demo Script
 
-## Updated Demo Script
+    Open FitTrack SPA in the browser.
+    Add a new workout entry (activity, duration, timestamp).
+    Confirm the workout appears immediately in the workout list.
+    Refresh the browser to demonstrate localStorage persistence.
+    Edit an existing workout entry to demonstrate modification capability.
+    Delete a workout entry to demonstrate removal capability.
+    Attempt to submit an invalid workout entry to demonstrate validation handling.
+    View updated summary information reflecting all changes.
 
-1. Open FitTrack SPA in the browser.
-2. Add a new workout entry (activity, duration, timestamp).
-3. Confirm the workout appears immediately in the workout list.
-4. Refresh the browser to demonstrate localStorage persistence.
-5. Attempt to submit an invalid workout entry to demonstrate validation handling.
-6. View updated workout list reflecting saved data.
-
-Note: Editing and deletion features are still under active development and are not yet part of the live demo path.
-
----
-
-## Project Board Evidence
+Project Board Evidence
 
 GitHub Project Board:
+
 https://github.com/orgs/Georgia-Southwestern-State-Univeristy/projects/25/views/1?layout_template=board

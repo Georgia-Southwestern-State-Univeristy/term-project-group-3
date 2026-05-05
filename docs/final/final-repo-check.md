@@ -43,7 +43,7 @@ The repository demonstrates a commitment to quality through various testing and 
 
 - tests/app.test.js: Contains tests for the core application logic.
 - tests/storage.test.js: Contains tests for the localStorage interaction logic.
-- tests/week13.test.js: Contains additional tests covering specific features developed in Week 13.
+- tests/test.js: Contains additional tests covering specific features developed in Week 13.
 - tests/setup.js: Provides configuration for the testing environment.
 - Tests can be executed locally via npm scripts (e.g., npm test, as defined in package.json).
 
@@ -62,10 +62,10 @@ The project utilizes GitHub Actions for automated CI workflows, ensuring code qu
 During the final phase, the following cleanup and refinement activities were completed:
 
 - Documentation Alignment: All documentation paths and references in README.md and other guides were thoroughly reviewed and corrected to reflect the actual file structure, including previously undocumented backend (server/) and authentication files.
-- Repo Polish: Tasks outlined in docs/final/week14-repo-polish.md were addressed, including consistency checks, removal of temporary files, and ensuring all required metadata is present.
+- Repo Polish: Tasks outlined in docs/final/repo-polish.md were addressed, including consistency checks, removal of temporary files, and ensuring all required metadata is present.
 - Code Quality Review: A final pass was made to ensure consistent coding styles (enforced by .eslintrc.json and .prettierrc) and removal of dead code or commented-out sections.
 - Dependency Review: package.json and package-lock.json (both root and server/) were reviewed to ensure all dependencies are necessary and up-to-date.
-- Issue Triage: Pending issues were triaged, closed, or moved to a backlog as per docs/final/week14-triage.md.
+- Issue Triage: Pending issues were triaged, closed, or moved to a backlog as per docs/final/triage.md.
 - Presentation Preparation: Final presentation materials (docs/final/final-presentation.md) were created and rehearsed.
 - Handoff Preparation: The hand-off document (docs/handoff/week16-final-hand-off.md) was finalized to ensure a smooth transition for future maintainers.
 

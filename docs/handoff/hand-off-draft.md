@@ -115,10 +115,10 @@ All actions persist automatically using localStorage.
 
 ## User and Admin References
 
-- User Guide: `/docs/final/week14-user-guide.md`
-- Admin Guide: `/docs/final/week14-admin-guide.md`
+- User Guide: `/docs/final/user-guide.md`
+- Admin Guide: `/docs/final/admin-guide.md`
 - Deployment Guide: `/docs/deployment/beta-deploy.md`
-- QA Documentation: `/docs/final/week15-qa.md`
+- QA Documentation: `/docs/final/qa.md`
 - Release Notes: `/docs/releases/`
 
 ---

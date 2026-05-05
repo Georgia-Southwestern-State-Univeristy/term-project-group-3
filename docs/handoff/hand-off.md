@@ -68,9 +68,9 @@ Known Issues and Constraints
 
 User / Admin Guidance
 
-    User Guide: docs/final/week14-user-guide.md
-    Admin Guide: docs/final/week14-admin-guide.md
-    Runbook: docs/final/week14-runbook.md
+    User Guide: docs/final/user-guide.md
+    Admin Guide: docs/final/admin-guide.md
+    Runbook: docs/final/runbook.md
     API Documentation: docs/api/interface-documentation.md
 
 Maintenance Notes

@@ -68,12 +68,12 @@ For detailed backend setup, refer to docs/deployment/fittrack-backend-setup.md.
 
 These are the documents a newcomer should read first:
 
-- User Guide: docs/final/week14-user-guide.md
-- Architecture Overview: docs/final/week13-architecture.md
-- Runbook (Deploy and Maintain): docs/final/week14-runbook.md
+- User Guide: docs/final/user-guide.md
+- Architecture Overview: docs/final/architecture.md
+- Runbook (Deploy and Maintain): docs/final/runbook.md
 - API Documentation: docs/api/interface-documentation.md
 - Release Candidate Notes: docs/releases/release-candidate.md
-- Repo Polish Checklist: docs/final/week14-repo-polish.md
+- Repo Polish Checklist: docs/final/repo-polish.md
 
 ---
 
@@ -125,15 +125,15 @@ These are the documents a newcomer should read first:
 
 **Final Phase (Weeks 13 through 16)**
 
-- Architecture, refactoring, and tests: docs/final/week13-architecture.md, docs/final/week13-refactoring.md, docs/final/week13-tests.md
-- Admin guide, runbook, user guide, triage, repo polish: docs/final/week14-admin-guide.md, docs/final/week14-runbook.md, docs/final/week14-user-guide.md, docs/final/week14-triage.md, docs/final/week14-repo-polish.md
-- Contributions, handoff status, QA, sprint, presentation plan, peer eval confirmation: docs/final/week15-contributions.md, docs/final/week15-handoff-status.md, docs/final/week15-qa.md, docs/final/week15-sprint.md, docs/final/week15-presentation-plan.md, docs/final/week15-peer-eval-confirmation.md
+- Architecture, refactoring, and tests: docs/final/architecture.md, docs/final/refactoring.md, docs/final/tests.md
+- Admin guide, runbook, user guide, triage, repo polish: docs/final/admin-guide.md, docs/final/runbook.md, docs/final/user-guide.md, docs/final/triage.md, docs/final/repo-polish.md
+- Contributions, handoff status, QA, sprint, presentation plan, peer eval confirmation: docs/final/contributions.md, docs/final/handoff-status.md, docs/final/qa.md, docs/final/sprint.md, docs/final/presentation-plan.md, docs/final/week15-peer-eval-confirmation.md
 - Final presentation: docs/final/final-presentation.md
 - Final repo check: docs/final/final-repo-check.md
 
 **Handoff**
 
-- docs/handoff/week16-final-hand-off.md
+- docs/handoff/final-hand-off.md
 - docs/handoff/hand-off-draft.md
 
 **MVP Phase**

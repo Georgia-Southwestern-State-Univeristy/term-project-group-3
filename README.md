@@ -34,140 +34,145 @@ This project was built as a term project for Georgia Southwestern State Universi
    ```bash
    git clone https://github.com/Georgia-Southwestern-State-Univeristy/term-project-group-3.git
    cd term-project-group-3
+
+    Install frontend dependencies:
+
+    bash
+    copy
+    download
+    npm install
+
+    Install server dependencies:
+
+    bash
+    copy
+    download
+    cd server
+    npm install
+    cd ..
+
+    Start the application:
+
+    bash
+    copy
+    download
+    npm start
+
+    Open your browser and go to: http://127.0.0.1:3000/index.html
    ```
-
-2. Install frontend dependencies:
-
-   ```bash
-   npm install
-   ```
-
-3. Install server dependencies:
-
-   ```bash
-   cd server
-   npm install
-   cd ..
-   ```
-
-4. Start the application:
-
-   ```bash
-   npm start
-   ```
-
-5. Open your browser and go to: http://127.0.0.1:3000/index.html
 
 For detailed backend setup, refer to docs/deployment/fittrack-backend-setup.md.
-
----
-
-## Where to Find Things
-
-### Start Here
+Where to Find Things
+Start Here
 
 These are the documents a newcomer should read first:
 
-- User Guide: docs/final/user-guide.md
-- Architecture Overview: docs/final/architecture.md
-- Runbook (Deploy and Maintain): docs/final/runbook.md
-- API Documentation: docs/api/interface-documentation.md
-- Release Candidate Notes: docs/releases/release-candidate.md
-- Repo Polish Checklist: docs/final/repo-polish.md
+    User Guide: docs/final/user-guide.md
+    Architecture Overview: docs/final/architecture.md
+    Runbook (Deploy and Maintain): docs/final/runbook.md
+    API Documentation: docs/api/interface-documentation.md
+    Release Candidate Notes: docs/releases/release-candidate.md
+    Repo Polish Checklist: docs/final/repo-polish.md
 
----
+Contributing
 
-### Contributing
+    CONTRIBUTING.md
+    docs/contributing-peer-eval.md
 
-- CONTRIBUTING.md
-- CONTRIBUTING-PE.md
+Full Documentation Index
 
----
+Architecture Decisions
 
-### Full Documentation Index
+    docs/adr/ADR-001.md
 
-**Architecture Decisions**
+API
 
-- docs/adr/ADR-001.md
+    docs/api/interface-documentation.md
+    docs/api/openapi.yaml
 
-**API**
+Beta Phase (Weeks 9 through 12)
 
-- docs/api/interface-documentation.md
-- docs/api/openapi.yaml
+    docs/beta/beta-plan.md
+    docs/beta/bug-triage.md
+    docs/beta/observability.md
+    docs/beta/week9-pr-index.md
+    docs/beta/week9-sprint.md
+    docs/beta/week10-sprint.md
+    docs/beta/week10-ux.md
+    docs/beta/week11-ci.md
+    docs/beta/week11-e2e.md
+    docs/beta/Week-11-Known Issues.md
+    docs/beta/Week-11-Reliability.md
+    docs/beta/week11-sprint.md
+    docs/beta/week-11-status.md
+    docs/beta/week-12-known-issues.md
+    docs/beta/week-12-quality.md
+    docs/beta/week12-retro.md
 
-**Beta Phase (Weeks 9 through 12)**
+Data Model
 
-- docs/beta/beta-plan.md
-- docs/beta/bug-triage.md
-- docs/beta/observability.md
-- docs/beta/week9-pr-index.md
-- docs/beta/week9-sprint.md
-- docs/beta/week10-sprint.md
-- docs/beta/week10-ux.md
-- docs/beta/week11-ci.md
-- docs/beta/week11-e2e.md
-- docs/beta/Week-11-Known Issues.md
-- docs/beta/Week-11-Reliability.md
-- docs/beta/week11-sprint.md
-- docs/beta/week-11-status.md
-- docs/beta/week-12-known-issues.md
-- docs/beta/week-12-quality.md
-- docs/beta/week12-retro.md
+    docs/data/model.md
 
-**Data Model**
+Deployment
 
-- docs/data/model.md
+    docs/deployment/beta-deploy.md
+    docs/deployment/fittrack-backend-setup.md
 
-**Deployment**
+Final Phase (Weeks 13 through 16)
 
-- docs/deployment/beta-deploy.md
-- docs/deployment/fittrack-backend-setup.md
+    Architecture: docs/final/architecture.md
+    Refactoring: docs/final/refactoring.md
+    Tests: docs/final/tests.md
+    Admin guide: docs/final/admin-guide.md
+    Runbook: docs/final/runbook.md
+    User guide: docs/final/user-guide.md
+    Triage: docs/final/triage.md
+    Repo polish: docs/final/repo-polish.md
+    Contributions: docs/final/contributions.md
+    Handoff status: docs/final/handoff-status.md
+    QA: docs/final/qa.md
+    Sprint: docs/final/sprint.md
+    Presentation plan: docs/final/presentation-plan.md
+    Peer eval confirmation: docs/final/peer-eval-confirmation.md
+    Final defense: docs/final/final-defense.md
+    Final presentation: docs/final/final-presentation.md
+    Final repo check: docs/final/final-repo-check.md
+    Final retrospective: docs/final/final-retrospective.md
 
-**Final Phase (Weeks 13 through 16)**
+Handoff
 
-- Architecture, refactoring, and tests: docs/final/architecture.md, docs/final/refactoring.md, docs/final/tests.md
-- Admin guide, runbook, user guide, triage, repo polish: docs/final/admin-guide.md, docs/final/runbook.md, docs/final/user-guide.md, docs/final/triage.md, docs/final/repo-polish.md
-- Contributions, handoff status, QA, sprint, presentation plan, peer eval confirmation: docs/final/contributions.md, docs/final/handoff-status.md, docs/final/qa.md, docs/final/sprint.md, docs/final/presentation-plan.md, docs/final/week15-peer-eval-confirmation.md
-- Final presentation: docs/final/final-presentation.md
-- Final repo check: docs/final/final-repo-check.md
+    docs/handoff/hand-off.md
 
-**Handoff**
+MVP Phase
 
-- docs/handoff/final-hand-off.md
-- docs/handoff/hand-off-draft.md
+    docs/mvp/mvp-checklist.md
+    docs/mvp/scope-lock.md
+    docs/mvp/demo-readiness.md
+    docs/mvp/midterm-snapshot.md
+    docs/mvp/release-notes-midterm.md
 
-**MVP Phase**
+Releases
 
-- docs/mvp/mvp-checklist.md
-- docs/mvp/scope-lock.md
-- docs/mvp/demo-readiness.md
-- docs/mvp/midterm-snapshot.md
-- docs/mvp/release-notes-midterm.md
+    docs/releases/beta-release.md
+    docs/releases/release-candidate.md
 
-**Releases**
+Security
 
-- docs/releases/beta-release.md
-- docs/releases/release-candidate.md
+    docs/security/auth.md
+    docs/security/week10-security-notes.md
 
-**Security**
+Team
 
-- docs/security/auth.md
-- docs/security/week10-security-notes.md
+    docs/team/definition-of-done.md
+    docs/team/gary.md
+    docs/team/khoa.md
+    docs/team/misbahv.md
 
-**Team**
+Tech Stack
 
-- docs/team/definition-of-done.md
-- docs/team/gary.md
-- docs/team/khoa.md
-- docs/team/misbahv.md
-
----
-
-## Tech Stack
-
-- Frontend: HTML, CSS, JavaScript (ES6+)
-- Backend: Node.js with Express
-- Storage (Client): Browser localStorage
-- Storage (Server): Server-side session/token-based auth
-- Build and CI: Node.js, npm, GitHub Actions
-- Linting and Formatting: ESLint, Prettier
+    Frontend: HTML, CSS, JavaScript (ES6+)
+    Backend: Node.js with Express
+    Storage (Client): Browser localStorage
+    Storage (Server): Server-side session/token-based auth
+    Build and CI: Node.js, npm, GitHub Actions
+    Linting and Formatting: ESLint, Prettier

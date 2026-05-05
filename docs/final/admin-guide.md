@@ -24,7 +24,7 @@ No extra setup is needed for databases or APIs.
 
 There are no config files to edit. All settings are inside the JavaScript code.
 
-Data is stored in the browser using IndexedDB (a built-in feature). If that fails, it falls back to localStorage. This is the updated plan for implementation after Week 14 to handle more data reliably.
+Data is stored in the browser using IndexedDB (a built-in feature). If that fails, it falls back to localStorage. This is the updated plan for implementation after Week 16 to handle more data reliably.
 
 ## How to Restart or Reset
 
